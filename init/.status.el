@@ -76,6 +76,8 @@
 		  (dash epl)))
  (popup status "installed" recipe
 	(:name popup :website "https://github.com/auto-complete/popup-el" :description "Visual Popup Interface Library for Emacs" :type github :submodule nil :depends cl-lib :pkgname "auto-complete/popup-el"))
+ (pos-tip status "installed" recipe
+	  (:name pos-tip :description "Show tooltip at point" :type emacswiki))
  (quickrun status "installed" recipe
 	   (:name quickrun :type github :pkgname "syohex/emacs-quickrun" :after nil :features
 		  ("quickrun")))

@@ -811,8 +811,8 @@ See `yas-minor-mode' for more information on Yas minor mode.
 ;;;;;;  "el-get/el-get-methods.el" "el-get/el-get-notify.el" "el-get/el-get-recipes.el"
 ;;;;;;  "el-get/el-get-status.el" "epl/epl.el" "flycheck/flycheck-ert.el"
 ;;;;;;  "fuzzy/fuzzy.el" "let-alist/let-alist-autoloads.el" "let-alist/let-alist-pkg.el"
-;;;;;;  "popup/popup.el" "seq/seq.el" "yasnippet/yasnippet-debug.el"
-;;;;;;  "yasnippet/yasnippet-tests.el") (22113 24344 954851 785000))
+;;;;;;  "popup/popup.el" "pos-tip/pos-tip.el" "seq/seq.el" "yasnippet/yasnippet-debug.el"
+;;;;;;  "yasnippet/yasnippet-tests.el") (22113 24786 572312 992000))
 
 ;;;***
 

@@ -1,3 +1,6 @@
+;;; init.el -- emacs init file
+;;; Commentary:
+;;; Code:
 ;; emacs directory
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
@@ -26,7 +29,6 @@
 (el-get-bundle capitaomorte/yasnippet)
 ;; flycheck
 (el-get-bundle flycheck/flycheck)
-(el-get-bundle flycheck/flycheck-pos-tip)
 ;; undotree
 (el-get-bundle undo-tree)
 ;; quickrun
