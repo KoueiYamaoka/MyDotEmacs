@@ -1,0 +1,12 @@
+*~
+.*~
+*_Store
+.DS_Store
+._*
+#*#
+.#*
+*.nfs*
+Thumbs.db
+ac-comphist.dat
+auto-save-list/
+*.elc
