@@ -87,4 +87,11 @@
 	    (:name undo-tree :after nil :description "Treat undo history as a tree" :website "http://www.dr-qubit.org/emacs.php" :type git :url "http://www.dr-qubit.org/git/undo-tree.git/"))
  (yasnippet status "installed" recipe
 	    (:name yasnippet :website "https://github.com/capitaomorte/yasnippet.git" :description "YASnippet is a template system for Emacs." :type github :pkgname "capitaomorte/yasnippet" :compile "yasnippet.el" :submodule nil :build
-		   (("git" "submodule" "update" "--init" "--" "snippets")))))
+		   (("git" "submodule" "update" "--init" "--" "snippets"))))
+ (yatex status "installed" recipe
+	(:name yatex :website "http://www.yatex.org/" :description "Yet Another TeX mode for Emacs" :type hg :url "http://www.yatex.org/hgrepos/yatex" :build
+	       (("sed" "-i" "s/ from yatex.el//" "yatexmth.el"))
+	       :build/berkeley-unix
+	       (("sed" "-i" "" "s/ from yatex.el//" "yatexmth.el"))
+	       :build/darwin
+	       (("env" "LANG=C" "LC_ALL=C" "sed" "-i" "" "s/ from yatex.el//" "yatexmth.el")))))

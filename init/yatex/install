@@ -1,0 +1,82 @@
+# (This file is encoded with MS-KANJI(Shift JIS) coding system)
+
+Installation of YaTeX / 野鳥のインストール
+******************************************
+
+First, take a look at makefile to confirm or modify EMACS= and PREFIX=
+lines and exec the next command.
+このディレクトリにある makefile の EMACS= と PREFIX= の行を確認し、
+必要なら修正した後に以下のコマンドを起動してください。
+
+	% make install 
+	(or "sudo make install")
+
+Then, type `make show-init' on the shell in this directory as below
+and ou will get elisp expressions.  Add the expressions to your ~/.emacs.
+続いて以下のようにコマンドを起動し、得られた結果出力を ~/.emacs
+に足してください。
+
+	% make show-init
+
+After copying output from make command to your ~/.emacs, you will be able to
+use yatex-mode for *.tex files.
+以上で、初期設定は終わりです。
+
+
+Without installing to default-dir, you can use yatex by adding the elisp
+obtained by below to ~/.emacs.
+インストールしなくても以下のコマンド出力を ~/.emacs に追加すれば
+普通に使えます。
+
+	% make show-init2
+
+
+About yahtml / yahtmlについて
+*****************************
+
+Yahtml is a different package for writing  HTML files with Emacs.  It is
+very far from html-mode, html-helper-mode  or other existing HTML modes.
+It is a good successor of YaTeX in HTML world.  Do not want it to behave
+as modes you used.   Yahtml doesn't lessen  the number of initial typing
+not so  much.  But it   lessens your effort  of polishing/debugging your
+source, tracing links between file or URL,  and browsing the result with
+browsers.  If you had not used YaTeX,  the concept of  `C-c g', `C-c k',
+and   `C-c  c' are very   new  to you.   If  you are   interested in the
+philosophy of YaTeX, please take a look at the info file of YaTeX.
+
+yahtml.el は html-mode とか html-helper-mode とかとはじぇえ～～んじぇん
+違います。「html-helper-mode でいうところのあの機能はないの～」とかそう
+いう気持で使うと、すげー調子悪いです。逆に、野鳥のインタフェースを知って
+使っているとかなり調子良いです。
+
+Installation of yahtml / yahtmlのインストール
+*********************************************
+
+Follow the guidance in the beginning of yahtml.el.
+yahtml.el の先頭部分にある [Installation] にしたがって下さい。
+
+Then the set some variables correctly.  Here are the major of them.
+Parenthesized values are default.
+以下の変数を環境に合わせて設定して下さい(括弧内はデフォルト値)。
+
+ * yahtml-kanji-code		HTML文書のデフォルト漢字コード
+ 				1=SJIS, 2=JIS, 3=EUC, 4=UTF-8
+ * yahtml-image-viewer		Image viewer / 画像ヴューア
+ * yahtml-www-browser		WWW browser / WWWブラウザ
+ * yahtml-path-url-alist	List of unix path name vs. its URL name
+				within the WWW world.  See the definition
+				of it (in yahtml.el) as an example.
+				UNIXパス名と、そのWWWでのURL名の対応リス
+				ト。yahtml.el のこの変数の定義を参考にあ
+				なた自身のサイトの対応リストを設定して下
+				さい。
+ * yahtml-directory-index	Directory index file, which is a file
+				to be opened when URL is ended with
+				directory name.  If you're not sure of
+				this, ask it to WWW administrator.
+				Typically `index.html' if your site is
+				running apache, or `Welcome.html' if 
+				CERN httpd.
+				URLでファイル名を省略した時にオープンさ
+				れるファイル。WWW管理者に聞いて下さい。
+				たいてい index.html でしょう。

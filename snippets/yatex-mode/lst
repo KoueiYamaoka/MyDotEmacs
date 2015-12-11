@@ -1,0 +1,8 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: lst
+# key: lst
+# --
+\begin{lstlisting}[caption=$1, label=$2, xleftmargin=1cm]
+$3
+\end{lstlisting}
+

@@ -34,7 +34,8 @@
 ;; quickrun
 (el-get-bundle syohex/emacs-quickrun
   :name quickrun)
-
+;; yatex
+(el-get-bundle yatex)
 ;;;; download packages ends here
 
 
@@ -57,8 +58,6 @@
 (show-paren-mode 1)
 ;; ウィンドウに収まらない時だけ括弧内を光らせる
 (setq show-paren-style 'mixed)
-;; 現在行を光らせる
-(global-hl-line-mode t)
 ;; バックアップファイルを作らない
 (setq backup-inhibited t)
 ;; 終了時にオートセーブファイルを消す
@@ -84,7 +83,7 @@
 (setq linum-format "%2d ")
 ;; 同名ファイルバッファ名識別文字列の変更
 (require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-branckets)
+(setq uniquify-buffer-name-style 'forward)
 ;; zshを使う
 (setq shell-file-name "/bin/zsh")
 ;;最後に1行追加する
@@ -96,4 +95,8 @@
 ;;scroll down
 (global-set-key (kbd "C-<up>") 'scroll-down)
 
-;;;; basic setting ends here
+;; basec setting ends here
+
+
+
+;;; init.el ends here

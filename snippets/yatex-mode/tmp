@@ -1,0 +1,54 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: tmp
+# key: tmp
+# --
+\documentclass[a4j]{jarticle}
+\title{$0レポート \ 課題}
+\author{情報科学類, 3年, 2クラス, 学籍番号：201311403 \ 山岡 洸瑛, Yamaoka
+Kouei}
+\西暦
+\date{\today}
+
+%余白設定
+\setlength{\topmargin}{20mm}
+\addtolength{\topmargin}{-1in}
+\setlength{\oddsidemargin}{20mm}
+\addtolength{\oddsidemargin}{-1in}
+\setlength{\evensidemargin}{15mm}
+\addtolength{\evensidemargin}{-1in}
+\setlength{\textwidth}{170mm}
+\setlength{\textheight}{254mm}
+\setlength{\headsep}{0mm}
+\setlength{\headheight}{0mm}
+\setlength{\topskip}{0mm}
+
+
+\def\pgfsysdriver{pgfsys-dvipdfmx.def}
+
+\usepackage{ascmac}
+\usepackage{here}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\thispagestyle{empty}
+
+\usepackage{listings,jlisting}
+\renewcommand{\lstlistingname}{リスト}
+\lstset{
+basicstyle=\ttfamily\scriptsize,
+commentstyle=\textit,
+classoffset=1,
+keywordstyle=\bfseries,
+frame=tRBl,
+framesep=5pt,
+showstringspaces=false,
+numbers=left,
+stepnumber=1,
+numberstyle=\tiny,
+tabsize=2
+
+}
+
+\begin{document}
+\maketitle
+
+\end{document}

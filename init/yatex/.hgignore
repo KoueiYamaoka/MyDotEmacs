@@ -1,0 +1,19 @@
+syntax: glob
+*,v
+RCS
+CVS
+.cvsignore
+[._]win*
+__emacs
+*.swp
+trashbox
+*.aux
+*.cp
+*.dvi
+*.fn
+*.ky
+*.log
+*.pg
+*.toc
+*.tp
+*.vr

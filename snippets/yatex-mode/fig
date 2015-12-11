@@ -1,0 +1,11 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: fig
+# key: fig
+# --
+\begin{figure}[htb]
+ \begin{center}
+  \includegraphics[width=10cm, clip, bb=0 0 $1]{$2}
+  \caption{$3}
+  \label{$4}
+ \end{center}
+\end{figure}
