@@ -45,7 +45,6 @@ numbers=left,
 stepnumber=1,
 numberstyle=\tiny,
 tabsize=2
-
 }
 
 \begin{document}

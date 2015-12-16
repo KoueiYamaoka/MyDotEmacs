@@ -1,0 +1,27 @@
+# -*- mode: snippet; require-final-newline: nil -*-
+# name: fig3
+# key: fig3
+# --
+\begin{figure}[htbp]
+ \begin{minipage}{0.33\hsize}
+  \begin{center}
+   \includegraphics[width=8.7cm, clip, bb=-75 0 $1]{$2.jpg}
+   \end{center}
+  \caption{$3}
+  \label{$4}
+ \end{minipage}
+ \begin{minipage}{0.33\hsize}
+  \begin{center}
+   \includegraphics[width=8.7cm, clip, bb=-75 0 $5]{$6.jpg}
+  \end{center}
+  \caption{$7}
+  \label{$8}
+ \end{minipage}
+ \begin{minipage}{0.33\hsize}
+  \begin{center}
+   \includegraphics[width=8.7cm, clip, bb=-75 0 $9]{$10.jpg}
+  \end{center}
+  \caption{$11}
+  \label{$12}
+ \end{minipage}
+\end{figure}
