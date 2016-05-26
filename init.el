@@ -105,6 +105,4 @@
 
 ;; basec setting ends here
 
-
-
 ;;; init.el ends here
