@@ -8,7 +8,15 @@
 
 
 ;; el-get setting
+(add-to-list 'load-path (locate-user-emacs-file "el-get/"))
 (add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
+;; el-get init setting
+;(unless (require 'el-get nil 'noerror)
+;  (with-current-buffer
+;      (url-retrieve-synchronously
+;       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+;    (goto-char (point-max))
+;    (eval-print-last-sexp)))
 ;; put .el files into init/
 (setq el-get-dir (locate-user-emacs-file "init/"))
 ;; put recipes into el-get/my-recipes

@@ -1,9 +1,7 @@
 ((auto-complete status "installed" recipe
-		(:name auto-complete :after nil :features
-		       (auto-complete-config)
-		       :website "https://github.com/auto-complete/auto-complete" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :depends
+		(:name auto-complete :website "https://github.com/auto-complete/auto-complete" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :depends
 		       (popup fuzzy)
-		       :post-init
+		       :features auto-complete-config :post-init
 		       (progn
 			 (add-to-list 'ac-dictionary-directories
 				      (expand-file-name "dict" default-directory))
