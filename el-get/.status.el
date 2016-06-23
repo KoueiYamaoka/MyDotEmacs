@@ -1,9 +1,7 @@
 ((auto-complete status "installed" recipe
-		(:name auto-complete :after nil :features
-		       (auto-complete-config)
-		       :depends
-		       (fuzzy popup)
-		       :website "https://github.com/auto-complete/auto-complete" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :post-init
+		(:name auto-complete :website "https://github.com/auto-complete/auto-complete" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :depends
+		       (popup fuzzy)
+		       :features auto-complete-config :post-init
 		       (progn
 			 (add-to-list 'ac-dictionary-directories
 				      (expand-file-name "dict" default-directory))
@@ -37,12 +35,19 @@
  (epl status "installed" recipe
       (:name epl :description "EPL provides a convenient high-level API for various package.el versions, and aims to overcome its most striking idiocies." :type github :pkgname "cask/epl"))
  (flycheck status "installed" recipe
-	   (:name flycheck :type github :pkgname "flycheck/flycheck" :after nil :depends
-		  (seq let-alist pkg-info dash)))
+	   (:name flycheck :type github :pkgname "flycheck/flycheck" :minimum-emacs-version "24.3" :description "On-the-fly syntax checking extension" :depends
+		  (dash pkg-info let-alist seq)))
  (fuzzy status "installed" recipe
 	(:name fuzzy :website "https://github.com/auto-complete/fuzzy-el" :description "Fuzzy matching utilities for GNU Emacs" :type github :pkgname "auto-complete/fuzzy-el"))
  (let-alist status "installed" recipe
 	    (:name let-alist :description "Easily let-bind values of an assoc-list by their names." :builtin "25.0.50" :type elpa :url "https://elpa.gnu.org/packages/let-alist.html"))
+ (matlab-mode status "installed" recipe
+	      (:name matlab-mode :description "Major mode for MATLAB(R) dot-m files" :website "http://matlab-emacs.sourceforge.net/" :type git :url "http://git.code.sf.net/p/matlab-emacs/src" :build
+		     `(("touch" "Makefile")
+		       ("make" ,(format "EMACS=%s" el-get-emacs)))
+		     :load-path
+		     (".")
+		     :features matlab-load))
  (package status "installed" recipe
 	  (:name package :description "ELPA implementation (\"package.el\") from Emacs 24" :builtin "24" :type http :url "https://repo.or.cz/w/emacs.git/blob_plain/ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09:/lisp/emacs-lisp/package.el" :features package :post-init
 		 (progn
@@ -89,13 +94,15 @@
  (popup status "installed" recipe
 	(:name popup :website "https://github.com/auto-complete/popup-el" :description "Visual Popup Interface Library for Emacs" :type github :submodule nil :depends cl-lib :pkgname "auto-complete/popup-el"))
  (quickrun status "installed" recipe
-	   (:name quickrun :description "Run commands quickly" :website "https://github.com/syohex/emacs-quickrun" :type github :pkgname "syohex/emacs-quickrun" :features "quickrun"))
+	   (:name quickrun :type github :pkgname "syohex/emacs-quickrun" :after nil :features
+		  ("quickrun")))
  (seq status "installed" recipe
       (:name seq :description "Sequence manipulation library for Emacs" :builtin "25" :type github :pkgname "NicolasPetton/seq.el"))
  (undo-tree status "installed" recipe
 	    (:name undo-tree :description "Treat undo history as a tree" :website "http://www.dr-qubit.org/emacs.php" :type git :url "http://www.dr-qubit.org/git/undo-tree.git/"))
  (yasnippet status "installed" recipe
-	    (:name yasnippet :type github :pkgname "capitaomorte/yasnippet" :after nil))
+	    (:name yasnippet :website "https://github.com/capitaomorte/yasnippet.git" :description "YASnippet is a template system for Emacs." :type github :pkgname "capitaomorte/yasnippet" :compile "yasnippet.el" :submodule nil :build
+		   (("git" "submodule" "update" "--init" "--" "snippets"))))
  (yatex status "installed" recipe
 	(:name yatex :website "http://www.yatex.org/" :description "Yet Another TeX mode for Emacs" :type hg :url "http://www.yatex.org/hgrepos/yatex" :build
 	       (("sed" "-i" "s/ from yatex.el//" "yatexmth.el"))

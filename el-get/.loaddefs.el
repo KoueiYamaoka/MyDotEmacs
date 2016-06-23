@@ -5,7 +5,7 @@
 
 ;;;### (autoloads (global-auto-complete-mode auto-complete-mode auto-complete)
 ;;;;;;  "../init/auto-complete/auto-complete" "../init/auto-complete/auto-complete.el"
-;;;;;;  (22342 25156 683310 422000))
+;;;;;;  (22346 20264 548007 388000))
 ;;; Generated autoloads from ../init/auto-complete/auto-complete.el
 
 (autoload 'auto-complete "../init/auto-complete/auto-complete" "\
@@ -42,8 +42,8 @@ See `auto-complete-mode' for more information on Auto-Complete mode.
 ;;;***
 
 ;;;### (autoloads (ac-config-default) "../init/auto-complete/auto-complete-config"
-;;;;;;  "../init/auto-complete/auto-complete-config.el" (22342 25156
-;;;;;;  683310 422000))
+;;;;;;  "../init/auto-complete/auto-complete-config.el" (22346 20264
+;;;;;;  548007 388000))
 ;;; Generated autoloads from ../init/auto-complete/auto-complete-config.el
 
 (autoload 'ac-config-default "../init/auto-complete/auto-complete-config" "\
@@ -56,7 +56,7 @@ See `auto-complete-mode' for more information on Auto-Complete mode.
 ;;;### (autoloads (flycheck-def-option-var flycheck-def-config-file-var
 ;;;;;;  flycheck-define-command-checker flycheck-define-error-level
 ;;;;;;  global-flycheck-mode flycheck-mode flycheck-manual) "../init/flycheck/flycheck"
-;;;;;;  "../init/flycheck/flycheck.el" (22342 25275 343316 417000))
+;;;;;;  "../init/flycheck/flycheck.el" (22346 20310 468006 143000))
 ;;; Generated autoloads from ../init/flycheck/flycheck.el
 
 (autoload 'flycheck-manual "../init/flycheck/flycheck" "\
@@ -279,7 +279,7 @@ Use this together with the `option', `option-list' and
 ;;;***
 
 ;;;### (autoloads (let-alist) "../init/let-alist/let-alist" "../init/let-alist/let-alist.el"
-;;;;;;  (22342 25224 79313 827000))
+;;;;;;  (22346 20008 832014 318000))
 ;;; Generated autoloads from ../init/let-alist/let-alist.el
 
 (autoload 'let-alist "../init/let-alist/let-alist" "\
@@ -317,11 +317,181 @@ displayed in the example above.
 
 ;;;***
 
+;;;### (autoloads (matlab-cedet-setup) "../init/matlab-mode/cedet-matlab"
+;;;;;;  "../init/matlab-mode/cedet-matlab.el" (22362 12878 445928
+;;;;;;  894000))
+;;; Generated autoloads from ../init/matlab-mode/cedet-matlab.el
+
+(autoload 'matlab-cedet-setup "../init/matlab-mode/cedet-matlab" "\
+Update various paths to get SRecode to identify our macros.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (company-matlab-shell) "../init/matlab-mode/company-matlab-shell"
+;;;;;;  "../init/matlab-mode/company-matlab-shell.el" (22362 12878
+;;;;;;  445928 894000))
+;;; Generated autoloads from ../init/matlab-mode/company-matlab-shell.el
+
+(autoload 'company-matlab-shell "../init/matlab-mode/company-matlab-shell" "\
+A `company-mode' completion back-end for Matlab-Shell.
+
+\(fn COMMAND &optional ARG &rest IGNORED)" t nil)
+
+;;;***
+
+;;;### (autoloads (enable-visual-studio-bookmarks) "../init/matlab-mode/linemark"
+;;;;;;  "../init/matlab-mode/linemark.el" (22362 12878 445928 894000))
+;;; Generated autoloads from ../init/matlab-mode/linemark.el
+
+(autoload 'enable-visual-studio-bookmarks "../init/matlab-mode/linemark" "\
+Bind the viss bookmark functions to F2 related keys.
+\\<global-map>
+\\[viss-bookmark-toggle]     - To=ggle a bookmark on this line.
+\\[viss-bookmark-next-buffer]   - Move to the next bookmark.
+\\[viss-bookmark-prev-buffer]   - Move to the previous bookmark.
+\\[viss-bookmark-clear-all-buffer] - Clear all bookmarks.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (matlab-shell matlab-mode) "../init/matlab-mode/matlab"
+;;;;;;  "../init/matlab-mode/matlab.el" (22362 12878 445928 894000))
+;;; Generated autoloads from ../init/matlab-mode/matlab.el
+
+(add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
+
+(autoload 'matlab-mode "../init/matlab-mode/matlab" "\
+MATLAB(R) mode is a major mode for editing MATLAB dot-m files.
+\\<matlab-mode-map>
+Convenient editing commands are:
+ \\[matlab-comment-region]   - Comment/Uncomment out a region of code.
+ \\[matlab-fill-comment-line] - Fill the current comment line.
+ \\[matlab-fill-region] - Fill code and comments in region.
+ \\[matlab-fill-paragraph]     - Refill the current command or comment.
+ \\[matlab-complete-symbol]   - Symbol completion of matlab symbolsbased on the local syntax.
+ \\[matlab-indent-sexp] - Indent syntactic block of code.
+
+Convenient navigation commands are:
+ \\[matlab-beginning-of-command]   - Move to the beginning of a command.
+ \\[matlab-end-of-command]   - Move to the end of a command.
+ \\[matlab-beginning-of-defun] - Move to the beginning of a function.
+ \\[matlab-end-of-defun] - Move do the end of a function.
+ \\[matlab-forward-sexp] - Move forward over a syntactic block of code.
+ \\[matlab-backward-sexp] - Move backwards over a syntactic block of code.
+
+Convenient template insertion commands:
+ \\[tempo-template-matlab-function] - Insert a function definition.
+ \\[tempo-template-matlab-if] - Insert an IF END block.
+ \\[tempo-template-matlab-for] - Insert a FOR END block.
+ \\[tempo-template-matlab-switch] - Insert a SWITCH END statement.
+ \\[matlab-insert-next-case] - Insert the next CASE condition in a SWITCH.
+ \\[matlab-insert-end-block] - Insert a matched END statement.  With optional ARG, reindent.
+ \\[matlab-stringify-region] - Convert plaintext in region to a string with correctly quoted chars.
+
+Variables:
+  `matlab-indent-level'		Level to indent blocks.
+  `matlab-cont-level'		Level to indent continuation lines.
+  `matlab-cont-requires-ellipsis' Does your MATLAB support implied elipsis.
+  `matlab-case-level'		Level to unindent case statements.
+  `matlab-indent-past-arg1-functions'
+                                Regexp of functions to indent past the first
+                                  argument on continuation lines.
+  `matlab-maximum-indents'      List of maximum indents during lineups.
+  `matlab-comment-column'       Goal column for on-line comments.
+  `fill-column'			Column used in auto-fill.
+  `matlab-indent-function-body' If non-nil, indents body of MATLAB functions.
+  `matlab-functions-have-end'	If non-nil, MATLAB functions terminate with end.
+  `matlab-return-function'	Customize RET handling with this function.
+  `matlab-auto-fill'            Non-nil, do auto-fill at startup.
+  `matlab-fill-code'            Non-nil, auto-fill code.
+  `matlab-fill-strings'         Non-nil, auto-fill strings.
+  `matlab-verify-on-save-flag'  Non-nil, enable code checks on save.
+  `matlab-highlight-block-match-flag'
+                                Enable matching block begin/end keywords.
+  `matlab-vers-on-startup'	If t, show version on start-up.
+  `matlab-handle-simulink'      If t, enable simulink keyword highlighting.
+
+All Key Bindings:
+\\{matlab-mode-map}
+
+\(fn)" t nil)
+
+(autoload 'matlab-shell "../init/matlab-mode/matlab" "\
+Create a buffer with MATLAB running as a subprocess.
+
+MATLAB shell cannot work on the MS Windows platform because MATLAB is not
+a console application.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (mlint-minor-mode) "../init/matlab-mode/mlint"
+;;;;;;  "../init/matlab-mode/mlint.el" (22362 12878 445928 894000))
+;;; Generated autoloads from ../init/matlab-mode/mlint.el
+
+(autoload 'mlint-minor-mode "../init/matlab-mode/mlint" "\
+Toggle mlint minor mode, a mode for showing mlint errors.
+With prefix ARG, turn mlint minor mode on iff ARG is positive.
+\\{mlint-minor-mode-map\\}
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (semantic-default-matlab-setup) "../init/matlab-mode/semantic-matlab"
+;;;;;;  "../init/matlab-mode/semantic-matlab.el" (22362 12878 445928
+;;;;;;  894000))
+;;; Generated autoloads from ../init/matlab-mode/semantic-matlab.el
+
+(autoload 'semantic-default-matlab-setup "../init/matlab-mode/semantic-matlab" "\
+Set up a buffer for parsing of MATLAB files.
+
+\(fn)" nil nil)
+
+;;;***
+
+;;;### (autoloads (srecode-semantic-handle-:matlab) "../init/matlab-mode/srecode-matlab"
+;;;;;;  "../init/matlab-mode/srecode-matlab.el" (22362 12878 445928
+;;;;;;  894000))
+;;; Generated autoloads from ../init/matlab-mode/srecode-matlab.el
+
+(autoload 'srecode-semantic-handle-:matlab "../init/matlab-mode/srecode-matlab" "\
+Add macros into the dictionary DICT based on the current MATLAB buffer.
+Adds the following:
+FILE_SYMBOL - The file name as a symbol.
+FILE_DOC_SYMBOL - The file name as a symbol for doc strings.
+PACKAGE - The package this file is in, or empty if none.
+FILE_CLASS - Show section if filename should be a class.
+FILE_FUNCTION - Show setion if filename is a function.
+
+On class prediction - when filling in an empty file, if the filename and directory it is in
+match, for example @foo/foo.m then foo should be a classdef.
+
+\(fn DICT)" nil nil)
+
+;;;***
+
+;;;### (autoloads (tlc-mode) "../init/matlab-mode/tlc" "../init/matlab-mode/tlc.el"
+;;;;;;  (22362 12878 445928 894000))
+;;; Generated autoloads from ../init/matlab-mode/tlc.el
+
+(autoload 'tlc-mode "../init/matlab-mode/tlc" "\
+Major mode for editing Tlc files, or files found in tlc directories.
+
+\(fn)" t nil)
+(add-to-list 'auto-mode-alist '("\\.tlc$" .tlc-mode))
+
+;;;***
+
 ;;;### (autoloads (pkg-info-version-info pkg-info-package-version
 ;;;;;;  pkg-info-defining-library-version pkg-info-defining-library-original-version
 ;;;;;;  pkg-info-library-version pkg-info-library-original-version)
 ;;;;;;  "../init/pkg-info/pkg-info" "../init/pkg-info/pkg-info.el"
-;;;;;;  (22342 25232 639314 260000))
+;;;;;;  (22346 20281 852006 919000))
 ;;; Generated autoloads from ../init/pkg-info/pkg-info.el
 
 (autoload 'pkg-info-library-original-version "../init/pkg-info/pkg-info" "\
@@ -435,7 +605,7 @@ version.
 ;;;;;;  quickrun-shell quickrun-compile-only quickrun-eval-print
 ;;;;;;  quickrun-replace-region quickrun-region quickrun-with-arg
 ;;;;;;  quickrun quickrun-add-command quickrun-set-default) "../init/quickrun/quickrun"
-;;;;;;  "../init/quickrun/quickrun.el" (22342 25307 613575 795000))
+;;;;;;  "../init/quickrun/quickrun.el" (22346 20318 216005 933000))
 ;;; Generated autoloads from ../init/quickrun/quickrun.el
 
 (autoload 'quickrun-set-default "../init/quickrun/quickrun" "\
@@ -503,7 +673,7 @@ Run commands in shell for interactive programs
 ;;;***
 
 ;;;### (autoloads (global-undo-tree-mode undo-tree-mode) "../init/undo-tree/undo-tree"
-;;;;;;  "../init/undo-tree/undo-tree.el" (22342 25316 281576 233000))
+;;;;;;  "../init/undo-tree/undo-tree.el" (22346 20327 956005 669000))
 ;;; Generated autoloads from ../init/undo-tree/undo-tree.el
 
 (autoload 'undo-tree-mode "../init/undo-tree/undo-tree" "\
@@ -550,7 +720,7 @@ See `undo-tree-mode' for more information on Undo-Tree mode.
 ;;;***
 
 ;;;### (autoloads (snippet-mode yas-global-mode yas-minor-mode) "../init/yasnippet/yasnippet"
-;;;;;;  "../init/yasnippet/yasnippet.el" (22342 25171 191311 155000))
+;;;;;;  "../init/yasnippet/yasnippet.el" (22346 20344 956005 209000))
 ;;; Generated autoloads from ../init/yasnippet/yasnippet.el
 
 (autoload 'yas-minor-mode "../init/yasnippet/yasnippet" "\
@@ -599,7 +769,7 @@ A mode for editing yasnippets
 
 ;;;### (autoloads (YaTeX-goto-corresponding-leftright YaTeX-indent-line-equation
 ;;;;;;  YaTeX-intelligent-newline YaTeX-what-column) "../init/yatex/yatexenv"
-;;;;;;  "../init/yatex/yatexenv.el" (22342 25340 777577 470000))
+;;;;;;  "../init/yatex/yatexenv.el" (22346 20356 16004 909000))
 ;;; Generated autoloads from ../init/yatex/yatexenv.el
 
 (autoload 'YaTeX-what-column "../init/yatex/yatexenv" "\
@@ -628,7 +798,7 @@ Go to corresponding left or ight.
 ;;;***
 
 ;;;### (autoloads (YaTeX-help YaTeX-apropos) "../init/yatex/yatexhlp"
-;;;;;;  "../init/yatex/yatexhlp.el" (22342 25340 781577 470000))
+;;;;;;  "../init/yatex/yatexhlp.el" (22346 20356 16004 909000))
 ;;; Generated autoloads from ../init/yatex/yatexhlp.el
 
 (autoload 'YaTeX-apropos "../init/yatex/yatexhlp" "\
@@ -656,7 +826,7 @@ Optional argument MACRO, if supplied, is directly selected to keyword.
 ;;;;;;  YaTeX-update-table YaTeX-lookup-table YaTeX-reload-dictionary
 ;;;;;;  YaTeX-read-user-completion-table YaTeX-sync-local-table YaTeX-local-table-symbol
 ;;;;;;  YaTeX-define-key) "../init/yatex/yatexlib" "../init/yatex/yatexlib.el"
-;;;;;;  (22342 25340 781577 470000))
+;;;;;;  (22346 20356 20004 909000))
 ;;; Generated autoloads from ../init/yatex/yatexlib.el
 
 (autoload 'YaTeX-define-key "../init/yatex/yatexlib" "\
@@ -870,8 +1040,8 @@ Remove current indentation and reindento to COL column.
 ;;;***
 
 ;;;### (autoloads (YaTeX-goto-corresponding-paren YaTeX-toggle-math-mode)
-;;;;;;  "../init/yatex/yatexmth" "../init/yatex/yatexmth.el" (22342
-;;;;;;  25340 897577 476000))
+;;;;;;  "../init/yatex/yatexmth" "../init/yatex/yatexmth.el" (22346
+;;;;;;  20356 148004 905000))
 ;;; Generated autoloads from ../init/yatex/yatexmth.el
 
 (autoload 'YaTeX-toggle-math-mode "../init/yatex/yatexmth" "\
@@ -887,8 +1057,8 @@ Go to corresponding mathematical parentheses.
 ;;;***
 
 ;;;### (autoloads (YaTeX-make-section-with-overview YaTeX-read-section-in-minibuffer)
-;;;;;;  "../init/yatex/yatexsec" "../init/yatex/yatexsec.el" (22342
-;;;;;;  25340 789577 471000))
+;;;;;;  "../init/yatex/yatexsec" "../init/yatex/yatexsec.el" (22346
+;;;;;;  20356 28004 909000))
 ;;; Generated autoloads from ../init/yatex/yatexsec.el
 
 (autoload 'YaTeX-read-section-in-minibuffer "../init/yatex/yatexsec" "\
@@ -907,7 +1077,7 @@ Input sectining command with previous overview.
 ;;;;;;  el-get-cd el-get-reinstall el-get-remove el-get-self-update
 ;;;;;;  el-get-update-packages-of-type el-get-update-all el-get-update
 ;;;;;;  el-get-install el-get-version) "el-get/el-get" "el-get/el-get.el"
-;;;;;;  (22342 25132 307309 191000))
+;;;;;;  (22346 20165 412010 75000))
 ;;; Generated autoloads from el-get/el-get.el
 
 (autoload 'el-get-version "el-get/el-get" "\
@@ -1007,8 +1177,8 @@ already installed packages is considered.
 ;;;***
 
 ;;;### (autoloads (el-get-bundle! el-get-bundle el-get-bundle-el-get)
-;;;;;;  "el-get/el-get-bundle" "el-get/el-get-bundle.el" (22342 25132
-;;;;;;  307309 191000))
+;;;;;;  "el-get/el-get-bundle" "el-get/el-get-bundle.el" (22346 20165
+;;;;;;  408010 75000))
 ;;; Generated autoloads from el-get/el-get-bundle.el
 
 (autoload 'el-get-bundle-el-get "el-get/el-get-bundle" "\
@@ -1058,7 +1228,7 @@ required.
 ;;;***
 
 ;;;### (autoloads (el-get-check-recipe) "el-get/el-get-check" "el-get/el-get-check.el"
-;;;;;;  (22342 25132 307309 191000))
+;;;;;;  (22346 20165 408010 75000))
 ;;; Generated autoloads from el-get/el-get-check.el
 
 (autoload 'el-get-check-recipe "el-get/el-get-check" "\
@@ -1077,7 +1247,7 @@ object or a file path.
 ;;;***
 
 ;;;### (autoloads (el-get-list-packages) "el-get/el-get-list-packages"
-;;;;;;  "el-get/el-get-list-packages.el" (22342 25132 307309 191000))
+;;;;;;  "el-get/el-get-list-packages.el" (22346 20165 412010 75000))
 ;;; Generated autoloads from el-get/el-get-list-packages.el
 
 (autoload 'el-get-list-packages "el-get/el-get-list-packages" "\
@@ -1092,6 +1262,8 @@ Display a list of packages.
 ;;;;;;  "../init/epl/epl.el" "../init/flycheck/flycheck-buttercup.el"
 ;;;;;;  "../init/flycheck/flycheck-ert.el" "../init/fuzzy/fuzzy.el"
 ;;;;;;  "../init/let-alist/let-alist-autoloads.el" "../init/let-alist/let-alist-pkg.el"
+;;;;;;  "../init/matlab-mode/matlab-load.el" "../init/matlab-mode/matlab-mode-pkg.el"
+;;;;;;  "../init/matlab-mode/matlab-publish.el" "../init/matlab-mode/semanticdb-matlab.el"
 ;;;;;;  "../init/popup/popup.el" "../init/seq/seq-24.el" "../init/seq/seq-25.el"
 ;;;;;;  "../init/seq/seq.el" "../init/yasnippet/yasnippet-debug.el"
 ;;;;;;  "../init/yasnippet/yasnippet-tests.el" "../init/yatex/comment.el"
@@ -1102,8 +1274,8 @@ Display a list of packages.
 ;;;;;;  "el-get/el-get-autoloading.el" "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
-;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22342
-;;;;;;  25340 994993 342000))
+;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22362
+;;;;;;  12880 976299 851000))
 
 ;;;***
 

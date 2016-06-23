@@ -5,8 +5,7 @@
 (require 'undohist nil t)
 (undohist-initialize)
 ;; undo-tree
-(require 'undo-tree)
-(global-undo-tree-mode t)
-(global-set-key (kbd "C-x u") 'undo-tree-redo)
+(global-undo-tree-mode 1)
+(global-set-key (kbd "C-x u") 'undo-tree-visualize)
 
 ;;; undotree.el ends here

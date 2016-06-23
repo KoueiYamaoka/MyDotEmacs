@@ -2,10 +2,10 @@
 # name: fig
 # key: fig
 # --
-\begin{figure}[htb]
+\begin{figure}[htbp]
  \begin{center}
-  \includegraphics[width=10cm, clip, bb=0 0 $1]{$2}
-  \caption{$3}
-  \label{$4}
+  \includegraphics[width=100mm]{$1.eps}
  \end{center}
+ \caption{$2}
+ \label{$3}
 \end{figure}
