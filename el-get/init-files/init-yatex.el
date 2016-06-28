@@ -8,11 +8,13 @@
 (setq tex-command "platex")
 (setq dviprint-command-format "dvipdfmx %s")
 (setq dvi2-command "open")
+(setq bibtex-command "pbibtex")
 (defvar YaTeX-dvi2-command-ext-alist
   '(("[agx]dvi\\|dviout\\|emacsclient" . ".dvi")
     ("ghostview\\|gv" . ".ps")
     ("acroread\\|pdf\\|Preview\\|TeXShop\\|Skim\\|evince\\|apvlv\\|open" . ".pdf")))
 
+(add-hook 'yatex-mode-hook 'turn-on-reftex)
 ;;; YaTeX の文字コード
 ;;; 0 = no-converion  Emacs内部で使用されている文字コードで保存
 ;;; 1 = Shift JIS

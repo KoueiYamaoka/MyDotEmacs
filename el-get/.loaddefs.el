@@ -3,6 +3,76 @@
 ;;; Code:
 
 
+;;;### (autoloads (anzu-isearch-query-replace-regexp anzu-isearch-query-replace
+;;;;;;  anzu-replace-at-cursor-thing anzu-query-replace-regexp anzu-query-replace
+;;;;;;  anzu-query-replace-at-cursor-thing anzu-query-replace-at-cursor
+;;;;;;  global-anzu-mode anzu-mode) "../init/anzu/anzu" "../init/anzu/anzu.el"
+;;;;;;  (22379 30571 458501 522000))
+;;; Generated autoloads from ../init/anzu/anzu.el
+
+(autoload 'anzu-mode "../init/anzu/anzu" "\
+minor-mode which display search information in mode-line.
+
+\(fn &optional ARG)" t nil)
+
+(defvar global-anzu-mode nil "\
+Non-nil if Global-Anzu mode is enabled.
+See the command `global-anzu-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `global-anzu-mode'.")
+
+(custom-autoload 'global-anzu-mode "../init/anzu/anzu" nil)
+
+(autoload 'global-anzu-mode "../init/anzu/anzu" "\
+Toggle Anzu mode in all buffers.
+With prefix ARG, enable Global-Anzu mode if ARG is positive;
+otherwise, disable it.  If called from Lisp, enable the mode if
+ARG is omitted or nil.
+
+Anzu mode is enabled in all buffers where
+`anzu--turn-on' would do it.
+See `anzu-mode' for more information on Anzu mode.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'anzu-query-replace-at-cursor "../init/anzu/anzu" "\
+
+
+\(fn)" t nil)
+
+(autoload 'anzu-query-replace-at-cursor-thing "../init/anzu/anzu" "\
+
+
+\(fn)" t nil)
+
+(autoload 'anzu-query-replace "../init/anzu/anzu" "\
+
+
+\(fn ARG)" t nil)
+
+(autoload 'anzu-query-replace-regexp "../init/anzu/anzu" "\
+
+
+\(fn ARG)" t nil)
+
+(autoload 'anzu-replace-at-cursor-thing "../init/anzu/anzu" "\
+
+
+\(fn)" t nil)
+
+(autoload 'anzu-isearch-query-replace "../init/anzu/anzu" "\
+
+
+\(fn ARG)" t nil)
+
+(autoload 'anzu-isearch-query-replace-regexp "../init/anzu/anzu" "\
+
+
+\(fn ARG)" t nil)
+
+;;;***
+
 ;;;### (autoloads (global-auto-complete-mode auto-complete-mode auto-complete)
 ;;;;;;  "../init/auto-complete/auto-complete" "../init/auto-complete/auto-complete.el"
 ;;;;;;  (22346 20264 548007 388000))
@@ -275,6 +345,128 @@ Use this together with the `option', `option-list' and
 (put 'flycheck-def-option-var 'lisp-indent-function '3)
 
 (put 'flycheck-def-option-var 'doc-string-elt '4)
+
+;;;***
+
+;;;### (autoloads (helm-do-ag-buffers helm-ag-buffers helm-do-ag-project-root
+;;;;;;  helm-ag-project-root helm-do-ag helm-do-ag-this-file helm-ag
+;;;;;;  helm-ag-this-file helm-ag-mode helm-ag-clear-stack helm-ag-pop-stack)
+;;;;;;  "../init/helm-ag/helm-ag" "../init/helm-ag/helm-ag.el" (22379
+;;;;;;  33738 310415 693000))
+;;; Generated autoloads from ../init/helm-ag/helm-ag.el
+
+(autoload 'helm-ag-pop-stack "../init/helm-ag/helm-ag" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-ag-clear-stack "../init/helm-ag/helm-ag" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-ag-mode "../init/helm-ag/helm-ag" "\
+Major mode to provide actions in helm grep saved buffer.
+
+Special commands:
+\\{helm-ag-mode-map}
+
+\(fn)" t nil)
+
+(autoload 'helm-ag-this-file "../init/helm-ag/helm-ag" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-ag "../init/helm-ag/helm-ag" "\
+
+
+\(fn &optional BASEDIR)" t nil)
+
+(autoload 'helm-do-ag-this-file "../init/helm-ag/helm-ag" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-do-ag "../init/helm-ag/helm-ag" "\
+
+
+\(fn &optional BASEDIR TARGETS)" t nil)
+
+(autoload 'helm-ag-project-root "../init/helm-ag/helm-ag" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-do-ag-project-root "../init/helm-ag/helm-ag" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-ag-buffers "../init/helm-ag/helm-ag" "\
+
+
+\(fn)" t nil)
+
+(autoload 'helm-do-ag-buffers "../init/helm-ag/helm-ag" "\
+
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (helm-descbinds helm-descbinds-uninstall helm-descbinds-install
+;;;;;;  helm-descbinds-mode) "../init/helm-descbinds/helm-descbinds"
+;;;;;;  "../init/helm-descbinds/helm-descbinds.el" (22379 33742 666415
+;;;;;;  575000))
+;;; Generated autoloads from ../init/helm-descbinds/helm-descbinds.el
+
+(defvar helm-descbinds-mode nil "\
+Non-nil if Helm-Descbinds mode is enabled.
+See the command `helm-descbinds-mode' for a description of this minor mode.
+Setting this variable directly does not take effect;
+either customize it (see the info node `Easy Customization')
+or call the function `helm-descbinds-mode'.")
+
+(custom-autoload 'helm-descbinds-mode "../init/helm-descbinds/helm-descbinds" nil)
+
+(autoload 'helm-descbinds-mode "../init/helm-descbinds/helm-descbinds" "\
+Use `helm' for `describe-bindings'.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'helm-descbinds-install "../init/helm-descbinds/helm-descbinds" "\
+Use `helm-descbinds' as a replacement of `describe-bindings'.
+
+\(fn)" t nil)
+
+(autoload 'helm-descbinds-uninstall "../init/helm-descbinds/helm-descbinds" "\
+Restore original `describe-bindings'.
+
+\(fn)" t nil)
+
+(autoload 'helm-descbinds "../init/helm-descbinds/helm-descbinds" "\
+A convenient helm version of `describe-bindings'.
+
+Turning on `helm-descbinds-mode' is the recommended way to
+install this command to replace `describe-bindings'.
+
+You complete against a list of keys + command pairs presented in
+a similar way as `describe-bindings' does, split into sections
+defined by the types of the key bindings (minor and major modes,
+global bindings, etc).
+
+The default action executes a command as if the binding had been
+entered, or narrows the commands according to a prefix key,
+respectively.
+
+The persistent action pops up a help buffer for the selected
+command without quitting.
+
+For key translation maps, the default actions are not very
+useful, yet they are listed for completeness.
+
+\(fn &optional PREFIX BUFFER)" t nil)
 
 ;;;***
 
@@ -598,6 +790,75 @@ is the same as the LIBRARY version, do not include a package
 version.
 
 \(fn LIBRARY &optional PACKAGE SHOW)" t nil)
+
+;;;***
+
+;;;### (autoloads (popwin:messages popwin:find-file-tail popwin:find-file
+;;;;;;  popwin:popup-buffer-tail popwin:one-window popwin:universal-display
+;;;;;;  popwin:pop-to-buffer popwin:display-buffer popwin:popup-buffer)
+;;;;;;  "../init/popwin/popwin" "../init/popwin/popwin.el" (22379
+;;;;;;  34438 914396 705000))
+;;; Generated autoloads from ../init/popwin/popwin.el
+
+(autoload 'popwin:popup-buffer "../init/popwin/popwin" "\
+Show BUFFER in a popup window and return the popup window. If
+NOSELECT is non-nil, the popup window will not be selected. If
+STICK is non-nil, the popup window will be stuck. If TAIL is
+non-nil, the popup window will show the last contents. Calling
+`popwin:popup-buffer' during `popwin:popup-buffer' is allowed. In
+that case, the buffer of the popup window will be replaced with
+BUFFER.
+
+\(fn BUFFER &key (width popwin:popup-window-width) (height popwin:popup-window-height) (position popwin:popup-window-position) NOSELECT DEDICATED STICK TAIL)" t nil)
+
+(autoload 'popwin:display-buffer "../init/popwin/popwin" "\
+Display BUFFER-OR-NAME, if possible, in a popup window, or as
+usual. This function can be used as a value of
+`display-buffer-function'.
+
+\(fn BUFFER-OR-NAME &optional NOT-THIS-WINDOW)" t nil)
+
+(autoload 'popwin:pop-to-buffer "../init/popwin/popwin" "\
+Same as `pop-to-buffer' except that this function will use
+`popwin:display-buffer-1' instead of `display-buffer'.
+
+\(fn BUFFER &optional OTHER-WINDOW NORECORD)" t nil)
+
+(autoload 'popwin:universal-display "../init/popwin/popwin" "\
+Call the following command interactively with letting
+`popwin:special-display-config' be
+`popwin:universal-display-config'. This will be useful when
+displaying buffers in popup windows temporarily.
+
+\(fn)" t nil)
+
+(autoload 'popwin:one-window "../init/popwin/popwin" "\
+Delete other window than the popup window. C-g restores the
+original window configuration.
+
+\(fn)" t nil)
+
+(autoload 'popwin:popup-buffer-tail "../init/popwin/popwin" "\
+Same as `popwin:popup-buffer' except that the buffer will be
+`recenter'ed at the bottom.
+
+\(fn &rest SAME-AS-POPWIN:POPUP-BUFFER)" t nil)
+
+(autoload 'popwin:find-file "../init/popwin/popwin" "\
+Edit file FILENAME with popup window by `popwin:popup-buffer'.
+
+\(fn FILENAME &optional WILDCARDS)" t nil)
+
+(autoload 'popwin:find-file-tail "../init/popwin/popwin" "\
+Edit file FILENAME with popup window by
+`popwin:popup-buffer-tail'.
+
+\(fn FILE &optional WILDCARD)" t nil)
+
+(autoload 'popwin:messages "../init/popwin/popwin" "\
+Display *Messages* buffer in a popup window.
+
+\(fn)" t nil)
 
 ;;;***
 
@@ -1264,8 +1525,11 @@ Display a list of packages.
 ;;;;;;  "../init/let-alist/let-alist-autoloads.el" "../init/let-alist/let-alist-pkg.el"
 ;;;;;;  "../init/matlab-mode/matlab-load.el" "../init/matlab-mode/matlab-mode-pkg.el"
 ;;;;;;  "../init/matlab-mode/matlab-publish.el" "../init/matlab-mode/semanticdb-matlab.el"
-;;;;;;  "../init/popup/popup.el" "../init/seq/seq-24.el" "../init/seq/seq-25.el"
-;;;;;;  "../init/seq/seq.el" "../init/yasnippet/yasnippet-debug.el"
+;;;;;;  "../init/popup/popup.el" "../init/popwin/misc/popwin-browse-kill-ring.el"
+;;;;;;  "../init/popwin/misc/popwin-pp.el" "../init/popwin/misc/popwin-term.el"
+;;;;;;  "../init/popwin/misc/popwin-w3m.el" "../init/popwin/misc/popwin-yatex.el"
+;;;;;;  "../init/seq/seq-24.el" "../init/seq/seq-25.el" "../init/seq/seq.el"
+;;;;;;  "../init/undohist/undohist.el" "../init/yasnippet/yasnippet-debug.el"
 ;;;;;;  "../init/yasnippet/yasnippet-tests.el" "../init/yatex/comment.el"
 ;;;;;;  "../init/yatex/yahtml.el" "../init/yatex/yatex.el" "../init/yatex/yatex19.el"
 ;;;;;;  "../init/yatex/yatex23.el" "../init/yatex/yatexadd.el" "../init/yatex/yatexgen.el"
@@ -1274,8 +1538,8 @@ Display a list of packages.
 ;;;;;;  "el-get/el-get-autoloading.el" "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
-;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22362
-;;;;;;  12880 976299 851000))
+;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22379
+;;;;;;  34439 362203 174000))
 
 ;;;***
 

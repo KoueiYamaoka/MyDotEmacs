@@ -39,6 +39,8 @@
 (el-get-bundle flycheck/flycheck)
 ;; undotree
 (el-get-bundle undo-tree)
+;; undohist
+(el-get-bundle undohist)
 ;; quickrun
 (el-get-bundle syohex/emacs-quickrun
   :name quickrun)
@@ -46,6 +48,14 @@
 (el-get-bundle yatex)
 ;;matlab-mode
 (el-get-bundle elpa:matlab-mode)
+;; helm
+(el-get-bundle helm)
+(el-get-bundle helm-ag)
+(el-get-bundle helm-descbinds)
+;; popwin
+(el-get-bundle popwin)
+;; anzu
+(el-get-bundle anzu)
 ;;;; download packages ends here
 
 
@@ -106,7 +116,10 @@
 (global-set-key (kbd "C-<up>") 'scroll-down)
 ;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
 (setq vc-follow-symlinks t)
-
+;; uniquify setting
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 ;; basec setting ends here
+
 
 ;;; init.el ends here

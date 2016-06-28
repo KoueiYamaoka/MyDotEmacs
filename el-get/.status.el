@@ -1,4 +1,6 @@
-((auto-complete status "installed" recipe
+((anzu status "installed" recipe
+       (:name anzu :after nil :website "https://github.com/syohex/emacs-anzu" :description "A minor mode which displays current match and total matches." :type "github" :branch "master" :pkgname "syohex/emacs-anzu"))
+ (auto-complete status "installed" recipe
 		(:name auto-complete :website "https://github.com/auto-complete/auto-complete" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :depends
 		       (popup fuzzy)
 		       :features auto-complete-config :post-init
@@ -39,74 +41,106 @@
 		  (dash pkg-info let-alist seq)))
  (fuzzy status "installed" recipe
 	(:name fuzzy :website "https://github.com/auto-complete/fuzzy-el" :description "Fuzzy matching utilities for GNU Emacs" :type github :pkgname "auto-complete/fuzzy-el"))
- (let-alist status "installed" recipe
-	    (:name let-alist :description "Easily let-bind values of an assoc-list by their names." :builtin "25.0.50" :type elpa :url "https://elpa.gnu.org/packages/let-alist.html"))
- (matlab-mode status "installed" recipe
-	      (:name matlab-mode :description "Major mode for MATLAB(R) dot-m files" :website "http://matlab-emacs.sourceforge.net/" :type git :url "http://git.code.sf.net/p/matlab-emacs/src" :build
-		     `(("touch" "Makefile")
-		       ("make" ,(format "EMACS=%s" el-get-emacs)))
-		     :load-path
-		     (".")
-		     :features matlab-load))
- (package status "installed" recipe
-	  (:name package :description "ELPA implementation (\"package.el\") from Emacs 24" :builtin "24" :type http :url "https://repo.or.cz/w/emacs.git/blob_plain/ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09:/lisp/emacs-lisp/package.el" :features package :post-init
-		 (progn
-		   (let
-		       ((old-package-user-dir
-			 (expand-file-name
-			  (convert-standard-filename
-			   (concat
-			    (file-name-as-directory default-directory)
-			    "elpa")))))
-		     (when
-			 (file-directory-p old-package-user-dir)
-		       (add-to-list 'package-directory-list old-package-user-dir)))
-		   (setq package-archives
-			 (bound-and-true-p package-archives))
-		   (let
-		       ((protocol
-			 (if
-			     (and
-			      (fboundp 'gnutls-available-p)
-			      (gnutls-available-p))
-			     "https://"
-			   (lwarn
-			    '(el-get tls)
-			    :warning "Your Emacs doesn't support HTTPS (TLS)%s"
-			    (if
-				(eq system-type 'windows-nt)
-				",\n  see https://github.com/dimitri/el-get/wiki/Installation-on-Windows." "."))
-			   "http://"))
-			(archives
-			 '(("melpa" . "melpa.org/packages/")
-			   ("gnu" . "elpa.gnu.org/packages/")
-			   ("marmalade" . "marmalade-repo.org/packages/"))))
-		     (dolist
-			 (archive archives)
-		       (add-to-list 'package-archives
-				    (cons
-				     (car archive)
-				     (concat protocol
-					     (cdr archive)))))))))
- (pkg-info status "installed" recipe
-	   (:name pkg-info :description "Provide information about Emacs packages." :type github :pkgname "lunaryorn/pkg-info.el" :depends
-		  (dash epl)))
- (popup status "installed" recipe
-	(:name popup :website "https://github.com/auto-complete/popup-el" :description "Visual Popup Interface Library for Emacs" :type github :submodule nil :depends cl-lib :pkgname "auto-complete/popup-el"))
- (quickrun status "installed" recipe
-	   (:name quickrun :type github :pkgname "syohex/emacs-quickrun" :after nil :features
-		  ("quickrun")))
- (seq status "installed" recipe
-      (:name seq :description "Sequence manipulation library for Emacs" :builtin "25" :type github :pkgname "NicolasPetton/seq.el"))
- (undo-tree status "installed" recipe
-	    (:name undo-tree :description "Treat undo history as a tree" :website "http://www.dr-qubit.org/emacs.php" :type git :url "http://www.dr-qubit.org/git/undo-tree.git/"))
- (yasnippet status "installed" recipe
-	    (:name yasnippet :website "https://github.com/capitaomorte/yasnippet.git" :description "YASnippet is a template system for Emacs." :type github :pkgname "capitaomorte/yasnippet" :compile "yasnippet.el" :submodule nil :build
-		   (("git" "submodule" "update" "--init" "--" "snippets"))))
- (yatex status "installed" recipe
-	(:name yatex :website "http://www.yatex.org/" :description "Yet Another TeX mode for Emacs" :type hg :url "http://www.yatex.org/hgrepos/yatex" :build
-	       (("sed" "-i" "s/ from yatex.el//" "yatexmth.el"))
-	       :build/berkeley-unix
-	       (("sed" "-i" "" "s/ from yatex.el//" "yatexmth.el"))
-	       :build/darwin
-	       (("env" "LANG=C" "LC_ALL=C" "sed" "-i" "" "s/ from yatex.el//" "yatexmth.el")))))
+ (helm status "installed" recipe
+       (:name helm :after nil :features
+	      ("helm-config")
+	      :description "Emacs incremental completion and narrowing framework" :type github :pkgname "emacs-helm/helm" :autoloads "helm-autoloads" :build
+	      (("make"))
+	      :build/darwin
+	      `(("make" ,(format "EMACS_COMMAND=%s" el-get-emacs)))
+	      :build/windows-nt
+	      (let
+		  ((generated-autoload-file
+		    (expand-file-name "helm-autoloads.el"))
+		   \
+		   (backup-inhibited t))
+	      (update-directory-autoloads default-directory)
+	      nil)
+       :post-init
+       (helm-mode)))
+(helm-ag status "installed" recipe
+(:name helm-ag :after nil :depends
+(helm)
+:description "The silver search with helm interface." :type github :pkgname "syohex/emacs-helm-ag"))
+(helm-descbinds status "installed" recipe
+(:name helm-descbinds :after nil :depends
+(helm)
+:type github :pkgname "emacs-helm/helm-descbinds" :description "Yet Another `describe-bindings' with `helm'." :prepare
+(progn
+(autoload 'helm-descbinds-install "helm-descbinds"))))
+(let-alist status "installed" recipe
+(:name let-alist :description "Easily let-bind values of an assoc-list by their names." :builtin "25.0.50" :type elpa :url "https://elpa.gnu.org/packages/let-alist.html"))
+(matlab-mode status "installed" recipe
+(:name matlab-mode :description "Major mode for MATLAB(R) dot-m files" :website "http://matlab-emacs.sourceforge.net/" :type git :url "http://git.code.sf.net/p/matlab-emacs/src" :build
+`(("touch" "Makefile")
+("make" ,(format "EMACS=%s" el-get-emacs)))
+:load-path
+(".")
+:features matlab-load))
+(package status "installed" recipe
+(:name package :description "ELPA implementation (\"package.el\") from Emacs 24" :builtin "24" :type http :url "https://repo.or.cz/w/emacs.git/blob_plain/ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09:/lisp/emacs-lisp/package.el" :features package :post-init
+(progn
+(let
+((old-package-user-dir
+(expand-file-name
+(convert-standard-filename
+(concat
+(file-name-as-directory default-directory)
+"elpa")))))
+(when
+(file-directory-p old-package-user-dir)
+(add-to-list 'package-directory-list old-package-user-dir)))
+(setq package-archives
+(bound-and-true-p package-archives))
+(let
+((protocol
+(if
+(and
+(fboundp 'gnutls-available-p)
+(gnutls-available-p))
+"https://"
+(lwarn
+'(el-get tls)
+:warning "Your Emacs doesn't support HTTPS (TLS)%s"
+(if
+(eq system-type 'windows-nt)
+",\n  see https://github.com/dimitri/el-get/wiki/Installation-on-Windows." "."))
+"http://"))
+(archives
+'(("melpa" . "melpa.org/packages/")
+("gnu" . "elpa.gnu.org/packages/")
+("marmalade" . "marmalade-repo.org/packages/"))))
+(dolist
+(archive archives)
+(add-to-list 'package-archives
+(cons
+(car archive)
+(concat protocol
+(cdr archive)))))))))
+(pkg-info status "installed" recipe
+(:name pkg-info :description "Provide information about Emacs packages." :type github :pkgname "lunaryorn/pkg-info.el" :depends
+(dash epl)))
+(popup status "installed" recipe
+(:name popup :website "https://github.com/auto-complete/popup-el" :description "Visual Popup Interface Library for Emacs" :type github :submodule nil :depends cl-lib :pkgname "auto-complete/popup-el"))
+(popwin status "installed" recipe
+(:name popwin :after nil :description "Popup Window Manager." :website "https://github.com/m2ym/popwin-el" :type github :pkgname "m2ym/popwin-el" :load-path
+("." "misc")))
+(quickrun status "installed" recipe
+(:name quickrun :type github :pkgname "syohex/emacs-quickrun" :after nil :features
+("quickrun")))
+(seq status "installed" recipe
+(:name seq :description "Sequence manipulation library for Emacs" :builtin "25" :type github :pkgname "NicolasPetton/seq.el"))
+(undo-tree status "installed" recipe
+(:name undo-tree :description "Treat undo history as a tree" :website "http://www.dr-qubit.org/emacs.php" :type git :url "http://www.dr-qubit.org/git/undo-tree.git/"))
+(undohist status "installed" recipe
+(:name undohist :after nil :type github :pkgname "m2ym/undohist-el" :description "Record and recover undo history" :website "http://d.hatena.ne.jp/m2ym/20090707/1246933894"))
+(yasnippet status "installed" recipe
+(:name yasnippet :website "https://github.com/capitaomorte/yasnippet.git" :description "YASnippet is a template system for Emacs." :type github :pkgname "capitaomorte/yasnippet" :compile "yasnippet.el" :submodule nil :build
+(("git" "submodule" "update" "--init" "--" "snippets"))))
+(yatex status "installed" recipe
+(:name yatex :website "http://www.yatex.org/" :description "Yet Another TeX mode for Emacs" :type hg :url "http://www.yatex.org/hgrepos/yatex" :build
+(("sed" "-i" "s/ from yatex.el//" "yatexmth.el"))
+:build/berkeley-unix
+(("sed" "-i" "" "s/ from yatex.el//" "yatexmth.el"))
+:build/darwin
+(("env" "LANG=C" "LC_ALL=C" "sed" "-i" "" "s/ from yatex.el//" "yatexmth.el")))))
