@@ -1,2 +1,2 @@
 
-((digest . "a2c7ad2c6837ab3d7443cbecd01aeaf9") (undo-list nil undo-tree-canary))
+((digest . "0eb220aa76279ff1b4aa0c99c1f9a4fe") (undo-list nil ("/" . -348) nil ("u" . -349) nil ("s" . -350) nil ("r" . -351) nil ("/" . -352) nil ("b" . -353) nil ("i" . -354) nil ("n" . -355) nil ("/" . -356) (t 22386 19597 159632 644000) nil (354 . 357) nil ("u" . -354) nil ("i" . -355) nil (348 . 356) (t 22386 19239 863642 327000) nil (359 . 363) nil ("d" . -359) nil ("e" . -360) nil ("f" . -361) nil ("v" . -362) nil ("a" . -363) nil ("r" . -364) (t 22386 17947 467677 354000) nil undo-tree-canary))

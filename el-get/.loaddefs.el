@@ -348,6 +348,97 @@ Use this together with the `option', `option-list' and
 
 ;;;***
 
+;;;### (autoloads (google-translate-at-point-reverse google-translate-at-point
+;;;;;;  google-translate-query-translate-reverse google-translate-query-translate)
+;;;;;;  "../init/google-translate/google-translate-default-ui" "../init/google-translate/google-translate-default-ui.el"
+;;;;;;  (22425 29180 333090 88000))
+;;; Generated autoloads from ../init/google-translate/google-translate-default-ui.el
+
+(autoload 'google-translate-query-translate "../init/google-translate/google-translate-default-ui" "\
+Interactively translate text with Google Translate.
+
+Query a text (a word or a phrase), and pop up a buffer named *Google
+Translate* displaying available translations of the text.
+
+If no defaults for the source and target languages are specified (by
+setting the variables `google-translate-default-source-language' and
+`google-translate-default-target-language'), interactively query the
+missing parts.  For example, a reasonable option may be to specify a
+default for the target language and always be queried for the source
+language.
+
+With a `C-u' prefix argument, query the source and target languages,
+even if any defaults are specified.  For example, you may frequently
+need to translate from English to Russian, and you may choose to set
+the default source and target languages to \"en\" and  \"ru\", resp.
+However, occasionally you may also need to translate from Russian to
+English.  With a `C-u' prefix argument you can override the defaults
+and specify the source and target languages explicitly.
+
+The languages are queried with completion, and the null input at the
+source language prompt is considered as an instruction for Google
+Translate to detect the source language.
+
+\(fn &optional OVERRIDE-P)" t nil)
+
+(autoload 'google-translate-query-translate-reverse "../init/google-translate/google-translate-default-ui" "\
+Like `google-translate-query-translate', but performs translation
+in the reverse direction.
+
+The value of the variable `google-translate-default-source-language'
+\(if set) becomes the target language, and the value of the variable
+`google-translate-default-target-language' (if also set) becomes the
+source language.
+
+In particular, when both variables are set, translation is performed
+in the reverse direction.
+
+\(fn &optional OVERRIDE-P)" t nil)
+
+(autoload 'google-translate-at-point "../init/google-translate/google-translate-default-ui" "\
+Translate the word at point or the words in the active region.
+
+For the meaning of OVERRIDE-P, see `google-translate-query-translate'.
+
+\(fn &optional OVERRIDE-P)" t nil)
+
+(autoload 'google-translate-at-point-reverse "../init/google-translate/google-translate-default-ui" "\
+Like `google-translate-at-point', but performs translation in the
+reverse direction.
+
+\(fn &optional OVERRIDE-P)" t nil)
+
+;;;***
+
+;;;### (autoloads (google-translate-smooth-translate) "../init/google-translate/google-translate-smooth-ui"
+;;;;;;  "../init/google-translate/google-translate-smooth-ui.el"
+;;;;;;  (22425 29180 333090 88000))
+;;; Generated autoloads from ../init/google-translate/google-translate-smooth-ui.el
+
+(autoload 'google-translate-smooth-translate "../init/google-translate/google-translate-smooth-ui" "\
+Translate a text using translation directions.
+
+Make a prompt in minibuffer for a text to translate. Default text
+is word at point.
+
+In case of `google-translate-translation-directions-alist' is
+empty list then after inputed translating text prompts for source
+language and then for target languages.
+
+In case of `google-translate-translation-directions-alist' is not
+empty list takes current translation direction and makes
+appropriate translation. Current translation direction indicates
+in the minibuffers' prompt.
+
+A current translation direction could be changed directly in the
+minibuffer by means of key bindings such as C-n and C-p for
+changing to the next translation direction and to the previous
+one respectively.
+
+\(fn)" t nil)
+
+;;;***
+
 ;;;### (autoloads (helm-do-ag-buffers helm-ag-buffers helm-do-ag-project-root
 ;;;;;;  helm-ag-project-root helm-do-ag helm-do-ag-this-file helm-ag
 ;;;;;;  helm-ag-this-file helm-ag-mode helm-ag-clear-stack helm-ag-pop-stack)
@@ -1030,7 +1121,7 @@ A mode for editing yasnippets
 
 ;;;### (autoloads (YaTeX-goto-corresponding-leftright YaTeX-indent-line-equation
 ;;;;;;  YaTeX-intelligent-newline YaTeX-what-column) "../init/yatex/yatexenv"
-;;;;;;  "../init/yatex/yatexenv.el" (22346 20356 16004 909000))
+;;;;;;  "../init/yatex/yatexenv.el" (22386 21033 47593 728000))
 ;;; Generated autoloads from ../init/yatex/yatexenv.el
 
 (autoload 'YaTeX-what-column "../init/yatex/yatexenv" "\
@@ -1059,7 +1150,7 @@ Go to corresponding left or ight.
 ;;;***
 
 ;;;### (autoloads (YaTeX-help YaTeX-apropos) "../init/yatex/yatexhlp"
-;;;;;;  "../init/yatex/yatexhlp.el" (22346 20356 16004 909000))
+;;;;;;  "../init/yatex/yatexhlp.el" (22386 21033 51593 728000))
 ;;; Generated autoloads from ../init/yatex/yatexhlp.el
 
 (autoload 'YaTeX-apropos "../init/yatex/yatexhlp" "\
@@ -1087,7 +1178,7 @@ Optional argument MACRO, if supplied, is directly selected to keyword.
 ;;;;;;  YaTeX-update-table YaTeX-lookup-table YaTeX-reload-dictionary
 ;;;;;;  YaTeX-read-user-completion-table YaTeX-sync-local-table YaTeX-local-table-symbol
 ;;;;;;  YaTeX-define-key) "../init/yatex/yatexlib" "../init/yatex/yatexlib.el"
-;;;;;;  (22346 20356 20004 909000))
+;;;;;;  (22386 21033 51593 728000))
 ;;; Generated autoloads from ../init/yatex/yatexlib.el
 
 (autoload 'YaTeX-define-key "../init/yatex/yatexlib" "\
@@ -1301,8 +1392,8 @@ Remove current indentation and reindento to COL column.
 ;;;***
 
 ;;;### (autoloads (YaTeX-goto-corresponding-paren YaTeX-toggle-math-mode)
-;;;;;;  "../init/yatex/yatexmth" "../init/yatex/yatexmth.el" (22346
-;;;;;;  20356 148004 905000))
+;;;;;;  "../init/yatex/yatexmth" "../init/yatex/yatexmth.el" (22386
+;;;;;;  21033 155593 725000))
 ;;; Generated autoloads from ../init/yatex/yatexmth.el
 
 (autoload 'YaTeX-toggle-math-mode "../init/yatex/yatexmth" "\
@@ -1318,8 +1409,8 @@ Go to corresponding mathematical parentheses.
 ;;;***
 
 ;;;### (autoloads (YaTeX-make-section-with-overview YaTeX-read-section-in-minibuffer)
-;;;;;;  "../init/yatex/yatexsec" "../init/yatex/yatexsec.el" (22346
-;;;;;;  20356 28004 909000))
+;;;;;;  "../init/yatex/yatexsec" "../init/yatex/yatexsec.el" (22386
+;;;;;;  21033 55593 728000))
 ;;; Generated autoloads from ../init/yatex/yatexsec.el
 
 (autoload 'YaTeX-read-section-in-minibuffer "../init/yatex/yatexsec" "\
@@ -1522,24 +1613,27 @@ Display a list of packages.
 ;;;;;;  "../init/dash/dash-functional.el" "../init/dash/dash.el"
 ;;;;;;  "../init/epl/epl.el" "../init/flycheck/flycheck-buttercup.el"
 ;;;;;;  "../init/flycheck/flycheck-ert.el" "../init/fuzzy/fuzzy.el"
-;;;;;;  "../init/let-alist/let-alist-autoloads.el" "../init/let-alist/let-alist-pkg.el"
-;;;;;;  "../init/matlab-mode/matlab-load.el" "../init/matlab-mode/matlab-mode-pkg.el"
-;;;;;;  "../init/matlab-mode/matlab-publish.el" "../init/matlab-mode/semanticdb-matlab.el"
-;;;;;;  "../init/popup/popup.el" "../init/popwin/misc/popwin-browse-kill-ring.el"
-;;;;;;  "../init/popwin/misc/popwin-pp.el" "../init/popwin/misc/popwin-term.el"
-;;;;;;  "../init/popwin/misc/popwin-w3m.el" "../init/popwin/misc/popwin-yatex.el"
-;;;;;;  "../init/seq/seq-24.el" "../init/seq/seq-25.el" "../init/seq/seq.el"
-;;;;;;  "../init/undohist/undohist.el" "../init/yasnippet/yasnippet-debug.el"
-;;;;;;  "../init/yasnippet/yasnippet-tests.el" "../init/yatex/comment.el"
-;;;;;;  "../init/yatex/yahtml.el" "../init/yatex/yatex.el" "../init/yatex/yatex19.el"
-;;;;;;  "../init/yatex/yatex23.el" "../init/yatex/yatexadd.el" "../init/yatex/yatexgen.el"
-;;;;;;  "../init/yatex/yatexhie.el" "../init/yatex/yatexhks.el" "../init/yatex/yatexinf.el"
-;;;;;;  "../init/yatex/yatexm-o.el" "../init/yatex/yatexpkg.el" "../init/yatex/yatexprc.el"
-;;;;;;  "el-get/el-get-autoloading.el" "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
+;;;;;;  "../init/google-translate/google-translate-core-ui.el" "../init/google-translate/google-translate-core.el"
+;;;;;;  "../init/google-translate/google-translate-pkg.el" "../init/google-translate/google-translate-tk.el"
+;;;;;;  "../init/google-translate/google-translate.el" "../init/let-alist/let-alist-autoloads.el"
+;;;;;;  "../init/let-alist/let-alist-pkg.el" "../init/matlab-mode/matlab-load.el"
+;;;;;;  "../init/matlab-mode/matlab-mode-pkg.el" "../init/matlab-mode/matlab-publish.el"
+;;;;;;  "../init/matlab-mode/semanticdb-matlab.el" "../init/popup/popup.el"
+;;;;;;  "../init/popwin/misc/popwin-browse-kill-ring.el" "../init/popwin/misc/popwin-pp.el"
+;;;;;;  "../init/popwin/misc/popwin-term.el" "../init/popwin/misc/popwin-w3m.el"
+;;;;;;  "../init/popwin/misc/popwin-yatex.el" "../init/seq/seq-24.el"
+;;;;;;  "../init/seq/seq-25.el" "../init/seq/seq.el" "../init/undohist/undohist.el"
+;;;;;;  "../init/yasnippet/yasnippet-debug.el" "../init/yasnippet/yasnippet-tests.el"
+;;;;;;  "../init/yatex/comment.el" "../init/yatex/yahtml.el" "../init/yatex/yatex.el"
+;;;;;;  "../init/yatex/yatex19.el" "../init/yatex/yatex23.el" "../init/yatex/yatexadd.el"
+;;;;;;  "../init/yatex/yatexgen.el" "../init/yatex/yatexhie.el" "../init/yatex/yatexhks.el"
+;;;;;;  "../init/yatex/yatexinf.el" "../init/yatex/yatexm-o.el" "../init/yatex/yatexpkg.el"
+;;;;;;  "../init/yatex/yatexprc.el" "el-get/el-get-autoloading.el"
+;;;;;;  "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
-;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22379
-;;;;;;  34439 362203 174000))
+;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22425
+;;;;;;  29181 377555 462000))
 
 ;;;***
 

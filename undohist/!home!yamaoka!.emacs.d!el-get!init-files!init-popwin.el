@@ -1,2 +1,3 @@
 
-((digest . "24af7f789a79fd2585274f46c808a9a4") (undo-list (54 . 55) nil (")" . 54) (41 . 54) nil (21 . 41) nil (2 . 21) (1 . 3) (t 0 0 0 -1000)))
+((digest . "da7a4bdca3ee06e034481cd341ea7e31") (undo-list nil (19 . 25) nil ("a" . -19) nil ("n" . -20) nil ("z" . -21) nil ("u" . -22) nil (5 . 11) nil ("a" . -5) nil ("n" . -6) nil ("z" . -7) nil ("u" . -8) nil (165 . 174) nil ("i" . -165) nil ("s" . -166) nil (" " . -167) nil (148 . 168) nil (146 . 148) nil (145 . 146) nil (127 . 144) nil (108 . 127) ("popwin:popup" . -108) nil (118 . 120) nil ("p" . -118) nil (103 . 119) (102 . 104) nil (101 . 102) (t 22425 28271 665110 537000) nil ("
+" . -47) nil (nil rear-nonsticky nil 46 . 47) (nil fontified nil 42 . 47) (nil fontified nil 38 . 42) (nil fontified nil 26 . 38) (nil fontified nil 22 . 26) (nil fontified nil 5 . 22) (nil fontified nil 1 . 5) (1 . 47) nil undo-tree-canary))

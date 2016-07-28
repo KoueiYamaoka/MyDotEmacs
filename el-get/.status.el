@@ -41,6 +41,8 @@
 		  (dash pkg-info let-alist seq)))
  (fuzzy status "installed" recipe
 	(:name fuzzy :website "https://github.com/auto-complete/fuzzy-el" :description "Fuzzy matching utilities for GNU Emacs" :type github :pkgname "auto-complete/fuzzy-el"))
+ (google-translate status "installed" recipe
+		   (:name google-translate :after nil :description "Emacs interface to Google Translate" :type github :pkgname "atykhonov/google-translate"))
  (helm status "installed" recipe
        (:name helm :after nil :features
 	      ("helm-config")
@@ -138,7 +140,7 @@
 (:name yasnippet :website "https://github.com/capitaomorte/yasnippet.git" :description "YASnippet is a template system for Emacs." :type github :pkgname "capitaomorte/yasnippet" :compile "yasnippet.el" :submodule nil :build
 (("git" "submodule" "update" "--init" "--" "snippets"))))
 (yatex status "installed" recipe
-(:name yatex :website "http://www.yatex.org/" :description "Yet Another TeX mode for Emacs" :type hg :url "http://www.yatex.org/hgrepos/yatex" :build
+(:name yatex :after nil :website "http://www.yatex.org/" :description "Yet Another TeX mode for Emacs" :type hg :url "http://www.yatex.org/hgrepos/yatex" :build
 (("sed" "-i" "s/ from yatex.el//" "yatexmth.el"))
 :build/berkeley-unix
 (("sed" "-i" "" "s/ from yatex.el//" "yatexmth.el"))

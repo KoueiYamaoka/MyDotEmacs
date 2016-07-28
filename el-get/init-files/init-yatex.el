@@ -9,7 +9,7 @@
 (setq dviprint-command-format "dvipdfmx %s")
 (setq dvi2-command "open")
 (setq bibtex-command "pbibtex")
-(defvar YaTeX-dvi2-command-ext-alist
+(setq YaTeX-dvi2-command-ext-alist
   '(("[agx]dvi\\|dviout\\|emacsclient" . ".dvi")
     ("ghostview\\|gv" . ".ps")
     ("acroread\\|pdf\\|Preview\\|TeXShop\\|Skim\\|evince\\|apvlv\\|open" . ".pdf")))

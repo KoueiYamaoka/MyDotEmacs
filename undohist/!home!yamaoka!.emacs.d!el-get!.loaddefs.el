@@ -1,5 +1,361 @@
 
-((digest . "d1c7004f820179ccb4113e3dbd952c9a") (undo-list (53635 . 53643) (53604 . 53612) (53535 . 53543) (53447 . 53455) (53357 . 53365) (53261 . 53269) (53169 . 53177) (53077 . 53085) (52986 . 52994) (52900 . 52908) (52826 . 52834) (52748 . 52756) (52671 . 52679) (52589 . 52597) (52509 . 52517) (52427 . 52435) (52336 . 52344) (52250 . 52258) (52162 . 52170) (52094 . 52102) (52024 . 52032) (51959 . 51967) (51886 . 53467) ("
+((digest . "6b4868c2de3af3c0d2974665df191db7") (undo-list (57849 . 57857) (57818 . 57826) (57749 . 57757) (57661 . 57669) (57571 . 57579) (57506 . 57514) (57439 . 57447) (57347 . 57355) (57255 . 57263) (57165 . 57173) (57079 . 57087) (56993 . 57001) (56909 . 56917) (56839 . 56847) (56758 . 56766) (56666 . 56674) (56590 . 56598) (56501 . 56509) (56419 . 56427) (56321 . 56329) (56212 . 56220) (56097 . 56105) (56029 . 56037) (55959 . 55967) (55894 . 55902) (55821 . 57657) (16114 . 16122) (15187 . 15271) (15150 . 15158) (15085 . 15093) (14976 . 15171) (15811 . 15819) (15805 . 15806) (14968 . 15810) (12508 . 12593) (12471 . 12479) (12350 . 12358) (12267 . 12275) (12187 . 12484) (14554 . 14562) (14527 . 14528) (14329 . 14553) (14302 . 14303) (14062 . 14328) (13783 . 13784) (14034 . 14035) (13502 . 14060) (13475 . 13476) (12187 . 13501) ("
+;;;### (autoloads nil nil (\"../init/auto-complete/auto-complete-pkg.el\"
+;;;;;;  \"../init/dash/dash-functional.el\" \"../init/dash/dash.el\"
+;;;;;;  \"../init/epl/epl.el\" \"../init/flycheck/flycheck-buttercup.el\"
+;;;;;;  \"../init/flycheck/flycheck-ert.el\" \"../init/fuzzy/fuzzy.el\"
+;;;;;;  \"../init/let-alist/let-alist-autoloads.el\" \"../init/let-alist/let-alist-pkg.el\"
+;;;;;;  \"../init/matlab-mode/matlab-load.el\" \"../init/matlab-mode/matlab-mode-pkg.el\"
+;;;;;;  \"../init/matlab-mode/matlab-publish.el\" \"../init/matlab-mode/semanticdb-matlab.el\"
+;;;;;;  \"../init/popup/popup.el\" \"../init/popwin/misc/popwin-browse-kill-ring.el\"
+;;;;;;  \"../init/popwin/misc/popwin-pp.el\" \"../init/popwin/misc/popwin-term.el\"
+;;;;;;  \"../init/popwin/misc/popwin-w3m.el\" \"../init/popwin/misc/popwin-yatex.el\"
+;;;;;;  \"../init/seq/seq-24.el\" \"../init/seq/seq-25.el\" \"../init/seq/seq.el\"
+;;;;;;  \"../init/undohist/undohist.el\" \"../init/yasnippet/yasnippet-debug.el\"
+;;;;;;  \"../init/yasnippet/yasnippet-tests.el\" \"../init/yatex/comment.el\"
+;;;;;;  \"../init/yatex/yahtml.el\" \"../init/yatex/yatex.el\" \"../init/yatex/yatex19.el\"
+;;;;;;  \"../init/yatex/yatex23.el\" \"../init/yatex/yatexadd.el\" \"../init/yatex/yatexgen.el\"
+;;;;;;  \"../init/yatex/yatexhie.el\" \"../init/yatex/yatexhks.el\" \"../init/yatex/yatexinf.el\"
+;;;;;;  \"../init/yatex/yatexm-o.el\" \"../init/yatex/yatexpkg.el\" \"../init/yatex/yatexprc.el\"
+;;;;;;  \"el-get/el-get-autoloading.el\" \"el-get/el-get-build.el\" \"el-get/el-get-byte-compile.el\"
+;;;;;;  \"el-get/el-get-core.el\" \"el-get/el-get-custom.el\" \"el-get/el-get-dependencies.el\"
+;;;;;;  \"el-get/el-get-install.el\" \"el-get/el-get-methods.el\" \"el-get/el-get-notify.el\"
+;;;;;;  \"el-get/el-get-recipes.el\" \"el-get/el-get-status.el\") (22386
+;;;;;;  21033 361492 836000))
+
+;;;***
+" . -51886) (t 22386 21033 511593 716000) (53635 . 53643) (53604 . 53612) (53535 . 53543) (53447 . 53455) (53357 . 53365) (53261 . 53269) (53169 . 53177) (53077 . 53085) (52986 . 52994) (52900 . 52908) (52826 . 52834) (52748 . 52756) (52671 . 52679) (52589 . 52597) (52509 . 52517) (52427 . 52435) (52336 . 52344) (52250 . 52258) (52162 . 52170) (52094 . 52102) (52024 . 52032) (51959 . 51967) (51886 . 53467) (46162 . 46170) (45845 . 45900) (45815 . 45823) (45747 . 45755) (45660 . 45829) (45914 . 45922) (45908 . 45909) (45778 . 45913) (45735 . 45736) (45652 . 45777) (45370 . 45425) (45339 . 45347) (45271 . 45279) (45196 . 45354) (45413 . 45423) (45407 . 45408) (45281 . 45412) (45261 . 45262) (45188 . 45280) (37763 . 37818) (37726 . 37734) (37647 . 37655) (37558 . 37566) (37488 . 37496) (37397 . 37405) (37306 . 37314) (37239 . 37247) (37155 . 37163) (37085 . 37093) (36999 . 37007) (36917 . 36925) (36850 . 36858) (36777 . 37667) (44137 . 44147) (44127 . 44128) (44005 . 44136) (43995 . 43996) (43767 . 44004) (43752 . 43753) (43430 . 43766) (43397 . 43398) (43264 . 43429) (43222 . 43223) (43076 . 43263) (43013 . 43014) (42879 . 43075) (42873 . 42874) (42474 . 42878) (42454 . 42455) (42317 . 42473) (42290 . 42291) (42054 . 42316) (42048 . 42049) (41978 . 42053) (41965 . 41966) (41659 . 41977) (41624 . 41625) (41287 . 41658) (41281 . 41282) (41211 . 41286) (41205 . 41206) (41129 . 41210) (41111 . 41112) (40990 . 41128) (40966 . 40967) (40788 . 40989) (40762 . 40763) (40688 . 40787) (40663 . 40664) (40480 . 40687) (40469 . 40470) (40331 . 40479) (40303 . 40304) (40098 . 40330) (40049 . 40050) (39764 . 40097) (39736 . 39737) (39514 . 39763) (39486 . 39487) (39354 . 39513) (39326 . 39327) (39201 . 39353) (39168 . 39169) (39092 . 39200) (39010 . 39011) (38479 . 39091) (38428 . 38429) (37833 . 38478) (37817 . 37818) (37555 . 37832) (37549 . 37550) (37407 . 37554) (37379 . 37380) (37250 . 37406) (37237 . 37238) (37057 . 37249) (37044 . 37045) (36899 . 37056) (36867 . 36868) (36769 . 36898) (36437 . 36492) (36372 . 36380) (36301 . 36429) (36570 . 36578) (36548 . 36549) (36367 . 36569) (36357 . 36358) (36293 . 36366) (35605 . 35660) (35540 . 35548) (35462 . 35470) (35380 . 35589) (36003 . 36013) (35997 . 35998) (35876 . 36002) (35870 . 35871) (35760 . 35875) (35750 . 35751) (35509 . 35759) (35503 . 35504) (35380 . 35508) ("
+;;;### (autoloads nil nil (\"../init/auto-complete/auto-complete-pkg.el\"
+;;;;;;  \"../init/dash/dash-functional.el\" \"../init/dash/dash.el\"
+;;;;;;  \"../init/epl/epl.el\" \"../init/flycheck/flycheck-buttercup.el\"
+;;;;;;  \"../init/flycheck/flycheck-ert.el\" \"../init/fuzzy/fuzzy.el\"
+;;;;;;  \"../init/let-alist/let-alist-autoloads.el\" \"../init/let-alist/let-alist-pkg.el\"
+;;;;;;  \"../init/matlab-mode/matlab-load.el\" \"../init/matlab-mode/matlab-mode-pkg.el\"
+;;;;;;  \"../init/matlab-mode/matlab-publish.el\" \"../init/matlab-mode/semanticdb-matlab.el\"
+;;;;;;  \"../init/popup/popup.el\" \"../init/popwin/misc/popwin-browse-kill-ring.el\"
+;;;;;;  \"../init/popwin/misc/popwin-pp.el\" \"../init/popwin/misc/popwin-term.el\"
+;;;;;;  \"../init/popwin/misc/popwin-w3m.el\" \"../init/popwin/misc/popwin-yatex.el\"
+;;;;;;  \"../init/seq/seq-24.el\" \"../init/seq/seq-25.el\" \"../init/seq/seq.el\"
+;;;;;;  \"../init/undohist/undohist.el\" \"../init/yasnippet/yasnippet-debug.el\"
+;;;;;;  \"../init/yasnippet/yasnippet-tests.el\" \"../init/yatex/comment.el\"
+;;;;;;  \"../init/yatex/yahtml.el\" \"../init/yatex/yatex.el\" \"../init/yatex/yatex19.el\"
+;;;;;;  \"../init/yatex/yatex23.el\" \"../init/yatex/yatexadd.el\" \"../init/yatex/yatexgen.el\"
+;;;;;;  \"../init/yatex/yatexhie.el\" \"../init/yatex/yatexhks.el\" \"../init/yatex/yatexinf.el\"
+;;;;;;  \"../init/yatex/yatexm-o.el\" \"../init/yatex/yatexpkg.el\" \"../init/yatex/yatexprc.el\"
+;;;;;;  \"el-get/el-get-autoloading.el\" \"el-get/el-get-build.el\" \"el-get/el-get-byte-compile.el\"
+;;;;;;  \"el-get/el-get-core.el\" \"el-get/el-get-custom.el\" \"el-get/el-get-dependencies.el\"
+;;;;;;  \"el-get/el-get-install.el\" \"el-get/el-get-methods.el\" \"el-get/el-get-notify.el\"
+;;;;;;  \"el-get/el-get-recipes.el\" \"el-get/el-get-status.el\") (22379
+;;;;;;  34439 362203 174000))
+
+;;;***
+" . -41096) (t 22386 20963 815595 605000) ("
+;;;### (autoloads (YaTeX-make-section-with-overview YaTeX-read-section-in-minibuffer)
+;;;;;;  \"../init/yatex/yatexsec\" \"../init/yatex/yatexsec.el\" (22346
+;;;;;;  20356 28004 909000))
+;;; Generated autoloads from ../init/yatex/yatexsec.el
+
+(autoload 'YaTeX-read-section-in-minibuffer \"../init/yatex/yatexsec\" \"\\
+
+
+\\(fn PROMPT TABLE &optional DEFAULT DELIM)\" t nil)
+
+(autoload 'YaTeX-make-section-with-overview \"../init/yatex/yatexsec\" \"\\
+Input sectining command with previous overview.
+
+\\(fn)\" t nil)
+
+;;;***
+" . -35380) ("
+;;;### (autoloads (YaTeX-goto-corresponding-paren YaTeX-toggle-math-mode)
+;;;;;;  \"../init/yatex/yatexmth\" \"../init/yatex/yatexmth.el\" (22346
+;;;;;;  20356 148004 905000))
+;;; Generated autoloads from ../init/yatex/yatexmth.el
+
+(autoload 'YaTeX-toggle-math-mode \"../init/yatex/yatexmth\" \"\\
+
+
+\\(fn &optional ARG)\" t nil)
+
+(autoload 'YaTeX-goto-corresponding-paren \"../init/yatex/yatexmth\" \"\\
+Go to corresponding mathematical parentheses.
+
+\\(fn)\" nil nil)
+
+;;;***
+" . -35380) ("
+;;;### (autoloads (YaTeX-reindent YaTeX-command-to-string YaTeX-delete1
+;;;;;;  read-string-with-history read-from-minibuffer-with-history
+;;;;;;  completing-read-with-history YaTeX-minibuffer-complete YaTeX-match-string
+;;;;;;  substitute-all-key-definition YaTeX-window-list split-window-calculate-height
+;;;;;;  YaTeX-showup-buffer point-end-of-line point-beginning-of-line
+;;;;;;  rindex YaTeX-replace-format-args YaTeX-replace-formats YaTeX-replace-format
+;;;;;;  YaTeX-switch-to-buffer-other-window YaTeX-switch-to-buffer
+;;;;;;  YaTeX-search-active-forward YaTeX-define-begend-key YaTeX-define-begend-region-key
+;;;;;;  YaTeX-define-begend-key-normal YaTeX-update-dictionary YaTeX-cplread-with-learning
+;;;;;;  YaTeX-update-table YaTeX-lookup-table YaTeX-reload-dictionary
+;;;;;;  YaTeX-read-user-completion-table YaTeX-sync-local-table YaTeX-local-table-symbol
+;;;;;;  YaTeX-define-key) \"../init/yatex/yatexlib\" \"../init/yatex/yatexlib.el\"
+;;;;;;  (22346 20356 20004 909000))
+;;; Generated autoloads from ../init/yatex/yatexlib.el
+
+(autoload 'YaTeX-define-key \"../init/yatex/yatexlib\" \"\\
+Define key on YaTeX-prefix-map.
+
+\\(fn KEY BINDING &optional MAP)\" nil nil)
+
+(autoload 'YaTeX-local-table-symbol \"../init/yatex/yatexlib\" \"\\
+Return the lisp symbol which keeps local completion table of SYMBOL.
+
+\\(fn SYMBOL)\" nil nil)
+
+(autoload 'YaTeX-sync-local-table \"../init/yatex/yatexlib\" \"\\
+Synchronize local variable SYMBOL.
+Copy its corresponding directory dependent completion table to SYMBOL.
+
+\\(fn SYMBOL)\" nil nil)
+
+(autoload 'YaTeX-read-user-completion-table \"../init/yatex/yatexlib\" \"\\
+Append user completion table of LaTeX macros
+
+\\(fn &optional FORCETOREAD)\" t nil)
+
+(autoload 'YaTeX-reload-dictionary \"../init/yatex/yatexlib\" \"\\
+Reload local dictionary.
+Use this function after editing ./.yatexrc.
+
+\\(fn)\" t nil)
+
+(autoload 'YaTeX-lookup-table \"../init/yatex/yatexlib\" \"\\
+Lookup WORD in completion table whose type is TYPE.
+This function refers the symbol tmp-TYPE-table, user-TYPE-table, TYPE-table.
+Typically, TYPE is one of 'env, 'section, 'fontsize, 'singlecmd.
+
+\\(fn WORD TYPE)\" nil nil)
+
+(autoload 'YaTeX-update-table \"../init/yatex/yatexlib\" \"\\
+Update completion table if the car of VALLIST is not in current tables.
+Second argument DEFAULT-TABLE is the quoted symbol of default completion
+table, third argument USER-TABLE is user table which will be saved in
+YaTeX-user-completion-table, fourth argument LOCAL-TABLE should have the
+completion which is valid during current Emacs's session.  If you
+want to make LOCAL-TABLE valid longer span (but restrict in this directory)
+create the file in current directory which has the same name with
+YaTeX-user-completion-table.
+
+\\(fn VALLIST DEFAULT-TABLE USER-TABLE LOCAL-TABLE)\" nil nil)
+
+(autoload 'YaTeX-cplread-with-learning \"../init/yatex/yatexlib\" \"\\
+Completing read with learning.
+Do a completing read with prompt PROM.  Completion table is what
+DEFAULT-TABLE, USER-TABLE, LOCAL table are appended in reverse order.
+Note that these tables are passed by the symbol.
+Optional arguments PRED, REQMATH and INIT are passed to completing-read
+as its arguments PREDICATE, REQUIRE-MATCH and INITIAL-INPUT respectively.
+If optional 8th argument HSYM, history symbol, is passed, use it as
+history list variable.
+
+\\(fn PROM DEFAULT-TABLE USER-TABLE LOCAL-TABLE &optional PRED REQMATCH INIT HSYM)\" nil nil)
+
+(autoload 'YaTeX-update-dictionary \"../init/yatex/yatexlib\" \"\\
+
+
+\\(fn FILE SYMBOL &optional TYPE)\" nil nil)
+
+(autoload 'YaTeX-define-begend-key-normal \"../init/yatex/yatexlib\" \"\\
+Define short cut YaTeX-make-begin-end key.
+
+\\(fn KEY ENV &optional MAP)\" nil nil)
+
+(autoload 'YaTeX-define-begend-region-key \"../init/yatex/yatexlib\" \"\\
+Define short cut YaTeX-make-begin-end-region key.
+
+\\(fn KEY ENV &optional MAP)\" nil nil)
+
+(autoload 'YaTeX-define-begend-key \"../init/yatex/yatexlib\" \"\\
+Define short cut key for begin type completion.
+Define both strokes for normal and region mode.
+To customize YaTeX, user should use this function.
+
+\\(fn KEY ENV &optional MAP)\" nil nil)
+
+(autoload 'YaTeX-search-active-forward \"../init/yatex/yatexlib\" \"\\
+Search STRING which is not commented out by CMNTRX.
+Optional arguments after BOUND, ERR, CNT are passed literally to search-forward
+or search-backward.
+Optional sixth argument FUNC changes search-function.
+
+\\(fn STRING CMNTRX &optional BOUND ERR CNT FUNC)\" nil nil)
+
+(autoload 'YaTeX-switch-to-buffer \"../init/yatex/yatexlib\" \"\\
+Switch to buffer if buffer exists, find file if not.
+Optional second arg SETBUF t make use set-buffer instead of switch-to-buffer.
+
+\\(fn FILE &optional SETBUF)\" t nil)
+
+(autoload 'YaTeX-switch-to-buffer-other-window \"../init/yatex/yatexlib\" \"\\
+Switch to buffer if buffer exists, find file if not.
+
+\\(fn FILE)\" t nil)
+
+(autoload 'YaTeX-replace-format \"../init/yatex/yatexlib\" \"\\
+In STRING, replace first appearance of FORMAT to REPL as if
+function `format' does.  FORMAT does not contain `%'
+
+\\(fn STRING FORMAT REPL)\" nil nil)
+
+(autoload 'YaTeX-replace-formats \"../init/yatex/yatexlib\" \"\\
+
+
+\\(fn STRING REPLACE-LIST)\" nil nil)
+
+(autoload 'YaTeX-replace-format-args \"../init/yatex/yatexlib\" \"\\
+Translate the argument mark #1, #2, ... #n in the STRING into the
+corresponding real arguments ARGS.
+
+\\(fn STRING &rest ARGS)\" nil nil)
+
+(autoload 'rindex \"../init/yatex/yatexlib\" \"\\
+Return the last position of STRING where character CHAR found.
+
+\\(fn STRING CHAR)\" nil nil)
+
+(autoload 'point-beginning-of-line \"../init/yatex/yatexlib\" \"\\
+
+
+\\(fn)\" nil nil)
+
+(autoload 'point-end-of-line \"../init/yatex/yatexlib\" \"\\
+
+
+\\(fn)\" nil nil)
+
+(autoload 'YaTeX-showup-buffer \"../init/yatex/yatexlib\" \"\\
+Make BUFFER show up in certain window (but current window)
+that gives the maximum value by the FUNC.  FUNC should take an argument
+of its window object.  Non-nil for optional third argument SELECT selects
+that window.  This function never selects minibuffer window.
+
+\\(fn BUFFER &optional FUNC SELECT)\" nil nil)
+
+(autoload 'split-window-calculate-height \"../init/yatex/yatexlib\" \"\\
+Split current window wight specified HEIGHT.
+If HEIGHT is number, make a new window that has HEIGHT lines.
+If HEIGHT is string, make a new window that occupies HEIGT % of screen height.
+Otherwise split window conventionally.
+
+\\(fn HEIGHT)\" nil nil)
+
+(autoload 'YaTeX-window-list \"../init/yatex/yatexlib\" \"\\
+
+
+\\(fn)\" nil nil)
+
+(autoload 'substitute-all-key-definition \"../init/yatex/yatexlib\" \"\\
+Replace recursively OLDDEF with NEWDEF for any keys in KEYMAP now
+defined as OLDDEF. In other words, OLDDEF is replaced with NEWDEF
+where ever it appears.
+
+\\(fn OLDDEF NEWDEF KEYMAP)\" nil nil)
+
+(autoload 'YaTeX-match-string \"../init/yatex/yatexlib\" \"\\
+Return (buffer-substring (match-beginning n) (match-beginning m)).
+
+\\(fn N &optional M)\" nil nil)
+
+(autoload 'YaTeX-minibuffer-complete \"../init/yatex/yatexlib\" \"\\
+Complete in minibuffer.
+  If the symbol 'delim is bound and is string, its value is assumed to be
+the character class of delimiters.  Completion will be performed on
+the last field separated by those delimiters.
+  If the symbol 'quick is bound and is 't, when the try-completion results
+in t, exit minibuffer immediately.
+
+\\(fn)\" t nil)
+
+(autoload 'completing-read-with-history \"../init/yatex/yatexlib\" \"\\
+Completing read with general history: gmhist, Emacs-19.
+
+\\(fn PROMPT TABLE &optional PREDICATE MUST-MATCH INITIAL HSYM)\" nil nil)
+
+(autoload 'read-from-minibuffer-with-history \"../init/yatex/yatexlib\" \"\\
+Read from minibuffer with general history: gmhist, Emacs-19.
+
+\\(fn PROMPT &optional INIT MAP READ HSYM)\" nil nil)
+
+(autoload 'read-string-with-history \"../init/yatex/yatexlib\" \"\\
+Read string with history: gmhist(Emacs-18) and Emacs-19.
+
+\\(fn PROMPT &optional INIT HSYM)\" nil nil)
+
+(fset 'YaTeX-rassoc (if (and nil (fboundp 'rassoc) (subrp (symbol-function 'rassoc))) (symbol-function 'rassoc) #'(lambda (key list) (let ((l list)) (catch 'found (while l (if (equal key (cdr (car l))) (throw 'found (car l))) (setq l (cdr l))))))))
+
+(autoload 'YaTeX-delete1 \"../init/yatex/yatexlib\" \"\\
+Delete
+
+\\(fn ELT LIST)\" nil nil)
+
+(fset 'YaTeX-last-key (if (fboundp 'win:last-key) 'win:last-key #'(lambda nil (if (boundp 'last-command-char) last-command-char last-command-event))))
+
+(autoload 'YaTeX-command-to-string \"../init/yatex/yatexlib\" \"\\
+
+
+\\(fn CMD)\" nil nil)
+
+(autoload 'YaTeX-reindent \"../init/yatex/yatexlib\" \"\\
+Remove current indentation and reindento to COL column.
+
+\\(fn COL)\" nil nil)
+
+;;;***
+" . -35380) ("
+;;;### (autoloads (YaTeX-help YaTeX-apropos) \"../init/yatex/yatexhlp\"
+;;;;;;  \"../init/yatex/yatexhlp.el\" (22346 20356 16004 909000))
+;;; Generated autoloads from ../init/yatex/yatexhlp.el
+
+(autoload 'YaTeX-apropos \"../init/yatex/yatexhlp\" \"\\
+
+
+\\(fn KEY)\" t nil)
+
+(autoload 'YaTeX-help \"../init/yatex/yatexhlp\" \"\\
+Show help buffer of LaTeX/TeX commands or macros.
+Optional argument MACRO, if supplied, is directly selected to keyword.
+
+\\(fn &optional MACRO)\" t nil)
+
+;;;***
+" . -35380) ("
+;;;### (autoloads (YaTeX-goto-corresponding-leftright YaTeX-indent-line-equation
+;;;;;;  YaTeX-intelligent-newline YaTeX-what-column) \"../init/yatex/yatexenv\"
+;;;;;;  \"../init/yatex/yatexenv.el\" (22346 20356 16004 909000))
+;;; Generated autoloads from ../init/yatex/yatexenv.el
+
+(autoload 'YaTeX-what-column \"../init/yatex/yatexenv\" \"\\
+Show which kind of column the current position is belonging to.
+
+\\(fn)\" t nil)
+
+(autoload 'YaTeX-intelligent-newline \"../init/yatex/yatexenv\" \"\\
+Insert newline and environment-specific entry.
+`\\\\item'	for some itemizing environment,
+`\\\\> \\\\> \\\\'	for tabbing environemnt,
+`& & \\\\ hline'	for tabular environment.
+
+\\(fn ARG)\" t nil)
+
+(autoload 'YaTeX-indent-line-equation \"../init/yatex/yatexenv\" \"\\
+Indent a line in equation family.
+
+\\(fn)\" nil nil)
+
+(autoload 'YaTeX-goto-corresponding-leftright \"../init/yatex/yatexenv\" \"\\
+Go to corresponding left or ight.
+
+\\(fn)\" nil nil)
+
+;;;***
+" . -35380) (t 22386 17464 465455 444000) (53635 . 53643) (53604 . 53612) (53535 . 53543) (53447 . 53455) (53357 . 53365) (53261 . 53269) (53169 . 53177) (53077 . 53085) (52986 . 52994) (52900 . 52908) (52826 . 52834) (52748 . 52756) (52671 . 52679) (52589 . 52597) (52509 . 52517) (52427 . 52435) (52336 . 52344) (52250 . 52258) (52162 . 52170) (52094 . 52102) (52024 . 52032) (51959 . 51967) (51886 . 53467) ("
 ;;;### (autoloads nil nil (\"../init/auto-complete/auto-complete-pkg.el\"
 ;;;;;;  \"../init/dash/dash-functional.el\" \"../init/dash/dash.el\"
 ;;;;;;  \"../init/epl/epl.el\" \"../init/flycheck/flycheck-buttercup.el\"

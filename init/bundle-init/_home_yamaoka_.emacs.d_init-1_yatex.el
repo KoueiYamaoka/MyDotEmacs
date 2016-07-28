@@ -1,0 +1,1 @@
+(setq bibtex-command "pbibtex")

@@ -45,7 +45,8 @@
 (el-get-bundle syohex/emacs-quickrun
   :name quickrun)
 ;; yatex
-(el-get-bundle yatex)
+(el-get-bundle yatex
+  (setq bibtex-command "pbibtex"))
 ;;matlab-mode
 (el-get-bundle elpa:matlab-mode)
 ;; helm
@@ -56,6 +57,8 @@
 (el-get-bundle popwin)
 ;; anzu
 (el-get-bundle anzu)
+;; google-translate
+(el-get-bundle google-translate)
 ;;;; download packages ends here
 
 
