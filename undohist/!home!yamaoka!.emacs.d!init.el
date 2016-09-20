@@ -1,3 +1,4 @@
 
-((digest . "27b0c68f43415257e67afd7d52f85a1a") (undo-list nil ("q" . -1711) nil (1711 . 1712) nil (1695 . 1711) ("google" . -1695) ((marker*) . 6) nil (1694 . 1701) nil (1681 . 1694) ("el-get-bun" . -1681) ((marker*) . 10) nil (1686 . 1691) nil ("-" . -1686) nil (1681 . 1687) nil (1680 . 1682) nil (1679 . 1680) nil (1660 . 1679) nil (1659 . 1660) (t 22386 21186 571589 567000) nil ("
-" . -1465) nil (" " . -1466) nil (" " . -1467) nil (1466 . 1468) 1467 nil (nil rear-nonsticky nil 1464 . 1465) (nil fontified nil 1464 . 1465) (nil fontified nil 1455 . 1464) (nil fontified nil 1434 . 1455) (1434 . 1465) nil (1432 . 1434) nil (1431 . 1433) (t 22386 17346 954732 627000)))
+((digest . "bb93289074f3e5666471ab802094f944") (undo-list nil (3215 . 3216) nil (3157 . 3158) (t 22496 59977 720518 293000) nil ("
+" . 2870) ((marker) . -1) nil (";;(global-linum-mode t)" . 2870) ((marker) . -23) nil ("
+" . 2870) ((marker) . -1) nil (";; 行番号設定" . 2870) ((marker) . -8) nil ("に" . -2037) nil (2025 . 2026) nil (2025 . 2028) nil ("を" . -2025) nil (1883 . 1894) nil ("コメントアウト" . 1883) ((marker) . -7) nil (1820 . 1826) nil ("イ" . -1820) nil ("ン" . -1821) nil undo-tree-canary))

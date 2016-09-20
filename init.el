@@ -65,17 +65,17 @@
 ;;;; basic setting
 ;; undo
 (define-key global-map (kbd "C-z") 'undo)
-;; インデント
+;; jndent
 (define-key global-map (kbd "C-c i") 'indent-region)
-;; コメントアウト
+;; comment out
 (global-set-key (kbd "C-c ;") 'comment-or-uncomment-region)
 ;; 指定行にジャンプする
 (global-set-key (kbd "C-x j") 'goto-line)
-;; "yes or no"を"y or n"に
+;; "yes or no" to "y or n"
 (fset 'yes-or-no-p 'y-or-n-p)
-;;括弧の自動補完
+;;Auto-completion of the brackets
 (electric-pair-mode 1)
-;; カーソル点滅の停止
+;; stop the cursor blinking
 (blink-cursor-mode 0)
 ;; 対応するカッコを光らせる
 (show-paren-mode 1)
@@ -99,29 +99,29 @@
 (define-key global-map (kbd "M-3") 'split-window-horizontally)
 ;; ファイル名補完 大文字小文字の区別をしない
 (setq completion-ignore-case t)
-;; 行番号設定
-;;(global-linum-mode t)
 ;; F6で行番号を表示
 (global-set-key [f6] 'linum-mode)
 (setq linum-format "%2d ")
 ;; 同名ファイルバッファ名識別文字列の変更
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
-;; zshを使う
+;; use zsh
 (setq shell-file-name "/bin/zsh")
-;;最後に1行追加する
+;; 最後に1行追加する
 (setq require-final-newline t)
 ;; 自動で色付け
 (global-font-lock-mode t)
-;;scroll up
+;; scroll up
 (global-set-key (kbd "C-<down>") 'scroll-up)
-;;scroll down
+;; scroll down
 (global-set-key (kbd "C-<up>") 'scroll-down)
 ;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
 (setq vc-follow-symlinks t)
 ;; uniquify setting
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+;;sh-mode
+(add-to-list 'auto-mode-alist '("\\zshrc" . sh-mode))
 ;; basec setting ends here
 
 
