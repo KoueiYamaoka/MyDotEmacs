@@ -1,6 +1,12 @@
 # MyDotEmacs
 
-## How ot Install
+## How to Install
+```
 $ sudo apt-get insatll mercurial
+```
 
-run emacs
+then, run emacs
+
+## alias
+e='emacsclient -nw -a ""'
+ekill='emacsclient -e "(kill-emacs)"'
