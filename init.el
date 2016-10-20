@@ -65,11 +65,11 @@
 ;;;; basic setting
 ;; undo
 (define-key global-map (kbd "C-z") 'undo)
-;; jndent
+;; indent
 (define-key global-map (kbd "C-c i") 'indent-region)
 ;; comment out
 (global-set-key (kbd "C-c ;") 'comment-or-uncomment-region)
-;; 指定行にジャンプする
+;; jamp to the specified line
 (global-set-key (kbd "C-x j") 'goto-line)
 ;; "yes or no" to "y or n"
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -77,17 +77,17 @@
 (electric-pair-mode 1)
 ;; stop the cursor blinking
 (blink-cursor-mode 0)
-;; 対応するカッコを光らせる
+;; make the correspond brackets on light
 (show-paren-mode 1)
 ;; ウィンドウに収まらない時だけ括弧内を光らせる
 (setq show-paren-style 'mixed)
-;; バックアップファイルを作らない
+;; dont make backup files
 (setq backup-inhibited t)
 ;; 終了時にオートセーブファイルを消す
 (setq delete-auto-save-files t)
-;; 置換 (対話型) query-replace
+;; query-replace
 (global-set-key (kbd "C-c q") 'query-replace)
-;; 置換 (非対話) replace-string
+;; replace-string
 (global-set-key (kbd "C-c r") 'replace-string)
 ;; カーソルのあるウィンドウを閉じる
 (define-key global-map (kbd "M-0") 'delete-window)
@@ -99,7 +99,7 @@
 (define-key global-map (kbd "M-3") 'split-window-horizontally)
 ;; ファイル名補完 大文字小文字の区別をしない
 (setq completion-ignore-case t)
-;; F6で行番号を表示
+;; show the line number by F6
 (global-set-key [f6] 'linum-mode)
 (setq linum-format "%2d ")
 ;; 同名ファイルバッファ名識別文字列の変更
@@ -107,12 +107,12 @@
 (setq uniquify-buffer-name-style 'forward)
 ;; use zsh
 (setq shell-file-name "/bin/zsh")
-;; 最後に1行追加する
+;; add 1 line at last line
 (setq require-final-newline t)
 ;; 自動で色付け
 (global-font-lock-mode t)
 ;; scroll up
-(global-set-key (kbd "C-<down>") 'scroll-up)
+(global-set-key (kbd "C-down") 'scroll-up)
 ;; scroll down
 (global-set-key (kbd "C-<up>") 'scroll-down)
 ;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
@@ -120,8 +120,10 @@
 ;; uniquify setting
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
-;;sh-mode
+;; sh-mode
 (add-to-list 'auto-mode-alist '("\\zshrc" . sh-mode))
+;; インデントをTabでなく半角スペースに
+;(setq-default tab-width 8 indent-tabs-mode nil)
 ;; basec setting ends here
 
 
