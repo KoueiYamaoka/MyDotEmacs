@@ -1,4 +1,4 @@
-;;; 13-yatex.el -- YaTeX for Emacs LaTeX Mode
+;;; init-yatex.el -- YaTeX for Emacs LaTeX Mode
 ;;; Commentary:
 ;;; Code:
 ;; YaTeX mode
@@ -22,4 +22,8 @@
 ;;; 3 = EUC (EUC-JP)
 ;;; 4 = UTF-8
 (setq YaTeX-kanji-code 4)
-;;; 13-yatex.el ends here
+
+;; mode name setting
+(setcar (cdr (assq 'yatex-mode minor-mode-alist)) "yatex")
+
+;;; init-yatex.el ends here

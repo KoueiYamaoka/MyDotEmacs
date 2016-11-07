@@ -67,7 +67,7 @@
 (define-key global-map (kbd "C-z") 'undo)
 ;; indent
 (define-key global-map (kbd "C-c i") 'indent-region)
-;; comment out
+;; comment out and un comment out
 (global-set-key (kbd "C-c ;") 'comment-or-uncomment-region)
 ;; jamp to the specified line
 (global-set-key (kbd "C-x j") 'goto-line)
@@ -99,20 +99,17 @@
 (define-key global-map (kbd "M-3") 'split-window-horizontally)
 ;; ファイル名補完 大文字小文字の区別をしない
 (setq completion-ignore-case t)
-;; show the line number by F6
+;; show the line and number by F6
 (global-set-key [f6] 'linum-mode)
 (setq linum-format "%2d ")
-;; 同名ファイルバッファ名識別文字列の変更
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
 ;; use zsh
 (setq shell-file-name "/bin/zsh")
 ;; add 1 line at last line
 (setq require-final-newline t)
-;; 自動で色付け
+;; auto coloring
 (global-font-lock-mode t)
 ;; scroll up
-(global-set-key (kbd "C-down") 'scroll-up)
+(global-set-key (kbd "C-<down>") 'scroll-up)
 ;; scroll down
 (global-set-key (kbd "C-<up>") 'scroll-down)
 ;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
@@ -122,9 +119,38 @@
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 ;; sh-mode
 (add-to-list 'auto-mode-alist '("\\zshrc" . sh-mode))
+;; auto indent when go to new line
+(global-set-key (kbd "C-m") 'newline-and-indent)
+;; C-k also delete new line in the end of line
+(setq kill-whole-line t)
+;;C-x o to C-o
+(global-set-key (kbd "C-o") 'other-window)
+;; set regein color
+(set-face-background 'region "#555")
+;; Emphasize the space of the end of line
+(setq-default show-trailing-whitespace t)
+(set-face-background 'trailing-whitespace "#b14770")
+;; show row and column number on mode-line
+(line-number-mode t)
+(column-number-mode t)
+
 ;; インデントをTabでなく半角スペースに
 ;(setq-default tab-width 8 indent-tabs-mode nil)
 ;; basec setting ends here
 
+
+
+;; mode name settings
+(setcar (cdr (assq 'server-mode minor-mode-alist)) "s")
+
+; set hidden mode
+(setq my/hidden-minor-modes
+      '(server)
+)
+(mapc (lambda (mode)
+	(setq minor-mode-alist
+	      (cons (list mode "") (assq-delete-all mode minor-mode-alist))))
+      my/hidden-minor-modes)
+;; end mode name settings
 
 ;;; init.el ends here

@@ -27,7 +27,5 @@
 (global-set-key "\C-xt" 'google-translate-enja-or-jaen)
 (global-set-key "\C-x\C-t" 'google-translate-query-translate)
 
-;; use popwin
-(push '("*Google Translate*") popwin:special-display-config)
 
 ;;; init-google-translate.el ends here
