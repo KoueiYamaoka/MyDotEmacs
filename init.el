@@ -47,7 +47,7 @@
 ;; yatex
 (el-get-bundle yatex
   (setq bibtex-command "pbibtex"))
-;;matlab-mode
+;; matlab-mode
 (el-get-bundle elpa:matlab-mode)
 ;; helm
 (el-get-bundle helm)
@@ -83,7 +83,7 @@
 (setq show-paren-style 'mixed)
 ;; dont make backup files
 (setq backup-inhibited t)
-;; 終了時にオートセーブファイルを消す
+;; delete auto save file when exit emacs
 (setq delete-auto-save-files t)
 ;; query-replace
 (global-set-key (kbd "C-c q") 'query-replace)
@@ -93,11 +93,11 @@
 (define-key global-map (kbd "M-0") 'delete-window)
 ;; 他のウィンドウをすべて閉じる
 (define-key global-map (kbd "M-1") 'delete-other-windows)
-;; ウィンドウを上下に分割
+;; split window vertically
 (define-key global-map (kbd "M-2") 'split-window-vertically)
-;; ウィンドウを左右に分割
+;; split window horizontally
 (define-key global-map (kbd "M-3") 'split-window-horizontally)
-;; ファイル名補完 大文字小文字の区別をしない
+;; auto complete file name and case sensitive
 (setq completion-ignore-case t)
 ;; show the line and number by F6
 (global-set-key [f6] 'linum-mode)
@@ -114,9 +114,6 @@
 (global-set-key (kbd "C-<up>") 'scroll-down)
 ;; avoid "Symbolic link to SVN-controlled source file; follow link? (yes or no)"
 (setq vc-follow-symlinks t)
-;; uniquify setting
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 ;; sh-mode
 (add-to-list 'auto-mode-alist '("\\zshrc" . sh-mode))
 ;; auto indent when go to new line
@@ -126,31 +123,63 @@
 ;;C-x o to C-o
 (global-set-key (kbd "C-o") 'other-window)
 ;; set regein color
-(set-face-background 'region "#555")
-;; Emphasize the space of the end of line
+;(set-face-background 'region "#555")
+;; Emphasize the useless space of the end of line
 (setq-default show-trailing-whitespace t)
 (set-face-background 'trailing-whitespace "#b14770")
+;; delete useless space of the end of line
+(global-set-key (kbd "C-c C-c d") 'delete-trailing-whitespace)
 ;; show row and column number on mode-line
 (line-number-mode t)
 (column-number-mode t)
 
 ;; インデントをTabでなく半角スペースに
 ;(setq-default tab-width 8 indent-tabs-mode nil)
-;; basec setting ends here
+;;;; basic setting ends here
 
 
+;;;; dafault mode activate settings
+;; uniquify setting
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 
-;; mode name settings
-(setcar (cdr (assq 'server-mode minor-mode-alist)) "s")
+;; fly spell setting
+(setq-default ispell-program-name "aspell")
+; use spell check even if there are several japanese
+(eval-after-load "ispell"
+  '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
+; auto load fly spell
+(mapc
+ (lambda (hook)
+   (add-hook hook 'flyspell-prog-mode))
+ '( ;; activate fly spell in these modes' comment region
+   emacs-lisp-mode-hook
+   python-mode-hook
+   matlab-mode-hook
+   ))
+(mapc
+ (lambda (hook)
+   (add-hook hook
+	     '(lambda () (flyspell-mode 1))))
+ '( ;; activate fly spell in these modes
+   yatex-mode-hook
+   )
+ )
 
-; set hidden mode
-(setq my/hidden-minor-modes
-      '(server)
-)
-(mapc (lambda (mode)
-	(setq minor-mode-alist
-	      (cons (list mode "") (assq-delete-all mode minor-mode-alist))))
-      my/hidden-minor-modes)
-;; end mode name settings
+;;;; end dafault mode activate settings
+
+
+;; ;;;; mode name settings
+;; (setcar (cdr (assq 'server-mode minor-mode-alist)) "s")
+
+;; ;; set hidden mode
+;; (setq my/hidden-minor-modes
+;;       '(server)
+;; )
+;; (mapc (lambda (mode)
+;; 	(setq minor-mode-alist
+;; 	      (cons (list mode "") (assq-delete-all mode minor-mode-alist))))
+;;       my/hidden-minor-modes)
+;; ;;;; end mode name settings
 
 ;;; init.el ends here

@@ -1,4 +1,4 @@
-;;; init-autocomplete.el --- Emacs Auto Complete Mode
+;;; init-auto-complete.el --- Emacs Auto Complete Mode
 ;;; Commentary:
 ;;; Code:
 (ac-config-default)
@@ -7,7 +7,7 @@
 ;(define-key ac-menu-map "C-n" 'ac-next)
 ;(define-key ac-menu-map "C-p" 'ac-previous)
 
-;; 大文字と小文字を区別
+;; case sensitive
 (custom-set-variables '(ac-ignore-case nil))
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 
@@ -18,4 +18,4 @@
 (add-to-list 'ac-modes 'matlab-mode)
 (ac-set-trigger-key "TAB")
 
-;;; 10-autocomplete.el ends here
+;;; init-auto-complete.el ends here

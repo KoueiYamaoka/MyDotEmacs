@@ -15,8 +15,8 @@
     ("acroread\\|pdf\\|Preview\\|TeXShop\\|Skim\\|evince\\|apvlv\\|open" . ".pdf")))
 
 (add-hook 'yatex-mode-hook 'turn-on-reftex)
-;;; YaTeX の文字コード
-;;; 0 = no-converion  Emacs内部で使用されている文字コードで保存
+;;; Character code of YaTeX
+;;; 0 = no-converion  use character code using in Emacs
 ;;; 1 = Shift JIS
 ;;; 2 = JIS (ISO-2022-JP)
 ;;; 3 = EUC (EUC-JP)
@@ -24,6 +24,7 @@
 (setq YaTeX-kanji-code 4)
 
 ;; mode name setting
-(setcar (cdr (assq 'yatex-mode minor-mode-alist)) "yatex")
+;(setcar (cdr (assq 'yatex-mode minor-mode-alist)) "yatex")
+(add-hook 'yatex-mode-hook '(lambda () (setq mode-name "yatex")))
 
 ;;; init-yatex.el ends here
