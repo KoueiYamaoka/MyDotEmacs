@@ -165,6 +165,7 @@
    yatex-mode-hook
    )
  )
+(global-set-key (kbd "M-$") 'ispell-buffer)
 
 ;;;; end dafault mode activate settings
 

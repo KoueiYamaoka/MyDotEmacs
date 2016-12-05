@@ -13,5 +13,6 @@
 (global-set-key (kbd "C-c s")   'helm-ag)
 (global-set-key (kbd "M-x") 'helm-M-x)
 (global-set-key (kbd "C-h") 'delete-backward-char)
+(define-key helm-find-files-map (kbd "TAB") 'helm-execute-persistent-action)
 
 ;;; init-helm.el ends here
