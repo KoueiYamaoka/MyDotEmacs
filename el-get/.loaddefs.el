@@ -7,7 +7,7 @@
 ;;;;;;  anzu-replace-at-cursor-thing anzu-query-replace-regexp anzu-query-replace
 ;;;;;;  anzu-query-replace-at-cursor-thing anzu-query-replace-at-cursor
 ;;;;;;  global-anzu-mode anzu-mode) "../init/anzu/anzu" "../init/anzu/anzu.el"
-;;;;;;  (22379 30571 458501 522000))
+;;;;;;  (22598 31822 26405 726000))
 ;;; Generated autoloads from ../init/anzu/anzu.el
 
 (autoload 'anzu-mode "../init/anzu/anzu" "\
@@ -37,37 +37,37 @@ See `anzu-mode' for more information on Anzu mode.
 \(fn &optional ARG)" t nil)
 
 (autoload 'anzu-query-replace-at-cursor "../init/anzu/anzu" "\
-
+Replace symbol at cursor with to-string.
 
 \(fn)" t nil)
 
 (autoload 'anzu-query-replace-at-cursor-thing "../init/anzu/anzu" "\
-
+Replace symbol at cursor within `anzu-replace-at-cursor-thing' area.
 
 \(fn)" t nil)
 
 (autoload 'anzu-query-replace "../init/anzu/anzu" "\
-
+anzu version of `query-replace'.
 
 \(fn ARG)" t nil)
 
 (autoload 'anzu-query-replace-regexp "../init/anzu/anzu" "\
-
+anzu version of `query-replace-regexp'.
 
 \(fn ARG)" t nil)
 
 (autoload 'anzu-replace-at-cursor-thing "../init/anzu/anzu" "\
-
+anzu-query-replace-at-cursor-thing without query.
 
 \(fn)" t nil)
 
 (autoload 'anzu-isearch-query-replace "../init/anzu/anzu" "\
-
+anzu version of `isearch-query-replace'.
 
 \(fn ARG)" t nil)
 
 (autoload 'anzu-isearch-query-replace-regexp "../init/anzu/anzu" "\
-
+anzu version of `isearch-query-replace-regexp'.
 
 \(fn ARG)" t nil)
 
@@ -75,7 +75,7 @@ See `anzu-mode' for more information on Anzu mode.
 
 ;;;### (autoloads (global-auto-complete-mode auto-complete-mode auto-complete)
 ;;;;;;  "../init/auto-complete/auto-complete" "../init/auto-complete/auto-complete.el"
-;;;;;;  (22346 20264 548007 388000))
+;;;;;;  (22598 31821 154405 691000))
 ;;; Generated autoloads from ../init/auto-complete/auto-complete.el
 
 (autoload 'auto-complete "../init/auto-complete/auto-complete" "\
@@ -112,8 +112,8 @@ See `auto-complete-mode' for more information on Auto-Complete mode.
 ;;;***
 
 ;;;### (autoloads (ac-config-default) "../init/auto-complete/auto-complete-config"
-;;;;;;  "../init/auto-complete/auto-complete-config.el" (22346 20264
-;;;;;;  548007 388000))
+;;;;;;  "../init/auto-complete/auto-complete-config.el" (22598 31821
+;;;;;;  154405 691000))
 ;;; Generated autoloads from ../init/auto-complete/auto-complete-config.el
 
 (autoload 'ac-config-default "../init/auto-complete/auto-complete-config" "\
@@ -126,7 +126,7 @@ See `auto-complete-mode' for more information on Auto-Complete mode.
 ;;;### (autoloads (flycheck-def-option-var flycheck-def-config-file-var
 ;;;;;;  flycheck-define-command-checker flycheck-define-error-level
 ;;;;;;  global-flycheck-mode flycheck-mode flycheck-manual) "../init/flycheck/flycheck"
-;;;;;;  "../init/flycheck/flycheck.el" (22346 20310 468006 143000))
+;;;;;;  "../init/flycheck/flycheck.el" (22598 31825 458405 866000))
 ;;; Generated autoloads from ../init/flycheck/flycheck.el
 
 (autoload 'flycheck-manual "../init/flycheck/flycheck" "\
@@ -351,7 +351,7 @@ Use this together with the `option', `option-list' and
 ;;;### (autoloads (google-translate-at-point-reverse google-translate-at-point
 ;;;;;;  google-translate-query-translate-reverse google-translate-query-translate)
 ;;;;;;  "../init/google-translate/google-translate-default-ui" "../init/google-translate/google-translate-default-ui.el"
-;;;;;;  (22425 29180 333090 88000))
+;;;;;;  (22598 31821 134405 690000))
 ;;; Generated autoloads from ../init/google-translate/google-translate-default-ui.el
 
 (autoload 'google-translate-query-translate "../init/google-translate/google-translate-default-ui" "\
@@ -412,7 +412,7 @@ reverse direction.
 
 ;;;### (autoloads (google-translate-smooth-translate) "../init/google-translate/google-translate-smooth-ui"
 ;;;;;;  "../init/google-translate/google-translate-smooth-ui.el"
-;;;;;;  (22425 29180 333090 88000))
+;;;;;;  (22598 31821 134405 690000))
 ;;; Generated autoloads from ../init/google-translate/google-translate-smooth-ui.el
 
 (autoload 'google-translate-smooth-translate "../init/google-translate/google-translate-smooth-ui" "\
@@ -441,9 +441,9 @@ one respectively.
 
 ;;;### (autoloads (helm-do-ag-buffers helm-ag-buffers helm-do-ag-project-root
 ;;;;;;  helm-ag-project-root helm-do-ag helm-do-ag-this-file helm-ag
-;;;;;;  helm-ag-this-file helm-ag-mode helm-ag-clear-stack helm-ag-pop-stack)
-;;;;;;  "../init/helm-ag/helm-ag" "../init/helm-ag/helm-ag.el" (22379
-;;;;;;  33738 310415 693000))
+;;;;;;  helm-ag-this-file helm-ag-clear-stack helm-ag-pop-stack)
+;;;;;;  "../init/helm-ag/helm-ag" "../init/helm-ag/helm-ag.el" (22598
+;;;;;;  31821 26405 686000))
 ;;; Generated autoloads from ../init/helm-ag/helm-ag.el
 
 (autoload 'helm-ag-pop-stack "../init/helm-ag/helm-ag" "\
@@ -453,14 +453,6 @@ one respectively.
 
 (autoload 'helm-ag-clear-stack "../init/helm-ag/helm-ag" "\
 
-
-\(fn)" t nil)
-
-(autoload 'helm-ag-mode "../init/helm-ag/helm-ag" "\
-Major mode to provide actions in helm grep saved buffer.
-
-Special commands:
-\\{helm-ag-mode-map}
 
 \(fn)" t nil)
 
@@ -508,8 +500,8 @@ Special commands:
 
 ;;;### (autoloads (helm-descbinds helm-descbinds-uninstall helm-descbinds-install
 ;;;;;;  helm-descbinds-mode) "../init/helm-descbinds/helm-descbinds"
-;;;;;;  "../init/helm-descbinds/helm-descbinds.el" (22379 33742 666415
-;;;;;;  575000))
+;;;;;;  "../init/helm-descbinds/helm-descbinds.el" (22598 31820 782405
+;;;;;;  676000))
 ;;; Generated autoloads from ../init/helm-descbinds/helm-descbinds.el
 
 (defvar helm-descbinds-mode nil "\
@@ -728,8 +720,8 @@ displayed in the example above.
 ;;;***
 
 ;;;### (autoloads (matlab-cedet-setup) "../init/matlab-mode/cedet-matlab"
-;;;;;;  "../init/matlab-mode/cedet-matlab.el" (22362 12878 445928
-;;;;;;  894000))
+;;;;;;  "../init/matlab-mode/cedet-matlab.el" (22598 31834 398406
+;;;;;;  229000))
 ;;; Generated autoloads from ../init/matlab-mode/cedet-matlab.el
 
 (autoload 'matlab-cedet-setup "../init/matlab-mode/cedet-matlab" "\
@@ -740,8 +732,8 @@ Update various paths to get SRecode to identify our macros.
 ;;;***
 
 ;;;### (autoloads (company-matlab-shell) "../init/matlab-mode/company-matlab-shell"
-;;;;;;  "../init/matlab-mode/company-matlab-shell.el" (22362 12878
-;;;;;;  445928 894000))
+;;;;;;  "../init/matlab-mode/company-matlab-shell.el" (22598 31834
+;;;;;;  466406 231000))
 ;;; Generated autoloads from ../init/matlab-mode/company-matlab-shell.el
 
 (autoload 'company-matlab-shell "../init/matlab-mode/company-matlab-shell" "\
@@ -752,7 +744,7 @@ A `company-mode' completion back-end for Matlab-Shell.
 ;;;***
 
 ;;;### (autoloads (enable-visual-studio-bookmarks) "../init/matlab-mode/linemark"
-;;;;;;  "../init/matlab-mode/linemark.el" (22362 12878 445928 894000))
+;;;;;;  "../init/matlab-mode/linemark.el" (22598 31834 2406 213000))
 ;;; Generated autoloads from ../init/matlab-mode/linemark.el
 
 (autoload 'enable-visual-studio-bookmarks "../init/matlab-mode/linemark" "\
@@ -768,7 +760,7 @@ Bind the viss bookmark functions to F2 related keys.
 ;;;***
 
 ;;;### (autoloads (matlab-shell matlab-mode) "../init/matlab-mode/matlab"
-;;;;;;  "../init/matlab-mode/matlab.el" (22362 12878 445928 894000))
+;;;;;;  "../init/matlab-mode/matlab.el" (22598 31834 34406 214000))
 ;;; Generated autoloads from ../init/matlab-mode/matlab.el
 
 (add-to-list 'auto-mode-alist '("\\.m$" . matlab-mode))
@@ -840,7 +832,7 @@ a console application.
 ;;;***
 
 ;;;### (autoloads (mlint-minor-mode) "../init/matlab-mode/mlint"
-;;;;;;  "../init/matlab-mode/mlint.el" (22362 12878 445928 894000))
+;;;;;;  "../init/matlab-mode/mlint.el" (22598 31834 194406 220000))
 ;;; Generated autoloads from ../init/matlab-mode/mlint.el
 
 (autoload 'mlint-minor-mode "../init/matlab-mode/mlint" "\
@@ -853,8 +845,8 @@ With prefix ARG, turn mlint minor mode on iff ARG is positive.
 ;;;***
 
 ;;;### (autoloads (semantic-default-matlab-setup) "../init/matlab-mode/semantic-matlab"
-;;;;;;  "../init/matlab-mode/semantic-matlab.el" (22362 12878 445928
-;;;;;;  894000))
+;;;;;;  "../init/matlab-mode/semantic-matlab.el" (22598 31833 866406
+;;;;;;  207000))
 ;;; Generated autoloads from ../init/matlab-mode/semantic-matlab.el
 
 (autoload 'semantic-default-matlab-setup "../init/matlab-mode/semantic-matlab" "\
@@ -865,8 +857,8 @@ Set up a buffer for parsing of MATLAB files.
 ;;;***
 
 ;;;### (autoloads (srecode-semantic-handle-:matlab) "../init/matlab-mode/srecode-matlab"
-;;;;;;  "../init/matlab-mode/srecode-matlab.el" (22362 12878 445928
-;;;;;;  894000))
+;;;;;;  "../init/matlab-mode/srecode-matlab.el" (22598 31834 70406
+;;;;;;  215000))
 ;;; Generated autoloads from ../init/matlab-mode/srecode-matlab.el
 
 (autoload 'srecode-semantic-handle-:matlab "../init/matlab-mode/srecode-matlab" "\
@@ -886,14 +878,14 @@ match, for example @foo/foo.m then foo should be a classdef.
 ;;;***
 
 ;;;### (autoloads (tlc-mode) "../init/matlab-mode/tlc" "../init/matlab-mode/tlc.el"
-;;;;;;  (22362 12878 445928 894000))
+;;;;;;  (22598 31834 102406 217000))
 ;;; Generated autoloads from ../init/matlab-mode/tlc.el
 
 (autoload 'tlc-mode "../init/matlab-mode/tlc" "\
 Major mode for editing Tlc files, or files found in tlc directories.
 
 \(fn)" t nil)
-(add-to-list 'auto-mode-alist '("\\.tlc$" .tlc-mode))
+(add-to-list 'auto-mode-alist '("\\.tlc$" . tlc-mode))
 
 ;;;***
 
@@ -1081,7 +1073,7 @@ Display *Messages* buffer in a popup window.
 ;;;***
 
 ;;;### (autoloads (py-yapf-enable-on-save py-yapf-buffer) "../init/py-yapf/py-yapf"
-;;;;;;  "../init/py-yapf/py-yapf.el" (22596 61233 3034 534000))
+;;;;;;  "../init/py-yapf/py-yapf.el" (22598 32060 314415 403000))
 ;;; Generated autoloads from ../init/py-yapf/py-yapf.el
 
 (autoload 'py-yapf-buffer "../init/py-yapf/py-yapf" "\
@@ -1832,23 +1824,22 @@ Display a list of packages.
 ;;;;;;  "../init/dash/dash-functional.el" "../init/dash/dash.el"
 ;;;;;;  "../init/deferred/concurrent.el" "../init/deferred/deferred.el"
 ;;;;;;  "../init/epc/epc.el" "../init/epc/epcs.el" "../init/epc/test-epc.el"
-;;;;;;  "../init/epl/epl.el" "../init/flycheck-pyflakes/flycheck-pyflakes.el"
-;;;;;;  "../init/flycheck/flycheck-buttercup.el" "../init/flycheck/flycheck-ert.el"
-;;;;;;  "../init/fuzzy/fuzzy.el" "../init/google-translate/google-translate-core-ui.el"
-;;;;;;  "../init/google-translate/google-translate-core.el" "../init/google-translate/google-translate-pkg.el"
-;;;;;;  "../init/google-translate/google-translate-tk.el" "../init/google-translate/google-translate.el"
-;;;;;;  "../init/jedi/test-jedi.el" "../init/jedi/tryout-jedi.el"
-;;;;;;  "../init/let-alist/let-alist-autoloads.el" "../init/let-alist/let-alist-pkg.el"
-;;;;;;  "../init/matlab-mode/matlab-load.el" "../init/matlab-mode/matlab-mode-pkg.el"
+;;;;;;  "../init/epl/epl.el" "../init/flycheck/flycheck-buttercup.el"
+;;;;;;  "../init/flycheck/flycheck-ert.el" "../init/fuzzy/fuzzy.el"
+;;;;;;  "../init/google-translate/google-translate-core-ui.el" "../init/google-translate/google-translate-core.el"
+;;;;;;  "../init/google-translate/google-translate-pkg.el" "../init/google-translate/google-translate-tk.el"
+;;;;;;  "../init/google-translate/google-translate.el" "../init/jedi/test-jedi.el"
+;;;;;;  "../init/jedi/tryout-jedi.el" "../init/let-alist/let-alist-autoloads.el"
+;;;;;;  "../init/let-alist/let-alist-pkg.el" "../init/matlab-mode/matlab-load.el"
+;;;;;;  "../init/matlab-mode/matlab-mode-autoloads.el" "../init/matlab-mode/matlab-mode-pkg.el"
 ;;;;;;  "../init/matlab-mode/matlab-publish.el" "../init/matlab-mode/semanticdb-matlab.el"
 ;;;;;;  "../init/popup/popup.el" "../init/popwin/misc/popwin-browse-kill-ring.el"
 ;;;;;;  "../init/popwin/misc/popwin-pp.el" "../init/popwin/misc/popwin-term.el"
 ;;;;;;  "../init/popwin/misc/popwin-w3m.el" "../init/popwin/misc/popwin-yatex.el"
-;;;;;;  "../init/py-yapf/py-yapf-autoloads.el" "../init/py-yapf/py-yapf-pkg.el"
-;;;;;;  "../init/python-environment/python-environment.el" "../init/python-environment/test-python-environment.el"
-;;;;;;  "../init/python-mode/python-mode-pkg.el" "../init/python-mode/python-mode.el"
-;;;;;;  "../init/python-mode/test/py-bug-numbered-tests.el" "../init/python-mode/test/py-completion-tests.el"
-;;;;;;  "../init/python-mode/test/py-ert-always-split-lp-1361531-tests.el"
+;;;;;;  "../init/py-yapf/tests.el" "../init/python-environment/python-environment.el"
+;;;;;;  "../init/python-environment/test-python-environment.el" "../init/python-mode/python-mode-pkg.el"
+;;;;;;  "../init/python-mode/python-mode.el" "../init/python-mode/test/py-bug-numbered-tests.el"
+;;;;;;  "../init/python-mode/test/py-completion-tests.el" "../init/python-mode/test/py-ert-always-split-lp-1361531-tests.el"
 ;;;;;;  "../init/python-mode/test/py-ert-beginning-tests.el" "../init/python-mode/test/py-ert-end-tests.el"
 ;;;;;;  "../init/python-mode/test/py-ert-execute-block-test.el" "../init/python-mode/test/py-ert-execute-region-test.el"
 ;;;;;;  "../init/python-mode/test/py-ert-forward-tests.el" "../init/python-mode/test/py-ert-function-tests.el"
@@ -1872,8 +1863,8 @@ Display a list of packages.
 ;;;;;;  "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
-;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22597
-;;;;;;  5837 270345 75000))
+;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22598
+;;;;;;  32060 659696 449000))
 
 ;;;***
 

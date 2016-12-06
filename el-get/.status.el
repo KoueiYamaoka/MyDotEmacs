@@ -1,9 +1,11 @@
 ((anzu status "installed" recipe
        (:name anzu :after nil :website "https://github.com/syohex/emacs-anzu" :description "A minor mode which displays current match and total matches." :type "github" :branch "master" :pkgname "syohex/emacs-anzu"))
  (auto-complete status "installed" recipe
-		(:name auto-complete :website "https://github.com/auto-complete/auto-complete" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :depends
-		       (popup fuzzy)
-		       :features auto-complete-config :post-init
+		(:name auto-complete :after nil :features
+		       (auto-complete-config)
+		       :depends
+		       (fuzzy popup)
+		       :website "https://github.com/auto-complete/auto-complete" :description "The most intelligent auto-completion extension." :type github :pkgname "auto-complete/auto-complete" :post-init
 		       (progn
 			 (add-to-list 'ac-dictionary-directories
 				      (expand-file-name "dict" default-directory))
@@ -84,12 +86,8 @@
 (let-alist status "installed" recipe
 (:name let-alist :description "Easily let-bind values of an assoc-list by their names." :builtin "25.0.50" :type elpa :url "https://elpa.gnu.org/packages/let-alist.html"))
 (matlab-mode status "installed" recipe
-(:name matlab-mode :description "Major mode for MATLAB(R) dot-m files" :website "http://matlab-emacs.sourceforge.net/" :type git :url "http://git.code.sf.net/p/matlab-emacs/src" :build
-`(("touch" "Makefile")
-("make" ,(format "EMACS=%s" el-get-emacs)))
-:load-path
-(".")
-:features matlab-load))
+(:name matlab-mode :type elpa :after nil :features
+(matlab-load)))
 (package status "installed" recipe
 (:name package :description "ELPA implementation (\"package.el\") from Emacs 24" :builtin "24" :type http :url "https://repo.or.cz/w/emacs.git/blob_plain/ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09:/lisp/emacs-lisp/package.el" :features package :post-init
 (progn
@@ -139,7 +137,9 @@
 (:name popwin :after nil :description "Popup Window Manager." :website "https://github.com/m2ym/popwin-el" :type github :pkgname "m2ym/popwin-el" :load-path
 ("." "misc")))
 (py-yapf status "installed" recipe
-(:name py-yapf :type elpa :after nil))
+(:name py-yapf :after nil :features
+(py-yapf)
+:type git :url "https://github.com/paetzke/py-yapf.el"))
 (python-environment status "installed" recipe
 (:name python-environment :description "Python virtualenv API for Emacs Lisp" :type github :pkgname "tkf/emacs-python-environment" :depends
 (deferred)))

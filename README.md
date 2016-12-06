@@ -9,7 +9,7 @@ $ sudo apt-get insatll mercurial
 ### for python
 ```sh
 $ sudo pip install yapf
-$ sudo pip install pyflakes
+$ sudo pip install flake8
 $ sudo pip install virtualenv
 ```
 

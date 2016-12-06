@@ -1,4 +1,4 @@
 (:name py-yapf
-       :type https
-       :url "https://raw.githubusercontent.com/paetzke/py-yapf.el/master/py-yapf.e"
+       :type git
+       :url "https://github.com/paetzke/py-yapf.el"
        :features py-yapf)
