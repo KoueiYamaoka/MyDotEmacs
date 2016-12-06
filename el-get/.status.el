@@ -10,8 +10,12 @@
 			 (ac-config-default))))
  (cl-lib status "installed" recipe
 	 (:name cl-lib :builtin "24.3" :type elpa :description "Properly prefixed CL functions and macros" :url "http://elpa.gnu.org/packages/cl-lib.html"))
+ (ctable status "installed" recipe
+	 (:name ctable :description "Table Component for elisp" :type github :pkgname "kiwanami/emacs-ctable"))
  (dash status "installed" recipe
        (:name dash :description "A modern list api for Emacs. No 'cl required." :type github :pkgname "magnars/dash.el"))
+ (deferred status "installed" recipe
+   (:name deferred :description "Simple asynchronous functions for emacs lisp." :type github :pkgname "kiwanami/emacs-deferred"))
  (el-get status "installed" recipe
 	 (:name el-get :website "https://github.com/dimitri/el-get#readme" :description "Manage the external elisp bits and pieces you depend upon." :type github :branch "master" :pkgname "dimitri/el-get" :info "." :compile
 		("el-get.*\\.el$" "methods/")
@@ -34,6 +38,9 @@
 			  (feat feats)
 			(unload-feature feat t))))
 		  (require 'el-get))))
+ (epc status "installed" recipe
+      (:name epc :description "An RPC stack for Emacs Lisp" :type github :pkgname "kiwanami/emacs-epc" :depends
+	     (deferred ctable)))
  (epl status "installed" recipe
       (:name epl :description "EPL provides a convenient high-level API for various package.el versions, and aims to overcome its most striking idiocies." :type github :pkgname "cask/epl"))
  (flycheck status "installed" recipe
@@ -70,6 +77,10 @@
 :type github :pkgname "emacs-helm/helm-descbinds" :description "Yet Another `describe-bindings' with `helm'." :prepare
 (progn
 (autoload 'helm-descbinds-install "helm-descbinds"))))
+(jedi status "installed" recipe
+(:name jedi :after nil :depends
+(python-environment auto-complete epc)
+:description "An awesome Python auto-completion for Emacs" :type github :pkgname "tkf/emacs-jedi" :submodule nil))
 (let-alist status "installed" recipe
 (:name let-alist :description "Easily let-bind values of an assoc-list by their names." :builtin "25.0.50" :type elpa :url "https://elpa.gnu.org/packages/let-alist.html"))
 (matlab-mode status "installed" recipe
@@ -127,6 +138,24 @@
 (popwin status "installed" recipe
 (:name popwin :after nil :description "Popup Window Manager." :website "https://github.com/m2ym/popwin-el" :type github :pkgname "m2ym/popwin-el" :load-path
 ("." "misc")))
+(py-yapf status "installed" recipe
+(:name py-yapf :type elpa :after nil))
+(python-environment status "installed" recipe
+(:name python-environment :description "Python virtualenv API for Emacs Lisp" :type github :pkgname "tkf/emacs-python-environment" :depends
+(deferred)))
+(python-mode status "installed" recipe
+(:name python-mode :after nil :description "Major mode for editing Python programs" :type bzr :url "lp:python-mode" :load-path
+("." "test")
+:compile nil :prepare
+(progn
+(autoload 'python-mode "python-mode" "Python editing mode." t)
+(autoload 'doctest-mode "doctest-mode" "Doctest unittest editing mode." t)
+(setq py-install-directory
+(el-get-package-directory "python-mode"))
+(add-to-list 'auto-mode-alist
+'("\\.py$" . python-mode))
+(add-to-list 'interpreter-mode-alist
+'("python" . python-mode)))))
 (quickrun status "installed" recipe
 (:name quickrun :type github :pkgname "syohex/emacs-quickrun" :after nil :features
 ("quickrun")))
@@ -140,7 +169,10 @@
 (:name yasnippet :website "https://github.com/capitaomorte/yasnippet.git" :description "YASnippet is a template system for Emacs." :type github :pkgname "capitaomorte/yasnippet" :compile "yasnippet.el" :submodule nil :build
 (("git" "submodule" "update" "--init" "--" "snippets"))))
 (yatex status "installed" recipe
-(:name yatex :after nil :website "http://www.yatex.org/" :description "Yet Another TeX mode for Emacs" :type hg :url "http://www.yatex.org/hgrepos/yatex" :build
+(:name yatex :after
+(progn
+(el-get-bundle-load-init "/home/yamaoka/.emacs.d/init/bundle-init/_home_yamaoka_.emacs.d_init-1_yatex.el"))
+:website "http://www.yatex.org/" :description "Yet Another TeX mode for Emacs" :type hg :url "http://www.yatex.org/hgrepos/yatex" :build
 (("sed" "-i" "s/ from yatex.el//" "yatexmth.el"))
 :build/berkeley-unix
 (("sed" "-i" "" "s/ from yatex.el//" "yatexmth.el"))

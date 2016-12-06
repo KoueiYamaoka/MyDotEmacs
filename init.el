@@ -1,10 +1,20 @@
 ;;; init.el -- emacs init file
 ;;; Commentary:
 ;;; Code:
+
+;;; load-pathを追加する関数を定義
+(defun add-to-load-path (&rest paths)
+  (let (path)
+    (dolist (path paths paths)
+      (let ((default-directory (expand-file-name (concat user-emacs-directory path))))
+	(add-to-list 'load-path default-directory)
+	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+	    (normal-top-level-add-subdirs-to-load-path))))))
+
 ;; emacs directory
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
-(add-to-list 'load-path (locate-user-emacs-file "init/"))
+(add-to-load-path "init/")
 
 
 ;; el-get setting
@@ -26,7 +36,7 @@
 ;; file name is init-*.el
 (setq el-get-user-package-directory (locate-user-emacs-file "el-get/init-files"))
 (require 'el-get)
-(el-get 'sync)
+;; (el-get 'sync) % if write installing packages in init.el, dont write this setting
 
 ;; el-get setting ends here
 
@@ -59,6 +69,12 @@
 (el-get-bundle anzu)
 ;; google-translate
 (el-get-bundle google-translate)
+;; python-mode
+(el-get-bundle python-mode)
+;; jedi for python auto-complete
+(el-get-bundle jedi)
+;; py-autopep8 for python auto-modify wrong coding
+(el-get-bundle py-yapf)
 ;;;; download packages ends here
 
 
@@ -142,6 +158,8 @@
 ;; uniquify setting
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
+;; uniquify setting ends here
+
 
 ;; fly spell setting
 (setq-default ispell-program-name "aspell")
@@ -168,19 +186,3 @@
 (global-set-key (kbd "M-$") 'ispell-buffer)
 
 ;;;; end dafault mode activate settings
-
-
-;; ;;;; mode name settings
-;; (setcar (cdr (assq 'server-mode minor-mode-alist)) "s")
-
-;; ;; set hidden mode
-;; (setq my/hidden-minor-modes
-;;       '(server)
-;; )
-;; (mapc (lambda (mode)
-;; 	(setq minor-mode-alist
-;; 	      (cons (list mode "") (assq-delete-all mode minor-mode-alist))))
-;;       my/hidden-minor-modes)
-;; ;;;; end mode name settings
-
-;;; init.el ends here

@@ -561,6 +561,133 @@ useful, yet they are listed for completeness.
 
 ;;;***
 
+;;;### (autoloads (jedi:auto-complete-mode jedi:complete jedi:ac-setup)
+;;;;;;  "../init/jedi/jedi" "../init/jedi/jedi.el" (22596 58930 699096
+;;;;;;  932000))
+;;; Generated autoloads from ../init/jedi/jedi.el
+
+(autoload 'jedi:ac-setup "../init/jedi/jedi" "\
+Add Jedi AC sources to `ac-sources'.
+
+If auto-completion is all you need, you can call this function instead
+of `jedi:setup', like this::
+
+   (add-hook 'python-mode-hook 'jedi:ac-setup)
+
+Note that this function calls `auto-complete-mode' if it is not
+already enabled, for people who don't call `global-auto-complete-mode'
+in their Emacs configuration.
+
+\(fn)" t nil)
+
+(autoload 'jedi:complete "../init/jedi/jedi" "\
+Complete code at point.
+
+\(fn &key (expand ac-expand-on-auto-complete))" t nil)
+
+(autoload 'jedi:auto-complete-mode "../init/jedi/jedi" "\
+
+
+\(fn)" nil nil)
+
+(setq jedi:setup-function #'jedi:ac-setup jedi:mode-function #'jedi:auto-complete-mode)
+
+;;;***
+
+;;;### (autoloads (jedi:install-server-block jedi:install-server
+;;;;;;  jedi:setup anything-jedi-related-names helm-jedi-related-names
+;;;;;;  jedi:start-dedicated-server) "../init/jedi/jedi-core" "../init/jedi/jedi-core.el"
+;;;;;;  (22596 58930 699096 932000))
+;;; Generated autoloads from ../init/jedi/jedi-core.el
+
+(autoload 'jedi:start-dedicated-server "../init/jedi/jedi-core" "\
+Start Jedi server dedicated to this buffer.
+This is useful, for example, when you want to use different
+`sys.path' for some buffer.  When invoked as an interactive
+command, it asks you how to start the Jedi server.  You can edit
+the command in minibuffer to specify the way Jedi server run.
+
+If you want to setup how Jedi server is started programmatically
+per-buffer/per-project basis, make `jedi:server-command' and
+`jedi:server-args' buffer local and set it in `python-mode-hook'.
+See also: `jedi:server-args'.
+
+\(fn COMMAND)" t nil)
+
+(autoload 'helm-jedi-related-names "../init/jedi/jedi-core" "\
+Find related names of the object at point using `helm' interface.
+
+\(fn)" t nil)
+
+(autoload 'anything-jedi-related-names "../init/jedi/jedi-core" "\
+Find related names of the object at point using `anything' interface.
+
+\(fn)" t nil)
+
+(autoload 'jedi:setup "../init/jedi/jedi-core" "\
+Fully setup jedi.el for current buffer.
+It setups `ac-sources' or `company-backends' and turns
+`jedi-mode' on.
+
+This function is intended to be called from `python-mode-hook',
+like this::
+
+       (add-hook 'python-mode-hook 'jedi:setup)
+
+You can also call this function as a command, to quickly test
+what jedi can do.
+
+\(fn)" t nil)
+
+(autoload 'jedi:install-server "../init/jedi/jedi-core" "\
+This command installs Jedi server script jediepcserver.py in a
+Python environment dedicated to Emacs.  By default, the
+environment is at ``~/.emacs.d/.python-environments/default/``.
+This environment is automatically created by ``virtualenv`` if it
+does not exist.
+
+Run this command (i.e., type ``M-x jedi:install-server RET``)
+whenever Jedi.el shows a message to do so.  It is a good idea to
+run this every time after you update Jedi.el to sync version of
+Python modules used by Jedi.el and Jedi.el itself.
+
+You can modify the location of the environment by changing
+`jedi:environment-root' and/or `python-environment-directory'.  More
+specifically, Jedi.el will install Python modules under the directory
+``PYTHON-ENVIRONMENT-DIRECTORY/JEDI:ENVIRONMENT-ROOT``.  Note that you
+need command line program ``virtualenv``.  If you have the command in
+an unusual location, use `python-environment-virtualenv' to specify the
+location.
+
+.. NOTE:: jediepcserver.py is installed in a virtual environment but it
+   does not mean Jedi.el cannot recognize the modules in virtual
+   environment you are using for your Python development.  Jedi
+   EPC server recognize the virtualenv it is in (i.e., the
+   environment variable ``VIRTUAL_ENV`` in your Emacs) and then
+   add modules in that environment to its ``sys.path``.  You can
+   also add ``--virtual-env PATH/TO/ENV`` to `jedi:server-args'
+   to include modules of virtual environment even you launch
+   Emacs outside of the virtual environment.
+
+.. NOTE:: It is highly recommended to use this command to install
+   Python modules for Jedi.el.  You still can install Python
+   modules used by Jedi.el manually.  However, you are then
+   responsible for keeping Jedi.el and Python modules compatible.
+
+See also:
+
+- https://github.com/tkf/emacs-jedi/pull/72
+- https://github.com/tkf/emacs-jedi/issues/140#issuecomment-37358527
+
+\(fn)" t nil)
+
+(autoload 'jedi:install-server-block "../init/jedi/jedi-core" "\
+Blocking version `jedi:install-server'.
+
+\(fn)" nil nil)
+
+;;;***
+
 ;;;### (autoloads (let-alist) "../init/let-alist/let-alist" "../init/let-alist/let-alist.el"
 ;;;;;;  (22346 20008 832014 318000))
 ;;; Generated autoloads from ../init/let-alist/let-alist.el
@@ -948,6 +1075,97 @@ Edit file FILENAME with popup window by
 
 (autoload 'popwin:messages "../init/popwin/popwin" "\
 Display *Messages* buffer in a popup window.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (py-yapf-enable-on-save py-yapf-buffer) "../init/py-yapf/py-yapf"
+;;;;;;  "../init/py-yapf/py-yapf.el" (22596 61233 3034 534000))
+;;; Generated autoloads from ../init/py-yapf/py-yapf.el
+
+(autoload 'py-yapf-buffer "../init/py-yapf/py-yapf" "\
+Uses the \"yapf\" tool to reformat the current buffer.
+
+\(fn)" t nil)
+
+(autoload 'py-yapf-enable-on-save "../init/py-yapf/py-yapf" "\
+Pre-save hooked to be used before running py-yapf.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (doctest-mode doctest-register-mmm-classes) "../init/python-mode/test/doctest-mode"
+;;;;;;  "../init/python-mode/test/doctest-mode.el" (22597 3786 917728
+;;;;;;  0))
+;;; Generated autoloads from ../init/python-mode/test/doctest-mode.el
+
+(autoload 'doctest-register-mmm-classes "../init/python-mode/test/doctest-mode" "\
+Register doctest's mmm classes, allowing doctest to be used as a
+submode region in other major modes, such as python-mode and rst-mode.
+Two classes are registered:
+
+`doctest-docstring'
+
+    Used to edit docstrings containing doctest examples in python-
+    mode.  Docstring submode regions start and end with triple-quoted
+    strings (\"\"\").  In order to avoid confusing start-string
+    markers and end-string markers, all triple-quote strings in the
+    buffer are treated as submode regions (even if they're not
+    actually docstrings).  Use (C-c % C-d) to insert a new doctest-
+    docstring region.  When `doctest-execute' (C-c C-c) is called
+    inside a doctest-docstring region, it executes just the current
+    docstring.  The globals for this execution are constructed by
+    importing the current buffer's contents in Python.
+
+`doctest-example'
+
+    Used to edit doctest examples in text-editing modes, such as
+    `rst-mode' or `text-mode'.  Docstring submode regions start with
+    optionally indented prompts (>>>) and end with blank lines.  Use
+    (C-c % C-e) to insert a new doctest-example region.  When
+    `doctest-execute' (C-c C-c) is called inside a doctest-example
+    region, it executes all examples in the buffer.
+
+If ADD-MODE-EXT-CLASSES is true, then register the new classes in
+`mmm-mode-ext-classes-alist', which will cause them to be used by
+default in the following modes:
+
+    doctest-docstring:  python-mode
+    doctest-example:    rst-mode
+
+If FIX-MMM-FONTIFY-REGION-BUG is true, then register a hook that will
+fix a bug in `mmm-fontify-region' that affects some (but not all)
+versions of emacs.  (See `doctest-fixed-mmm-fontify-region' for more
+info.)
+
+\(fn &optional ADD-MODE-EXT-CLASSES FIX-MMM-FONTIFY-REGION-BUG)" t nil)
+
+(add-to-list 'auto-mode-alist '("\\.doctest$" . doctest-mode))
+
+(autoload 'doctest-mode "../init/python-mode/test/doctest-mode" "\
+A major mode for editing text files that contain Python
+doctest examples.  Doctest is a testing framework for Python that
+emulates an interactive session, and checks the result of each
+command.  For more information, see the Python library reference:
+<http://docs.python.org/lib/module-doctest.html>
+
+`doctest-mode' defines three kinds of line, each of which is
+treated differently:
+
+  - 'Source lines' are lines consisting of a Python prompt
+    ('>>>' or '...'), followed by source code.  Source lines are
+    colored (similarly to `python-mode') and auto-indented.
+
+  - 'Output lines' are non-blank lines immediately following
+    source lines.  They are colored using several doctest-
+    specific output faces.
+
+  - 'Text lines' are any other lines.  They are not processed in
+    any special way.
+
+\\{doctest-mode-map}
 
 \(fn)" t nil)
 
@@ -1610,18 +1828,40 @@ Display a list of packages.
 ;;;***
 
 ;;;### (autoloads nil nil ("../init/auto-complete/auto-complete-pkg.el"
+;;;;;;  "../init/ctable/ctable.el" "../init/ctable/test-ctable.el"
 ;;;;;;  "../init/dash/dash-functional.el" "../init/dash/dash.el"
-;;;;;;  "../init/epl/epl.el" "../init/flycheck/flycheck-buttercup.el"
-;;;;;;  "../init/flycheck/flycheck-ert.el" "../init/fuzzy/fuzzy.el"
-;;;;;;  "../init/google-translate/google-translate-core-ui.el" "../init/google-translate/google-translate-core.el"
-;;;;;;  "../init/google-translate/google-translate-pkg.el" "../init/google-translate/google-translate-tk.el"
-;;;;;;  "../init/google-translate/google-translate.el" "../init/let-alist/let-alist-autoloads.el"
-;;;;;;  "../init/let-alist/let-alist-pkg.el" "../init/matlab-mode/matlab-load.el"
-;;;;;;  "../init/matlab-mode/matlab-mode-pkg.el" "../init/matlab-mode/matlab-publish.el"
-;;;;;;  "../init/matlab-mode/semanticdb-matlab.el" "../init/popup/popup.el"
-;;;;;;  "../init/popwin/misc/popwin-browse-kill-ring.el" "../init/popwin/misc/popwin-pp.el"
-;;;;;;  "../init/popwin/misc/popwin-term.el" "../init/popwin/misc/popwin-w3m.el"
-;;;;;;  "../init/popwin/misc/popwin-yatex.el" "../init/seq/seq-24.el"
+;;;;;;  "../init/deferred/concurrent.el" "../init/deferred/deferred.el"
+;;;;;;  "../init/epc/epc.el" "../init/epc/epcs.el" "../init/epc/test-epc.el"
+;;;;;;  "../init/epl/epl.el" "../init/flycheck-pyflakes/flycheck-pyflakes.el"
+;;;;;;  "../init/flycheck/flycheck-buttercup.el" "../init/flycheck/flycheck-ert.el"
+;;;;;;  "../init/fuzzy/fuzzy.el" "../init/google-translate/google-translate-core-ui.el"
+;;;;;;  "../init/google-translate/google-translate-core.el" "../init/google-translate/google-translate-pkg.el"
+;;;;;;  "../init/google-translate/google-translate-tk.el" "../init/google-translate/google-translate.el"
+;;;;;;  "../init/jedi/test-jedi.el" "../init/jedi/tryout-jedi.el"
+;;;;;;  "../init/let-alist/let-alist-autoloads.el" "../init/let-alist/let-alist-pkg.el"
+;;;;;;  "../init/matlab-mode/matlab-load.el" "../init/matlab-mode/matlab-mode-pkg.el"
+;;;;;;  "../init/matlab-mode/matlab-publish.el" "../init/matlab-mode/semanticdb-matlab.el"
+;;;;;;  "../init/popup/popup.el" "../init/popwin/misc/popwin-browse-kill-ring.el"
+;;;;;;  "../init/popwin/misc/popwin-pp.el" "../init/popwin/misc/popwin-term.el"
+;;;;;;  "../init/popwin/misc/popwin-w3m.el" "../init/popwin/misc/popwin-yatex.el"
+;;;;;;  "../init/py-yapf/py-yapf-autoloads.el" "../init/py-yapf/py-yapf-pkg.el"
+;;;;;;  "../init/python-environment/python-environment.el" "../init/python-environment/test-python-environment.el"
+;;;;;;  "../init/python-mode/python-mode-pkg.el" "../init/python-mode/python-mode.el"
+;;;;;;  "../init/python-mode/test/py-bug-numbered-tests.el" "../init/python-mode/test/py-completion-tests.el"
+;;;;;;  "../init/python-mode/test/py-ert-always-split-lp-1361531-tests.el"
+;;;;;;  "../init/python-mode/test/py-ert-beginning-tests.el" "../init/python-mode/test/py-ert-end-tests.el"
+;;;;;;  "../init/python-mode/test/py-ert-execute-block-test.el" "../init/python-mode/test/py-ert-execute-region-test.el"
+;;;;;;  "../init/python-mode/test/py-ert-forward-tests.el" "../init/python-mode/test/py-ert-function-tests.el"
+;;;;;;  "../init/python-mode/test/py-ert-interactive-tests.el" "../init/python-mode/test/py-ert-just-two-split-lp-1361531-tests.el"
+;;;;;;  "../init/python-mode/test/py-ert-tests-1.el" "../init/python-mode/test/py-ert-tests-2.el"
+;;;;;;  "../init/python-mode/test/py-ert-tests-3.el" "../init/python-mode/test/py-ert-variablen-tests.el"
+;;;;;;  "../init/python-mode/test/py-execute-region-commandp-test.el"
+;;;;;;  "../init/python-mode/test/py-interactive-tests.el" "../init/python-mode/test/py-non-travis-tests.el"
+;;;;;;  "../init/python-mode/test/py-shell-arg-ert-tests.el" "../init/python-mode/test/py-shell-completion-tests.el"
+;;;;;;  "../init/python-mode/test/py-shell-ert-tests.el" "../init/python-mode/test/py-split-window-on-execute-lp-1361531-test.el"
+;;;;;;  "../init/python-mode/test/python-extended-executes-test.el"
+;;;;;;  "../init/python-mode/test/python-mode-syntax-test.el" "../init/python-mode/test/python-mode-test.el"
+;;;;;;  "../init/python-mode/test/setup-ert-tests.el" "../init/seq/seq-24.el"
 ;;;;;;  "../init/seq/seq-25.el" "../init/seq/seq.el" "../init/undohist/undohist.el"
 ;;;;;;  "../init/yasnippet/yasnippet-debug.el" "../init/yasnippet/yasnippet-tests.el"
 ;;;;;;  "../init/yatex/comment.el" "../init/yatex/yahtml.el" "../init/yatex/yatex.el"
@@ -1632,8 +1872,8 @@ Display a list of packages.
 ;;;;;;  "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
-;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22425
-;;;;;;  29181 377555 462000))
+;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22597
+;;;;;;  5837 270345 75000))
 
 ;;;***
 

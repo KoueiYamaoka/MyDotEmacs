@@ -12,3 +12,12 @@ then, run emacs
 e='emacsclient -nw -a ""'
 ekill='emacsclient -e "(kill-emacs)"'
 ```
+
+## for python
+```sh
+$ sudo pip install yapf
+$ sudo pip install pyflakes
+$ sudo pip install virtualenv
+
+## aspell
+sudo apt-get install aspell aspell-en
