@@ -1,6 +1,6 @@
-;;; init.el -- emacs init file
-;;; Commentary:
-;;; Code:
+;;;;; init.el -- emacs init file
+;;;;; Commentary:
+;;;;; Code:
 
 ;;; load-pathを追加する関数を定義
 (defun add-to-load-path (&rest paths)
@@ -138,8 +138,6 @@
 (setq kill-whole-line t)
 ;;C-x o to C-o
 (global-set-key (kbd "C-o") 'other-window)
-;; set regein color
-;(set-face-background 'region "#555")
 ;; Emphasize the useless space of the end of line
 (setq-default show-trailing-whitespace t)
 (set-face-background 'trailing-whitespace "#b14770")
@@ -148,9 +146,9 @@
 ;; show row and column number on mode-line
 (line-number-mode t)
 (column-number-mode t)
+;; default fill column set to 80
+(setq-default fill-column 80)
 
-;; インデントをTabでなく半角スペースに
-;(setq-default tab-width 8 indent-tabs-mode nil)
 ;;;; basic setting ends here
 
 
@@ -186,3 +184,5 @@
 (global-set-key (kbd "M-$") 'ispell-buffer)
 
 ;;;; end dafault mode activate settings
+
+;;;;; init.el ends here
