@@ -4,17 +4,15 @@
 # --
 \begin{figure}[htb]
  \begin{minipage}{0.5\hsize}
-  \begin{center}
-  \includegraphics[width=100mm]{$1.eps}
-  \end{center}
-  \caption{$2}
-  \label{$3}
+  \centering
+  \includegraphics[width=1\columnwidth]{fig/$1.pdf}
+  \subcaption{$2}
  \end{minipage}
  \begin{minipage}{0.5\hsize}
-  \begin{center}
-  \includegraphics[width=100mm]{$4.eps}
-  \end{center}
-  \caption{$5}
-  \label{$6}
+  \centering
+  \includegraphics[width=100mm]{$3.eps}
+  \subcaption{$4}
  \end{minipage}
+ \caption{$5}
+ \label{$6}
 \end{figure}

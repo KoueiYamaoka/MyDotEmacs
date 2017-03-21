@@ -2,10 +2,9 @@
 # name: fig
 # key: fig
 # --
-\begin{figure}[htbp]
- \begin{center}
-  \includegraphics[width=100mm]{$1.eps}
- \end{center}
+\begin{figure}[htb]
+ \centering
+  \includegraphics[width=1\columnwidth]{fig/$1.pdf}
  \caption{$2}
  \label{$3}
 \end{figure}

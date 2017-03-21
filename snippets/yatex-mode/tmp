@@ -3,9 +3,9 @@
 # key: tmp
 # --
 \documentclass[a4j]{jarticle}
-\title{$0レポート \ 課題}
-\author{情報科学類, 3年, 2クラス, 学籍番号：201311403 \ 山岡 洸瑛, Yamaoka
-Kouei}
+\title{$0}
+\author{システム情報工学研究科・コンピュータサイエンス専攻, マルチメディア研究室\\
+1年, 学籍番号：201311403 \ 山岡 洸瑛, Yamaoka Kouei}
 \西暦
 \date{\today}
 
@@ -25,11 +25,15 @@ Kouei}
 
 \def\pgfsysdriver{pgfsys-dvipdfmx.def}
 
+\usepackage[graphicx]{dvipdfmx,color}
 \usepackage{ascmac}
 \usepackage{here}
 \usepackage{tikz}
 \usetikzlibrary{trees}
 \thispagestyle{empty}
+\usepackage{amsmath}
+\usepackage{bm}
+
 
 \usepackage{listings,jlisting}
 \renewcommand{\lstlistingname}{リスト}

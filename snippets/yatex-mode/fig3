@@ -4,24 +4,20 @@
 # --
 \begin{figure}[htbp]
  \begin{minipage}{0.33\hsize}
-  \begin{center}
-  \includegraphics[width=100mm]{$1.eps}
-   \end{center}
-  \caption{$2}
-  \label{$3}
+  \centering
+  \includegraphics[width=2\columnwidth]{fig/$1.pdf}
+  \subcaption{$2}
  \end{minipage}
  \begin{minipage}{0.33\hsize}
-  \begin{center}
-  \includegraphics[width=100mm]{$4.eps}
-  \end{center}
-  \caption{$5}
-  \label{$6}
+  \centering
+  \includegraphics[width=1\columnwidth]{fig/$3.pdf}
+  \subcaption{$4}
  \end{minipage}
  \begin{minipage}{0.33\hsize}
-  \begin{center}
-  \includegraphics[width=100mm]{$7.eps}
-  \end{center}
-  \caption{$8}
-  \label{$9}
+  \centering
+  \includegraphics[width=1\columnwidth]{fig/$5.pdf}
+  \caption{$6}
  \end{minipage}
+ \caption{$7}
+ \label{$8}
 \end{figure}
