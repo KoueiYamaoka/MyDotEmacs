@@ -123,6 +123,88 @@ See `auto-complete-mode' for more information on Auto-Complete mode.
 
 ;;;***
 
+;;;### (autoloads (er/expand-region) "../init/expand-region/expand-region"
+;;;;;;  "../init/expand-region/expand-region.el" (22749 64189 595108
+;;;;;;  919000))
+;;; Generated autoloads from ../init/expand-region/expand-region.el
+
+(autoload 'er/expand-region "../init/expand-region/expand-region" "\
+Increase selected region by semantic units.
+
+With prefix argument expands the region that many times.
+If prefix argument is negative calls `er/contract-region'.
+If prefix argument is 0 it resets point and mark to their state
+before calling `er/expand-region' for the first time.
+
+\(fn ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (expand-region-smart-cursor expand-region-exclude-text-mode-expansions
+;;;;;;  expand-region-reset-fast-key expand-region-contract-fast-key
+;;;;;;  expand-region-fast-keys-enabled expand-region-skip-whitespace
+;;;;;;  expand-region-autocopy-register expand-region-guess-python-mode
+;;;;;;  expand-region-preferred-python-mode expand-region) "../init/expand-region/expand-region-custom"
+;;;;;;  "../init/expand-region/expand-region-custom.el" (22749 64189
+;;;;;;  595108 919000))
+;;; Generated autoloads from ../init/expand-region/expand-region-custom.el
+
+(let ((loads (get 'expand-region 'custom-loads))) (if (member '"../init/expand-region/expand-region-custom" loads) nil (put 'expand-region 'custom-loads (cons '"../init/expand-region/expand-region-custom" loads))))
+
+(defvar expand-region-preferred-python-mode 'python "\
+The name of your preferred python mode")
+
+(custom-autoload 'expand-region-preferred-python-mode "../init/expand-region/expand-region-custom" t)
+
+(defvar expand-region-guess-python-mode t "\
+If expand-region should attempt to guess your preferred python mode")
+
+(custom-autoload 'expand-region-guess-python-mode "../init/expand-region/expand-region-custom" t)
+
+(defvar expand-region-autocopy-register "" "\
+If set to a string of a single character (try \"e\"), then the
+contents of the most recent expand or contract command will
+always be copied to the register named after that character.")
+
+(custom-autoload 'expand-region-autocopy-register "../init/expand-region/expand-region-custom" t)
+
+(defvar expand-region-skip-whitespace t "\
+If expand-region should skip past whitespace on initial expansion")
+
+(custom-autoload 'expand-region-skip-whitespace "../init/expand-region/expand-region-custom" t)
+
+(defvar expand-region-fast-keys-enabled t "\
+If expand-region should bind fast keys after initial expand/contract")
+
+(custom-autoload 'expand-region-fast-keys-enabled "../init/expand-region/expand-region-custom" t)
+
+(defvar expand-region-contract-fast-key "-" "\
+Key to use after an initial expand/contract to contract once more.")
+
+(custom-autoload 'expand-region-contract-fast-key "../init/expand-region/expand-region-custom" t)
+
+(defvar expand-region-reset-fast-key "0" "\
+Key to use after an initial expand/contract to undo.")
+
+(custom-autoload 'expand-region-reset-fast-key "../init/expand-region/expand-region-custom" t)
+
+(defvar expand-region-exclude-text-mode-expansions '(html-mode nxml-mode) "\
+List of modes which derive from `text-mode' for which text mode expansions are not appropriate.")
+
+(custom-autoload 'expand-region-exclude-text-mode-expansions "../init/expand-region/expand-region-custom" t)
+
+(defvar expand-region-smart-cursor nil "\
+Defines whether the cursor should be placed intelligently after expansion.
+
+If set to t, and the cursor is already at the beginning of the new region,
+keep it there; otherwise, put it at the end of the region.
+
+If set to nil, always place the cursor at the beginning of the region.")
+
+(custom-autoload 'expand-region-smart-cursor "../init/expand-region/expand-region-custom" t)
+
+;;;***
+
 ;;;### (autoloads (flycheck-def-option-var flycheck-def-config-file-var
 ;;;;;;  flycheck-define-command-checker flycheck-define-error-level
 ;;;;;;  global-flycheck-mode flycheck-mode flycheck-manual) "../init/flycheck/flycheck"
@@ -553,6 +635,99 @@ useful, yet they are listed for completeness.
 
 ;;;***
 
+;;;### (autoloads (highlight-symbol-occur highlight-symbol-query-replace
+;;;;;;  highlight-symbol-nav-mode highlight-symbol-prev-in-defun
+;;;;;;  highlight-symbol-next-in-defun highlight-symbol-prev highlight-symbol-next
+;;;;;;  highlight-symbol-count highlight-symbol-list-all highlight-symbol-remove-all
+;;;;;;  highlight-symbol highlight-symbol-mode) "../init/highlight-symbol/highlight-symbol"
+;;;;;;  "../init/highlight-symbol/highlight-symbol.el" (22749 63584
+;;;;;;  799125 311000))
+;;; Generated autoloads from ../init/highlight-symbol/highlight-symbol.el
+
+(autoload 'highlight-symbol-mode "../init/highlight-symbol/highlight-symbol" "\
+Minor mode that highlights the symbol under point throughout the buffer.
+Highlighting takes place after `highlight-symbol-idle-delay'.
+
+\(fn &optional ARG)" t nil)
+
+(defalias 'highlight-symbol-at-point 'highlight-symbol)
+
+(autoload 'highlight-symbol "../init/highlight-symbol/highlight-symbol" "\
+Toggle highlighting of the symbol at point.
+This highlights or unhighlights the symbol at point using the first
+element in of `highlight-symbol-faces'.
+
+\(fn &optional SYMBOL)" t nil)
+
+(autoload 'highlight-symbol-remove-all "../init/highlight-symbol/highlight-symbol" "\
+Remove symbol highlighting in buffer.
+
+\(fn)" t nil)
+
+(autoload 'highlight-symbol-list-all "../init/highlight-symbol/highlight-symbol" "\
+List all symbols highlighted in the buffer.
+
+\(fn)" t nil)
+
+(autoload 'highlight-symbol-count "../init/highlight-symbol/highlight-symbol" "\
+Print the number of occurrences of symbol at point.
+
+\(fn &optional SYMBOL MESSAGE-P)" t nil)
+
+(autoload 'highlight-symbol-next "../init/highlight-symbol/highlight-symbol" "\
+Jump to the next location of the symbol at point within the buffer.
+
+\(fn)" t nil)
+
+(autoload 'highlight-symbol-prev "../init/highlight-symbol/highlight-symbol" "\
+Jump to the previous location of the symbol at point within the buffer.
+
+\(fn)" t nil)
+
+(autoload 'highlight-symbol-next-in-defun "../init/highlight-symbol/highlight-symbol" "\
+Jump to the next location of the symbol at point within the defun.
+
+\(fn)" t nil)
+
+(autoload 'highlight-symbol-prev-in-defun "../init/highlight-symbol/highlight-symbol" "\
+Jump to the previous location of the symbol at point within the defun.
+
+\(fn)" t nil)
+
+(autoload 'highlight-symbol-nav-mode "../init/highlight-symbol/highlight-symbol" "\
+Navigate occurrences of the symbol at point.
+
+When called interactively, toggle `highlight-symbol-nav-mode'.
+With prefix ARG, enable `highlight-symbol-nav-mode' if ARG is
+positive, otherwise disable it.
+
+When called from Lisp, enable `highlight-symbol-nav-mode' if ARG
+is omitted, nil or positive.  If ARG is `toggle', toggle
+`highlight-symbol-nav-mode'.  Otherwise behave as if called
+interactively.
+
+In `highlight-symbol-nav-mode' provide the following key bindings
+to navigate between occurrences of the symbol at point in the
+current buffer.
+
+\\{highlight-symbol-nav-mode-map}
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'highlight-symbol-query-replace "../init/highlight-symbol/highlight-symbol" "\
+Replace the symbol at point with REPLACEMENT.
+
+\(fn REPLACEMENT)" t nil)
+
+(autoload 'highlight-symbol-occur "../init/highlight-symbol/highlight-symbol" "\
+Call `occur' with the symbol at point.
+Each line is displayed with NLINES lines before and after, or -NLINES
+before if NLINES is negative.
+
+\(fn &optional NLINES)" t nil)
+
+;;;***
+
 ;;;### (autoloads (jedi:auto-complete-mode jedi:complete jedi:ac-setup)
 ;;;;;;  "../init/jedi/jedi" "../init/jedi/jedi.el" (22596 58930 699096
 ;;;;;;  932000))
@@ -886,6 +1061,349 @@ Major mode for editing Tlc files, or files found in tlc directories.
 
 \(fn)" t nil)
 (add-to-list 'auto-mode-alist '("\\.tlc$" . tlc-mode))
+
+;;;***
+
+;;;### (autoloads (mc/edit-beginnings-of-lines mc/edit-ends-of-lines
+;;;;;;  mc/edit-lines) "../init/multiple-cursors/mc-edit-lines" "../init/multiple-cursors/mc-edit-lines.el"
+;;;;;;  (22750 12018 600027 425000))
+;;; Generated autoloads from ../init/multiple-cursors/mc-edit-lines.el
+
+(autoload 'mc/edit-lines "../init/multiple-cursors/mc-edit-lines" "\
+Add one cursor to each line of the active region.
+Starts from mark and moves in straight down or up towards the
+line point is on.
+
+What is done with lines which are not long enough is governed by
+`mc/edit-lines-empty-lines'.  The prefix argument ARG can be used
+to override this.  If ARG is a symbol (when called from Lisp),
+that symbol is used instead of `mc/edit-lines-empty-lines'.
+Otherwise, if ARG negative, short lines will be ignored.  Any
+other non-nil value will cause short lines to be padded.
+
+\(fn &optional ARG)" t nil)
+
+(autoload 'mc/edit-ends-of-lines "../init/multiple-cursors/mc-edit-lines" "\
+Add one cursor to the end of each line in the active region.
+
+\(fn)" t nil)
+
+(autoload 'mc/edit-beginnings-of-lines "../init/multiple-cursors/mc-edit-lines" "\
+Add one cursor to the beginning of each line in the active region.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (mc-hide-unmatched-lines-mode) "../init/multiple-cursors/mc-hide-unmatched-lines-mode"
+;;;;;;  "../init/multiple-cursors/mc-hide-unmatched-lines-mode.el"
+;;;;;;  (22750 12018 600027 425000))
+;;; Generated autoloads from ../init/multiple-cursors/mc-hide-unmatched-lines-mode.el
+
+(autoload 'mc-hide-unmatched-lines-mode "../init/multiple-cursors/mc-hide-unmatched-lines-mode" "\
+Minor mode when enabled hides all lines where no cursors (and
+also hum/lines-to-expand below and above) To make use of this
+mode press \"C-'\" while multiple-cursor-mode is active. You can
+still edit lines while you are in mc-hide-unmatched-lines
+mode. To leave this mode press <return> or \"C-g\"
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (mc/mark-sgml-tag-pair mc/toggle-cursor-on-click
+;;;;;;  mc/mark-all-symbols-like-this-in-defun mc/mark-all-words-like-this-in-defun
+;;;;;;  mc/mark-all-like-this-in-defun mc/mark-all-dwim mc/mark-all-like-this-dwim
+;;;;;;  mc/mark-more-like-this-extended mc/mark-all-in-region-regexp
+;;;;;;  mc/mark-all-in-region mc/mark-all-symbols-like-this mc/mark-all-words-like-this
+;;;;;;  mc/mark-all-like-this mc/skip-to-previous-like-this mc/skip-to-next-like-this
+;;;;;;  mc/unmark-previous-like-this mc/unmark-next-like-this mc/mark-previous-lines
+;;;;;;  mc/mark-next-lines mc/mark-previous-symbol-like-this mc/mark-previous-word-like-this
+;;;;;;  mc/mark-previous-like-this-word mc/mark-previous-like-this
+;;;;;;  mc/mark-next-symbol-like-this mc/mark-next-word-like-this
+;;;;;;  mc/mark-next-like-this-word mc/mark-next-like-this) "../init/multiple-cursors/mc-mark-more"
+;;;;;;  "../init/multiple-cursors/mc-mark-more.el" (22750 12018 600027
+;;;;;;  425000))
+;;; Generated autoloads from ../init/multiple-cursors/mc-mark-more.el
+
+(autoload 'mc/mark-next-like-this "../init/multiple-cursors/mc-mark-more" "\
+Find and mark the next part of the buffer matching the currently active region
+If no region is active add a cursor on the next line
+With negative ARG, delete the last one instead.
+With zero ARG, skip the last one and mark next.
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-next-like-this-word "../init/multiple-cursors/mc-mark-more" "\
+Find and mark the next part of the buffer matching the currently active region
+If no region is active, mark the word at the point and find the next match
+With negative ARG, delete the last one instead.
+With zero ARG, skip the last one and mark next.
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-next-word-like-this "../init/multiple-cursors/mc-mark-more" "\
+Find and mark the next word of the buffer matching the currently active region
+The matching region must be a whole word to be a match
+If no region is active, mark the symbol at the point and find the next match
+With negative ARG, delete the last one instead.
+With zero ARG, skip the last one and mark next.
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-next-symbol-like-this "../init/multiple-cursors/mc-mark-more" "\
+Find and mark the next symbol of the buffer matching the currently active region
+The matching region must be a whole symbol to be a match
+If no region is active, mark the symbol at the point and find the next match
+With negative ARG, delete the last one instead.
+With zero ARG, skip the last one and mark next.
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-previous-like-this "../init/multiple-cursors/mc-mark-more" "\
+Find and mark the previous part of the buffer matching the currently active region
+If no region is active add a cursor on the previous line
+With negative ARG, delete the last one instead.
+With zero ARG, skip the last one and mark next.
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-previous-like-this-word "../init/multiple-cursors/mc-mark-more" "\
+Find and mark the previous part of the buffer matching the currently active region
+If no region is active, mark the word at the point and find the previous match
+With negative ARG, delete the last one instead.
+With zero ARG, skip the last one and mark previous.
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-previous-word-like-this "../init/multiple-cursors/mc-mark-more" "\
+Find and mark the previous part of the buffer matching the currently active region
+The matching region must be a whole word to be a match
+If no region is active add a cursor on the previous line
+With negative ARG, delete the last one instead.
+With zero ARG, skip the last one and mark next.
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-previous-symbol-like-this "../init/multiple-cursors/mc-mark-more" "\
+Find and mark the previous part of the buffer matching the currently active region
+The matching region must be a whole symbol to be a match
+If no region is active add a cursor on the previous line
+With negative ARG, delete the last one instead.
+With zero ARG, skip the last one and mark next.
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-next-lines "../init/multiple-cursors/mc-mark-more" "\
+
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-previous-lines "../init/multiple-cursors/mc-mark-more" "\
+
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/unmark-next-like-this "../init/multiple-cursors/mc-mark-more" "\
+Deselect next part of the buffer matching the currently active region.
+
+\(fn)" t nil)
+
+(autoload 'mc/unmark-previous-like-this "../init/multiple-cursors/mc-mark-more" "\
+Deselect prev part of the buffer matching the currently active region.
+
+\(fn)" t nil)
+
+(autoload 'mc/skip-to-next-like-this "../init/multiple-cursors/mc-mark-more" "\
+Skip the current one and select the next part of the buffer matching the currently active region.
+
+\(fn)" t nil)
+
+(autoload 'mc/skip-to-previous-like-this "../init/multiple-cursors/mc-mark-more" "\
+Skip the current one and select the prev part of the buffer matching the currently active region.
+
+\(fn)" t nil)
+
+(autoload 'mc/mark-all-like-this "../init/multiple-cursors/mc-mark-more" "\
+Find and mark all the parts of the buffer matching the currently active region
+
+\(fn)" t nil)
+
+(autoload 'mc/mark-all-words-like-this "../init/multiple-cursors/mc-mark-more" "\
+
+
+\(fn)" t nil)
+
+(autoload 'mc/mark-all-symbols-like-this "../init/multiple-cursors/mc-mark-more" "\
+
+
+\(fn)" t nil)
+
+(autoload 'mc/mark-all-in-region "../init/multiple-cursors/mc-mark-more" "\
+Find and mark all the parts in the region matching the given search
+
+\(fn BEG END &optional SEARCH)" t nil)
+
+(autoload 'mc/mark-all-in-region-regexp "../init/multiple-cursors/mc-mark-more" "\
+Find and mark all the parts in the region matching the given regexp.
+
+\(fn BEG END)" t nil)
+
+(autoload 'mc/mark-more-like-this-extended "../init/multiple-cursors/mc-mark-more" "\
+Like mark-more-like-this, but then lets you adjust with arrows key.
+The adjustments work like this:
+
+   <up>    Mark previous like this and set direction to 'up
+   <down>  Mark next like this and set direction to 'down
+
+If direction is 'up:
+
+   <left>  Skip past the cursor furthest up
+   <right> Remove the cursor furthest up
+
+If direction is 'down:
+
+   <left>  Remove the cursor furthest down
+   <right> Skip past the cursor furthest down
+
+The bindings for these commands can be changed. See `mc/mark-more-like-this-extended-keymap'.
+
+\(fn)" t nil)
+
+(autoload 'mc/mark-all-like-this-dwim "../init/multiple-cursors/mc-mark-more" "\
+Tries to guess what you want to mark all of.
+Can be pressed multiple times to increase selection.
+
+With prefix, it behaves the same as original `mc/mark-all-like-this'
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-all-dwim "../init/multiple-cursors/mc-mark-more" "\
+Tries even harder to guess what you want to mark all of.
+
+If the region is active and spans multiple lines, it will behave
+as if `mc/mark-all-in-region'. With the prefix ARG, it will call
+`mc/edit-lines' instead.
+
+If the region is inactive or on a single line, it will behave like
+`mc/mark-all-like-this-dwim'.
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/mark-all-like-this-in-defun "../init/multiple-cursors/mc-mark-more" "\
+Mark all like this in defun.
+
+\(fn)" t nil)
+
+(autoload 'mc/mark-all-words-like-this-in-defun "../init/multiple-cursors/mc-mark-more" "\
+Mark all words like this in defun.
+
+\(fn)" t nil)
+
+(autoload 'mc/mark-all-symbols-like-this-in-defun "../init/multiple-cursors/mc-mark-more" "\
+Mark all symbols like this in defun.
+
+\(fn)" t nil)
+
+(autoload 'mc/toggle-cursor-on-click "../init/multiple-cursors/mc-mark-more" "\
+Add a cursor where you click, or remove a fake cursor that is
+already there.
+
+\(fn EVENT)" t nil)
+
+(defalias 'mc/add-cursor-on-click 'mc/toggle-cursor-on-click)
+
+(autoload 'mc/mark-sgml-tag-pair "../init/multiple-cursors/mc-mark-more" "\
+Mark the tag we're in and its pair for renaming.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (mc/mark-pop) "../init/multiple-cursors/mc-mark-pop"
+;;;;;;  "../init/multiple-cursors/mc-mark-pop.el" (22750 12018 600027
+;;;;;;  425000))
+;;; Generated autoloads from ../init/multiple-cursors/mc-mark-pop.el
+
+(autoload 'mc/mark-pop "../init/multiple-cursors/mc-mark-pop" "\
+Add a cursor at the current point, pop off mark ring and jump
+to the popped mark.
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (mc/vertical-align-with-space mc/vertical-align
+;;;;;;  mc/sort-regions mc/reverse-regions mc/insert-letters mc/insert-numbers)
+;;;;;;  "../init/multiple-cursors/mc-separate-operations" "../init/multiple-cursors/mc-separate-operations.el"
+;;;;;;  (22750 12018 600027 425000))
+;;; Generated autoloads from ../init/multiple-cursors/mc-separate-operations.el
+
+(autoload 'mc/insert-numbers "../init/multiple-cursors/mc-separate-operations" "\
+Insert increasing numbers for each cursor, starting at
+`mc/insert-numbers-default' or ARG.
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/insert-letters "../init/multiple-cursors/mc-separate-operations" "\
+Insert increasing letters for each cursor, starting at 0 or ARG.
+     Where letter[0]=a letter[2]=c letter[26]=aa
+
+\(fn ARG)" t nil)
+
+(autoload 'mc/reverse-regions "../init/multiple-cursors/mc-separate-operations" "\
+
+
+\(fn)" t nil)
+
+(autoload 'mc/sort-regions "../init/multiple-cursors/mc-separate-operations" "\
+
+
+\(fn)" t nil)
+
+(autoload 'mc/vertical-align "../init/multiple-cursors/mc-separate-operations" "\
+Aligns all cursors vertically with a given CHARACTER to the one with the
+highest colum number (the rightest).
+Might not behave as intended if more than one cursors are on the same line.
+
+\(fn CHARACTER)" t nil)
+
+(autoload 'mc/vertical-align-with-space "../init/multiple-cursors/mc-separate-operations" "\
+Aligns all cursors with whitespace like `mc/vertical-align' does
+
+\(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (multiple-cursors-mode) "../init/multiple-cursors/multiple-cursors-core"
+;;;;;;  "../init/multiple-cursors/multiple-cursors-core.el" (22750
+;;;;;;  12018 600027 425000))
+;;; Generated autoloads from ../init/multiple-cursors/multiple-cursors-core.el
+
+(autoload 'multiple-cursors-mode "../init/multiple-cursors/multiple-cursors-core" "\
+Mode while multiple cursors are active.
+
+\(fn &optional ARG)" t nil)
+
+;;;***
+
+;;;### (autoloads (rectangular-region-mode set-rectangular-region-anchor)
+;;;;;;  "../init/multiple-cursors/rectangular-region-mode" "../init/multiple-cursors/rectangular-region-mode.el"
+;;;;;;  (22750 12018 600027 425000))
+;;; Generated autoloads from ../init/multiple-cursors/rectangular-region-mode.el
+
+(autoload 'set-rectangular-region-anchor "../init/multiple-cursors/rectangular-region-mode" "\
+Anchors the rectangular region at point.
+
+Think of this one as `set-mark' except you're marking a rectangular region. It is
+an exceedingly quick way of adding multiple cursors to multiple lines.
+
+\(fn)" t nil)
+
+(autoload 'rectangular-region-mode "../init/multiple-cursors/rectangular-region-mode" "\
+A mode for creating a rectangular region to edit
+
+\(fn &optional ARG)" t nil)
 
 ;;;***
 
@@ -1231,6 +1749,30 @@ Run commands in shell for interactive programs
 
 
 \(fn)" t nil)
+
+;;;***
+
+;;;### (autoloads (region-bindings-mode) "../init/region-bindings-mode/region-bindings-mode"
+;;;;;;  "../init/region-bindings-mode/region-bindings-mode.el" (22750
+;;;;;;  10661 996064 192000))
+;;; Generated autoloads from ../init/region-bindings-mode/region-bindings-mode.el
+
+(autoload 'region-bindings-mode "../init/region-bindings-mode/region-bindings-mode" "\
+Enable special bindings when working with an active region.
+
+Do not invoke `region-bindings-mode' directly!
+
+Toggling the mode on and off via this function will simply
+enable/disable the bindings, but it will not honour
+`region-bindings-mode-disabled-modes' or
+`region-bindings-mode-disable-predicates', or toggle activation
+of the hooks which automatically enable/disable the bindings when
+the mark is activated or deactivated.
+
+Instead, call `region-bindings-mode-enable' and
+`region-bindings-mode-enable'.
+
+\(fn &optional ARG)" t nil)
 
 ;;;***
 
@@ -1824,7 +2366,20 @@ Display a list of packages.
 ;;;;;;  "../init/dash/dash-functional.el" "../init/dash/dash.el"
 ;;;;;;  "../init/deferred/concurrent.el" "../init/deferred/deferred.el"
 ;;;;;;  "../init/epc/epc.el" "../init/epc/epcs.el" "../init/epc/test-epc.el"
-;;;;;;  "../init/epl/epl.el" "../init/flycheck/flycheck-buttercup.el"
+;;;;;;  "../init/epl/epl.el" "../init/expand-region/cc-mode-expansions.el"
+;;;;;;  "../init/expand-region/clojure-mode-expansions.el" "../init/expand-region/cperl-mode-expansions.el"
+;;;;;;  "../init/expand-region/css-mode-expansions.el" "../init/expand-region/enh-ruby-mode-expansions.el"
+;;;;;;  "../init/expand-region/er-basic-expansions.el" "../init/expand-region/erlang-mode-expansions.el"
+;;;;;;  "../init/expand-region/expand-region-core.el" "../init/expand-region/expand-region-pkg.el"
+;;;;;;  "../init/expand-region/feature-mode-expansions.el" "../init/expand-region/html-mode-expansions.el"
+;;;;;;  "../init/expand-region/js-mode-expansions.el" "../init/expand-region/js2-mode-expansions.el"
+;;;;;;  "../init/expand-region/jsp-expansions.el" "../init/expand-region/latex-mode-expansions.el"
+;;;;;;  "../init/expand-region/nxml-mode-expansions.el" "../init/expand-region/octave-expansions.el"
+;;;;;;  "../init/expand-region/python-el-expansions.el" "../init/expand-region/python-el-fgallina-expansions.el"
+;;;;;;  "../init/expand-region/python-mode-expansions.el" "../init/expand-region/ruby-mode-expansions.el"
+;;;;;;  "../init/expand-region/sml-mode-expansions.el" "../init/expand-region/subword-mode-expansions.el"
+;;;;;;  "../init/expand-region/text-mode-expansions.el" "../init/expand-region/the-org-mode-expansions.el"
+;;;;;;  "../init/expand-region/web-mode-expansions.el" "../init/flycheck/flycheck-buttercup.el"
 ;;;;;;  "../init/flycheck/flycheck-ert.el" "../init/fuzzy/fuzzy.el"
 ;;;;;;  "../init/google-translate/google-translate-core-ui.el" "../init/google-translate/google-translate-core.el"
 ;;;;;;  "../init/google-translate/google-translate-pkg.el" "../init/google-translate/google-translate-tk.el"
@@ -1833,13 +2388,15 @@ Display a list of packages.
 ;;;;;;  "../init/let-alist/let-alist-pkg.el" "../init/matlab-mode/matlab-load.el"
 ;;;;;;  "../init/matlab-mode/matlab-mode-autoloads.el" "../init/matlab-mode/matlab-mode-pkg.el"
 ;;;;;;  "../init/matlab-mode/matlab-publish.el" "../init/matlab-mode/semanticdb-matlab.el"
-;;;;;;  "../init/popup/popup.el" "../init/popwin/misc/popwin-browse-kill-ring.el"
-;;;;;;  "../init/popwin/misc/popwin-pp.el" "../init/popwin/misc/popwin-term.el"
-;;;;;;  "../init/popwin/misc/popwin-w3m.el" "../init/popwin/misc/popwin-yatex.el"
-;;;;;;  "../init/py-yapf/tests.el" "../init/python-environment/python-environment.el"
-;;;;;;  "../init/python-environment/test-python-environment.el" "../init/python-mode/python-mode-pkg.el"
-;;;;;;  "../init/python-mode/python-mode.el" "../init/python-mode/test/py-bug-numbered-tests.el"
-;;;;;;  "../init/python-mode/test/py-completion-tests.el" "../init/python-mode/test/py-ert-always-split-lp-1361531-tests.el"
+;;;;;;  "../init/multiple-cursors/mc-cycle-cursors.el" "../init/multiple-cursors/multiple-cursors-pkg.el"
+;;;;;;  "../init/multiple-cursors/multiple-cursors.el" "../init/popup/popup.el"
+;;;;;;  "../init/popwin/misc/popwin-browse-kill-ring.el" "../init/popwin/misc/popwin-pp.el"
+;;;;;;  "../init/popwin/misc/popwin-term.el" "../init/popwin/misc/popwin-w3m.el"
+;;;;;;  "../init/popwin/misc/popwin-yatex.el" "../init/py-yapf/tests.el"
+;;;;;;  "../init/python-environment/python-environment.el" "../init/python-environment/test-python-environment.el"
+;;;;;;  "../init/python-mode/python-mode-pkg.el" "../init/python-mode/python-mode.el"
+;;;;;;  "../init/python-mode/test/py-bug-numbered-tests.el" "../init/python-mode/test/py-completion-tests.el"
+;;;;;;  "../init/python-mode/test/py-ert-always-split-lp-1361531-tests.el"
 ;;;;;;  "../init/python-mode/test/py-ert-beginning-tests.el" "../init/python-mode/test/py-ert-end-tests.el"
 ;;;;;;  "../init/python-mode/test/py-ert-execute-block-test.el" "../init/python-mode/test/py-ert-execute-region-test.el"
 ;;;;;;  "../init/python-mode/test/py-ert-forward-tests.el" "../init/python-mode/test/py-ert-function-tests.el"
@@ -1853,18 +2410,18 @@ Display a list of packages.
 ;;;;;;  "../init/python-mode/test/python-extended-executes-test.el"
 ;;;;;;  "../init/python-mode/test/python-mode-syntax-test.el" "../init/python-mode/test/python-mode-test.el"
 ;;;;;;  "../init/python-mode/test/setup-ert-tests.el" "../init/seq/seq-24.el"
-;;;;;;  "../init/seq/seq-25.el" "../init/seq/seq.el" "../init/undohist/undohist.el"
-;;;;;;  "../init/yasnippet/yasnippet-debug.el" "../init/yasnippet/yasnippet-tests.el"
-;;;;;;  "../init/yatex/comment.el" "../init/yatex/yahtml.el" "../init/yatex/yatex.el"
-;;;;;;  "../init/yatex/yatex19.el" "../init/yatex/yatex23.el" "../init/yatex/yatexadd.el"
-;;;;;;  "../init/yatex/yatexgen.el" "../init/yatex/yatexhie.el" "../init/yatex/yatexhks.el"
-;;;;;;  "../init/yatex/yatexinf.el" "../init/yatex/yatexm-o.el" "../init/yatex/yatexpkg.el"
-;;;;;;  "../init/yatex/yatexprc.el" "el-get/el-get-autoloading.el"
-;;;;;;  "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
+;;;;;;  "../init/seq/seq-25.el" "../init/seq/seq.el" "../init/smartrep/smartrep.el"
+;;;;;;  "../init/undohist/undohist.el" "../init/yasnippet/yasnippet-debug.el"
+;;;;;;  "../init/yasnippet/yasnippet-tests.el" "../init/yatex/comment.el"
+;;;;;;  "../init/yatex/yahtml.el" "../init/yatex/yatex.el" "../init/yatex/yatex19.el"
+;;;;;;  "../init/yatex/yatex23.el" "../init/yatex/yatexadd.el" "../init/yatex/yatexgen.el"
+;;;;;;  "../init/yatex/yatexhie.el" "../init/yatex/yatexhks.el" "../init/yatex/yatexinf.el"
+;;;;;;  "../init/yatex/yatexm-o.el" "../init/yatex/yatexpkg.el" "../init/yatex/yatexprc.el"
+;;;;;;  "el-get/el-get-autoloading.el" "el-get/el-get-build.el" "el-get/el-get-byte-compile.el"
 ;;;;;;  "el-get/el-get-core.el" "el-get/el-get-custom.el" "el-get/el-get-dependencies.el"
 ;;;;;;  "el-get/el-get-install.el" "el-get/el-get-methods.el" "el-get/el-get-notify.el"
-;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22598
-;;;;;;  32060 659696 449000))
+;;;;;;  "el-get/el-get-recipes.el" "el-get/el-get-status.el") (22750
+;;;;;;  12022 413942 621000))
 
 ;;;***
 

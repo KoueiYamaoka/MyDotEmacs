@@ -14,6 +14,7 @@
 	 (:name cl-lib :builtin "24.3" :type elpa :description "Properly prefixed CL functions and macros" :url "http://elpa.gnu.org/packages/cl-lib.html"))
  (ctable status "installed" recipe
 	 (:name ctable :description "Table Component for elisp" :type github :pkgname "kiwanami/emacs-ctable"))
+ (cua-mode status "required" recipe nil)
  (dash status "installed" recipe
        (:name dash :description "A modern list api for Emacs. No 'cl required." :type github :pkgname "magnars/dash.el"))
  (deferred status "installed" recipe
@@ -45,6 +46,8 @@
 	     (deferred ctable)))
  (epl status "installed" recipe
       (:name epl :description "EPL provides a convenient high-level API for various package.el versions, and aims to overcome its most striking idiocies." :type github :pkgname "cask/epl"))
+ (expand-region status "installed" recipe
+		(:name expand-region :after nil :type github :pkgname "magnars/expand-region.el" :description "Expand region increases the selected region by semantic units. Just keep pressing the key until it selects what you want." :website "https://github.com/magnars/expand-region.el#readme"))
  (flycheck status "installed" recipe
 	   (:name flycheck :type github :pkgname "flycheck/flycheck" :minimum-emacs-version "24.3" :description "On-the-fly syntax checking extension" :depends
 		  (dash pkg-info let-alist seq)))
@@ -79,6 +82,8 @@
 :type github :pkgname "emacs-helm/helm-descbinds" :description "Yet Another `describe-bindings' with `helm'." :prepare
 (progn
 (autoload 'helm-descbinds-install "helm-descbinds"))))
+(highlight-symbol status "installed" recipe
+(:name highlight-symbol :after nil :description "Quickly highlight a symbol throughout the buffer and cycle through its locations." :type github :pkgname "nschum/highlight-symbol.el"))
 (jedi status "installed" recipe
 (:name jedi :after nil :depends
 (python-environment auto-complete epc)
@@ -88,6 +93,8 @@
 (matlab-mode status "installed" recipe
 (:name matlab-mode :type elpa :after nil :features
 (matlab-load)))
+(multiple-cursors status "installed" recipe
+(:name multiple-cursors :after nil :description "An experiment in adding multiple cursors to emacs" :type github :pkgname "magnars/multiple-cursors.el"))
 (package status "installed" recipe
 (:name package :description "ELPA implementation (\"package.el\") from Emacs 24" :builtin "24" :type http :url "https://repo.or.cz/w/emacs.git/blob_plain/ba08b24186711eaeb3748f3d1f23e2c2d9ed0d09:/lisp/emacs-lisp/package.el" :features package :post-init
 (progn
@@ -159,8 +166,17 @@
 (quickrun status "installed" recipe
 (:name quickrun :type github :pkgname "syohex/emacs-quickrun" :after nil :features
 ("quickrun")))
+(region-bindings-mode status "installed" recipe
+(:name region-bindings-mode :after nil :features
+(region-bindings-mode)
+:description "A minor mode that enables custom bindings when mark is active" :type github :pkgname "fgallina/region-bindings-mode"))
 (seq status "installed" recipe
 (:name seq :description "Sequence manipulation library for Emacs" :builtin "25" :type github :pkgname "NicolasPetton/seq.el"))
+(smartrep status "installed" recipe
+(:name smartrep :after nil :description "Support sequential operation which omitted prefix keys." :website "http://sheephead.homelinux.org/2011/12/19/6930/" :type github :pkgname "myuhe/smartrep.el" :prepare
+(progn
+(autoload 'smartrep-restore-original-position "smartrep" nil t)
+(autoload 'smartrep-map-internal "smartrep" nil t))))
 (undo-tree status "installed" recipe
 (:name undo-tree :description "Treat undo history as a tree" :website "http://www.dr-qubit.org/emacs.php" :type git :url "http://www.dr-qubit.org/git/undo-tree.git/"))
 (undohist status "installed" recipe
