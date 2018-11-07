@@ -3,6 +3,12 @@
 ;;;;; Code:
 
 ;;; load-pathを追加する関数を定義
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -63,8 +69,8 @@
 (el-get-bundle helm)
 (el-get-bundle helm-ag)
 (el-get-bundle helm-descbinds)
-;; popwin
-(el-get-bundle popwin)
+;; shackle instead of popwin
+(el-get-bundle wasamasa/shackle)
 ;; anzu
 (el-get-bundle anzu)
 ;; google-translate
@@ -86,6 +92,7 @@
 ;; region-bindings-mode
 (el-get-bundle region-bindings-mode)
 ;;;; download packages ends here
+(package-initialize)
 
 
 
@@ -230,3 +237,25 @@
 (define-key region-bindings-mode-map (kbd "M-]") 'region-to-square-bracket)
 
 ;;;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(ac-ignore-case nil)
+ '(anzu-deactive-region t)
+ '(anzu-mode-lighter "")
+ '(anzu-search-threshold 100)
+ '(package-selected-packages
+   (quote
+    (seq py-yapf pkg-info matlab-mode let-alist flymake-easy)))
+ '(py-force-py-shell-name-p t)
+ '(py-indent-offset 4)
+ '(py-shell-name "python3")
+ '(yas-trigger-key "TAB"))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

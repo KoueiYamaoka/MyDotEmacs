@@ -1,2 +1,0 @@
-
-((digest . "34437d07837f491c397fb46cc253fe61") (undo-list nil (nil fontified t 99 . 100) (nil fontified t 98 . 99) (nil fontified t 97 . 98) (nil fontified t 64 . 97) (nil fontified t 63 . 64) (nil fontified t 52 . 63) (nil fontified t 40 . 52) (nil fontified t 39 . 40) (nil fontified t 38 . 39) (nil fontified t 1 . 38) (1 . 100) (t 0 0 0 -1000)))
