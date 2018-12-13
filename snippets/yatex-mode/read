@@ -1,0 +1,27 @@
+# -*- mode: snippet -*-
+# name: abst. of readed paper
+# key: read
+# --
+\documentclass[a4j]{jarticle}
+\renewcommand{\refname}{文献}
+
+\input{../settings}
+
+\begin{document}
+ \input{/home/yamaoka/latex/IEEEbib.tex}
+
+ \section{アブストラクト}
+ \cite{}
+ \section{先行研究との差分}
+
+ \section{提案法のキモ}
+
+ \section{有効性の検証法}
+
+ \section{議論}
+
+ \section{次に読むべき論文}
+
+ \clearpage
+\end{document}
+
