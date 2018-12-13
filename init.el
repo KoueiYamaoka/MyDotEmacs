@@ -2,12 +2,7 @@
 ;;;;; Commentary:
 ;;;;; Code:
 
-;;; load-pathを追加する関数を定義
-
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
+;;; Define a function adding a load-path
 
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -20,8 +15,13 @@
 ;; emacs directory
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
+(defun mkdir (dirname)
+       (if (not (file-directory-p dirname))
+	   (make-directory dirname)
+	 )
+       )
+(mkdir "~/.emacs.d/init/")
 (add-to-load-path "init/")
-
 
 ;; el-get setting
 (add-to-list 'load-path (locate-user-emacs-file "el-get/"))
@@ -74,7 +74,7 @@
 ;; anzu
 (el-get-bundle anzu)
 ;; google-translate
-(el-get-bundle google-translate)
+(el-get-bundle atykhonov/google-translate)
 ;; python-mode
 (el-get-bundle python-mode)
 ;; jedi for python auto-complete
@@ -107,15 +107,15 @@
 (global-set-key (kbd "C-x j") 'goto-line)
 ;; "yes or no" to "y or n"
 (fset 'yes-or-no-p 'y-or-n-p)
-;;Auto-completion of the brackets
+;; Auto-completion of the brackets
 (electric-pair-mode 1)
 ;; stop the cursor blinking
 (blink-cursor-mode 0)
 ;; make the correspond brackets on light
 (show-paren-mode 1)
-;; ウィンドウに収まらない時だけ括弧内を光らせる
+;; Blink the inside of the brackets only when it does not fit in the window
 (setq show-paren-style 'mixed)
-;; dont make backup files
+;; do not make backup files
 (setq backup-inhibited t)
 ;; delete auto save file when exit emacs
 (setq delete-auto-save-files t)
@@ -123,9 +123,9 @@
 (global-set-key (kbd "C-c q") 'query-replace)
 ;; replace-string
 (global-set-key (kbd "C-c r") 'replace-string)
-;; カーソルのあるウィンドウを閉じる
+;; Close the focused window
 (define-key global-map (kbd "M-0") 'delete-window)
-;; 他のウィンドウをすべて閉じる
+;; Close the other windows
 (define-key global-map (kbd "M-1") 'delete-other-windows)
 ;; split window vertically
 (define-key global-map (kbd "M-2") 'split-window-vertically)
@@ -133,7 +133,7 @@
 (define-key global-map (kbd "M-3") 'split-window-horizontally)
 ;; auto complete file name and case sensitive
 (setq completion-ignore-case t)
-;; show the line and number by F6
+;; show the line number by F6
 (global-set-key [f6] 'linum-mode)
 (setq linum-format "%2d ")
 ;; use zsh
@@ -154,9 +154,9 @@
 (global-set-key (kbd "C-m") 'newline-and-indent)
 ;; C-k also delete new line in the end of line
 (setq kill-whole-line t)
-;;C-x o to C-o
+;; C-x o to C-o
 (global-set-key (kbd "C-o") 'other-window)
-;; Emphasize the useless space of the end of line
+;; Emphasize the useless space on the end of line
 (setq-default show-trailing-whitespace t)
 (set-face-background 'trailing-whitespace "#b14770")
 ;; delete useless space of the end of line
@@ -164,8 +164,15 @@
 ;; show row and column number on mode-line
 (line-number-mode t)
 (column-number-mode t)
-;; default fill column set to 80
-(setq-default fill-column 80)
+;; default fill column set to 120
+(setq-default fill-column 120)
+;; use C-h as backspace
+(define-key key-translation-map [?\C-h] [?\C-?])
+;; delete-word by C-d
+(defun delete-word (arg)
+  (interactive "p")
+  (delete-region (point) (progn (forward-word arg) (point))))
+(global-set-key (kbd "C-d") 'delete-word)
 ;;;; basic setting ends here
 
 

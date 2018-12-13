@@ -13,16 +13,16 @@ $ sudo pip install flake8
 $ sudo pip install virtualenv
 ```
 
-### install aspell
+### aspell setting
 ```sh
-sudo apt-get install aspell aspell-en
+echo "lang en_US" > ~/.aspell.conf
 ```
 
-then, run emacs
+Then, run emacs
 
 ## alias
 ```sh
-e='emacsclient -nw -a ""'
-ekill='emacsclient -e "(kill-emacs)"'
+alias e='emacsclient -nw -a ""'
+alias ekill='emacsclient -e "(kill-emacs)"'
 ```
 
