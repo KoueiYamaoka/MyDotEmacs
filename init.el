@@ -91,6 +91,8 @@
 (el-get-bundle multiple-cursors)
 ;; region-bindings-mode
 (el-get-bundle region-bindings-mode)
+;; check Japanese
+(el-get-bundle yama-natuki/yspel)
 ;;;; download packages ends here
 (package-initialize)
 
@@ -230,11 +232,11 @@
 (defun quote-formater (quote-format re-prefix re-suffix)
     (if mark-active
 	      (let* ((region-text (buffer-substring-no-properties (region-beginning) (region-end)))
-		                  (replace-func (lambda (re target-text)(replace-regexp-in-string re "" target-text nil nil 1)))
-				               (text (funcall replace-func re-suffix (funcall replace-func re-prefix region-text))))
-		        (delete-region (region-beginning) (region-end))
-			        (insert (format quote-format text)))
-          (error "Not Region selection")))
+				  (replace-func (lambda (re target-text)(replace-regexp-in-string re "" target-text nil nil 1)))
+					       (text (funcall replace-func re-suffix (funcall replace-func re-prefix region-text))))
+			(delete-region (region-beginning) (region-end))
+				(insert (format quote-format text)))
+	  (error "Not Region selection")))
 
 (require 'region-bindings-mode)
 (region-bindings-mode-enable)
@@ -266,3 +268,31 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+
+(require 'yspel)
+
+
+(defun my-insert-file-name (filename &optional args)
+  "Insert name of file FILENAME into buffer after point.
+
+  Prefixed with \\[universal-argument], expand the file name to
+  its fully canocalized path.  See `expand-file-name'.
+
+  Prefixed with \\[negative-argument], use relative path to file
+  name from current directory, `default-directory'.  See
+  `file-relative-name'.
+
+  The default with no prefix is to insert the file name exactly as
+  it appears in the minibuffer prompt."
+  ;; Based on insert-file in Emacs -- ashawley 20080926
+  (interactive "*fInsert file name: \nP")
+  (cond ((eq '- args)
+         (insert (expand-file-name filename)))
+        ((not (null args))
+         (insert filename))
+        (t
+         (insert (file-relative-name filename)))))
+(global-set-key "\C-c\C-i" 'my-insert-file-name)
+
+;;; init.el ends here
