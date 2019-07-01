@@ -93,6 +93,8 @@
 (el-get-bundle region-bindings-mode)
 ;; check Japanese
 (el-get-bundle yama-natuki/yspel)
+;; html
+(el-get-bundle fxbois/web-mode)
 ;;;; download packages ends here
 (package-initialize)
 
