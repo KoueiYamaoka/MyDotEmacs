@@ -26,3 +26,9 @@ alias e='emacsclient -nw -a ""'
 alias ekill='emacsclient -e "(kill-emacs)"'
 ```
 
+# git settings
+Write following setting to ~/.gitconfig
+```sh
+[core]
+    editor = "/usr/bin/emacsclient -t" --alternate-editor /usr/bin/emacs
+```

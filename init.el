@@ -3,7 +3,6 @@
 ;;;;; Code:
 
 ;;; Define a function adding a load-path
-
 (defun add-to-load-path (&rest paths)
   (let (path)
     (dolist (path paths paths)
@@ -16,23 +15,24 @@
 (when load-file-name
   (setq user-emacs-directory (file-name-directory load-file-name)))
 (defun mkdir (dirname)
-       (if (not (file-directory-p dirname))
-	   (make-directory dirname)
-	 )
-       )
+  (if (not (file-directory-p dirname))
+      (make-directory dirname)
+    )
+  )
 (mkdir "~/.emacs.d/init/")
 (add-to-load-path "init/")
 
-;; el-get setting
+
+;;;; el-get setting
 (add-to-list 'load-path (locate-user-emacs-file "el-get/"))
 (add-to-list 'load-path (locate-user-emacs-file "el-get/el-get"))
 ;; el-get init setting
 (unless (require 'el-get nil 'noerror)
- (with-current-buffer
-     (url-retrieve-synchronously
-      "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-   (goto-char (point-max))
-   (eval-print-last-sexp)))
+  (with-current-buffer
+      (url-retrieve-synchronously
+       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
+    (goto-char (point-max))
+    (eval-print-last-sexp)))
 ;; put .el files into init/
 (setq el-get-dir (locate-user-emacs-file "init/"))
 ;; put recipes into el-get/my-recipes
@@ -43,10 +43,10 @@
 (setq el-get-user-package-directory (locate-user-emacs-file "el-get/init-files"))
 (require 'el-get)
 ;; (el-get 'sync) % if write installing packages in init.el, dont write this setting
+;;;; el-get setting ends here
 
-;; el-get setting ends here
 
-;;;; download packages
+;;;; download packages via el-get
 ;; auto-complete
 (el-get-bundle auto-complete)
 ;; yasnippet
@@ -87,8 +87,6 @@
 (el-get-bundle expand-region)
 ;; smartrep
 (el-get-bundle smartrep)
-;; multiple-cursors
-(el-get-bundle multiple-cursors)
 ;; region-bindings-mode
 (el-get-bundle region-bindings-mode)
 ;; check Japanese
@@ -97,7 +95,6 @@
 (el-get-bundle fxbois/web-mode)
 ;;;; download packages ends here
 (package-initialize)
-
 
 
 ;;;; basic setting
@@ -180,19 +177,18 @@
 ;;;; basic setting ends here
 
 
-;;;; dafault mode activate settings
+;;;; activate dafault modes
 ;; uniquify setting
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'post-forward-angle-brackets)
 ;; uniquify setting ends here
 
-
 ;; fly spell setting
 (setq-default ispell-program-name "aspell")
-; use spell check even if there are several japanese
+					; use spell check even if there are several japanese
 (eval-after-load "ispell"
   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
-; auto load fly spell
+					; auto load fly spell
 (mapc
  (lambda (hook)
    (add-hook hook 'flyspell-prog-mode))
@@ -217,28 +213,27 @@
 (define-key global-map (kbd "C-x @") 'cua-set-rectangle-mark)
 ;;;; end dafault mode activate settings
 
-
 ;;;; other elisp
 (defun region-to-single-quote ()
-    (interactive)
-      (quote-formater "'%s'" "^\\(\"\\).*" ".*\\(\"\\)$"))
+  (interactive)
+  (quote-formater "'%s'" "^\\(\"\\).*" ".*\\(\"\\)$"))
 (defun region-to-double-quote ()
-    (interactive)
-      (quote-formater "\"%s\"" "^\\('\\).*" ".*\\('\\)$"))
+  (interactive)
+  (quote-formater "\"%s\"" "^\\('\\).*" ".*\\('\\)$"))
 (defun region-to-bracket ()
-    (interactive)
-      (quote-formater "\(%s\)" "^\\(\\[\\).*" ".*\\(\\]\\)$"))
+  (interactive)
+  (quote-formater "\(%s\)" "^\\(\\[\\).*" ".*\\(\\]\\)$"))
 (defun region-to-square-bracket ()
-    (interactive)
-      (quote-formater "\[%s\]" "^\\(\(\\).*" ".*\\(\)\\)$"))
+  (interactive)
+  (quote-formater "\[%s\]" "^\\(\(\\).*" ".*\\(\)\\)$"))
 (defun quote-formater (quote-format re-prefix re-suffix)
-    (if mark-active
-	      (let* ((region-text (buffer-substring-no-properties (region-beginning) (region-end)))
-				  (replace-func (lambda (re target-text)(replace-regexp-in-string re "" target-text nil nil 1)))
-					       (text (funcall replace-func re-suffix (funcall replace-func re-prefix region-text))))
-			(delete-region (region-beginning) (region-end))
-				(insert (format quote-format text)))
-	  (error "Not Region selection")))
+  (if mark-active
+      (let* ((region-text (buffer-substring-no-properties (region-beginning) (region-end)))
+	     (replace-func (lambda (re target-text)(replace-regexp-in-string re "" target-text nil nil 1)))
+	     (text (funcall replace-func re-suffix (funcall replace-func re-prefix region-text))))
+	(delete-region (region-beginning) (region-end))
+	(insert (format quote-format text)))
+    (error "Not Region selection")))
 
 (require 'region-bindings-mode)
 (region-bindings-mode-enable)
@@ -247,7 +242,6 @@
 (define-key region-bindings-mode-map (kbd "M-9") 'region-to-bracket)
 (define-key region-bindings-mode-map (kbd "M-]") 'region-to-square-bracket)
 
-;;;;; init.el ends here
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -271,9 +265,7 @@
  ;; If there is more than one, they won't work right.
  )
 
-
 (require 'yspel)
-
 
 (defun my-insert-file-name (filename &optional args)
   "Insert name of file FILENAME into buffer after point.
