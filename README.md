@@ -7,11 +7,13 @@ $ sudo apt-get insatll mercurial
 ```
 
 ### for python
+Anaconda is recommended
 ```sh
-$ sudo pip install yapf
-$ sudo pip install flake8
-$ sudo pip install virtualenv
+$ conda install black virtualenv jedi flake8
+$ emacs -nw
+M-x jedi:install-server
 ```
+
 
 ### aspell setting
 ```sh

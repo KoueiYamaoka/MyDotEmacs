@@ -79,8 +79,8 @@
 (el-get-bundle python-mode)
 ;; jedi for python auto-complete
 (el-get-bundle jedi)
-;; py-autopep8 for python auto-modify wrong coding
-(el-get-bundle py-yapf)
+;; python black: an auto-formatter
+(el-get-bundle proofit404/blacken)
 ;; highlight symbol
 (el-get-bundle highlight-symbol)
 ;; expand-region
