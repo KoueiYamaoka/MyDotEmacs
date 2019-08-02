@@ -9,6 +9,8 @@
 	(compilation-mode :align below :ratio 0.2)
 	("*Help*" :align right)
 	("*Google Translate*" :align below :ratio 0.3)
+	("*Python3*" :align right :ratio 0.4)
+	("*quickrun*" :ignore t)
 	)
       )
 (shackle-mode 1)
