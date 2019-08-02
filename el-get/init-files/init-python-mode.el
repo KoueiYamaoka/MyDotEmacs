@@ -18,11 +18,5 @@
  '(py-force-py-shell-name-p t)
  '(py-shell-name "python3"))
 
-;; jedi for python auto-complete
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:complete-on-dot t)
-
-;; py-yapf for python auto shaping
-(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
 
 ;;; init-python-mode.el ends here
