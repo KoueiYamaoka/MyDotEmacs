@@ -93,6 +93,10 @@
 (el-get-bundle yama-natuki/yspel)
 ;; html
 (el-get-bundle fxbois/web-mode)
+;; smart minor mode for dealing with pairs
+(el-get-bundle Fuco1/smartparens)
+;; highlights delimiters according to their depth
+(el-get-bundle Fanael/rainbow-delimiters)
 ;;;; download packages ends here
 (package-initialize)
 
