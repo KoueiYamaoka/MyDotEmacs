@@ -251,6 +251,9 @@
  '(anzu-deactive-region t)
  '(anzu-mode-lighter "")
  '(anzu-search-threshold 100)
+ '(custom-safe-themes
+   (quote
+    ("58feee2fa2a723800986d34028b14e193fb78218a0d33b3799894ffe49965c60" default)))
  '(package-selected-packages
    (quote
     (seq py-yapf pkg-info matlab-mode let-alist flymake-easy)))
@@ -288,5 +291,15 @@
         (t
          (insert (file-relative-name filename)))))
 (global-set-key "\C-c\C-i" 'my-insert-file-name)
+
+
+;;; theme settings
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(setq custom-theme-directory "~/.emacs.d/themes/")
+(load-theme 'comidiaModified t t)
+(enable-theme 'comidiaModified)
+
+
+
 
 ;;; init.el ends here
