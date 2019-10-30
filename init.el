@@ -97,6 +97,8 @@
 (el-get-bundle Fuco1/smartparens)
 ;; highlights delimiters according to their depth
 (el-get-bundle Fanael/rainbow-delimiters)
+;; csv-mode
+(el-get-bundle csv-mode)
 ;;;; download packages ends here
 (package-initialize)
 
@@ -298,10 +300,10 @@
 
 
 ;;; theme settings
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(setq custom-theme-directory "~/.emacs.d/themes/")
-(load-theme 'comidiaModified t t)
-(enable-theme 'comidiaModified)
+;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+;(setq custom-theme-directory "~/.emacs.d/themes/")
+;(load-theme 'comidiaModified t t)
+;(enable-theme 'comidiaModified)
 
 
 
