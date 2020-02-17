@@ -18,5 +18,9 @@
  '(py-force-py-shell-name-p t)
  '(py-shell-name "python3"))
 
+;; disable auto-fill-mode
+(add-hook ' python-mode-hook
+'(lambda () (auto-fill-mode -1)))
+
 
 ;;; init-python-mode.el ends here

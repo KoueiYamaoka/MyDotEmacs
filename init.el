@@ -266,7 +266,7 @@
     ("58feee2fa2a723800986d34028b14e193fb78218a0d33b3799894ffe49965c60" default)))
  '(package-selected-packages
    (quote
-    (seq py-yapf pkg-info matlab-mode let-alist flymake-easy)))
+    (csv-mode seq py-yapf pkg-info matlab-mode let-alist flymake-easy)))
  '(py-force-py-shell-name-p t)
  '(py-indent-offset 4)
  '(py-shell-name "python3")
