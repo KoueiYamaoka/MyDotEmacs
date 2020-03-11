@@ -305,6 +305,35 @@
 (global-set-key "\C-c\C-i" 'my-insert-file-name)
 
 
+;;; org-mode settings
+(setq org-directory "~/Dropbox/share/org")
+(setq org-default-notes-file "notes.org")
+(setq org-startup-folded 'showall)
+(setq org-log-done 'time)
+(setq org-enforce-todo-dependencies t)
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+;; org-capture
+(define-key global-map (kbd "C-c v") 'org-capture)
+(setq org-capture-templates
+      '(("n" "Note" entry (file+headline "~/Dropbox/share/org/notes.org" "Notes")
+         "* %?\nEntered on %U\n %i\n %a")
+        ))
+(defun show-org-buffer (file)
+  "Show an org-file FILE on the current buffer."
+  (interactive)
+  (if (get-buffer file)
+      (let ((buffer (get-buffer file)))
+        (switch-to-buffer buffer)
+        (message "%s" file))
+    (find-file (concat "~/ownCloud/Org/" file))))
+(global-set-key (kbd "C-M-o") '(lambda () (interactive)
+                                 (show-org-buffer "notes.org")))
+;; org-refine
+(setq org-agenda-files '("~/Dropbox/share/org"))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
+
 ;;; theme settings
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (setq custom-theme-directory "~/.emacs.d/themes/")
