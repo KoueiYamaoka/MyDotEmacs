@@ -1,0 +1,15 @@
+;;;; Emacs Bookmark Format Version 1 ;;;; -*- coding: utf-8-emacs -*- 
+;;; This format is meant to be slightly human-readable;
+;;; nevertheless, you probably don't want to edit it.
+;;; -*- End Of Bookmark File Format Version Stamp -*-
+(("org-refile-last-stored"
+ (filename . "~/Dropbox/share/org/notes.org")
+ (front-context-string . "*** test section")
+ (rear-context-string . "** hogehogehoge\n")
+ (position . 123))
+("org-capture-last-stored"
+ (filename . "~/Dropbox/share/org/notes.org")
+ (front-context-string . "** TFS のソフト選択につい")
+ (rear-context-string . "-03-26 木 09:46]\n")
+ (position . 869))
+)
