@@ -10,6 +10,7 @@ $ sudo apt-get insatll mercurial
 Anaconda is recommended
 ```sh
 $ conda install black virtualenv jedi flake8
+4 pip install epc
 $ emacs -nw
 M-x jedi:install-server
 ```
