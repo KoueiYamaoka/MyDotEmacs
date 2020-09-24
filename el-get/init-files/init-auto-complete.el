@@ -12,11 +12,11 @@
 (custom-set-variables '(ac-ignore-case nil))
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 
-;(add-to-list 'ac-modes 'text-mode)         ;; text-modeでも自動的に有効にする
-;(add-to-list 'ac-modes 'fundamental-mode)  ;; fundamental-mode
-;(add-to-list 'ac-modes 'org-mode)
-;(add-to-list 'ac-modes 'yatex-mode)
-;(add-to-list 'ac-modes 'matlab-mode)
+(add-to-list 'ac-modes 'text-mode)         ;; text-modeでも自動的に有効にする
+(add-to-list 'ac-modes 'fundamental-mode)  ;; fundamental-mode
+(add-to-list 'ac-modes 'org-mode)
+(add-to-list 'ac-modes 'yatex-mode)
+(add-to-list 'ac-modes 'matlab-mode)
 (global-auto-complete-mode t)
 (ac-set-trigger-key "TAB")
 
