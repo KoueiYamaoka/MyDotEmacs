@@ -27,12 +27,17 @@
 (global-set-key "\C-xt" 'google-translate-enja-or-jaen)
 (global-set-key "\C-x\C-t" 'google-translate-query-translate)
 
-;; to avoid args-out-of-range [] 1
+;; for avoiding args-out-of-range [] 1
 (defun google-translate-json-suggestion (json)
   (let ((info (aref json 7)))
     (if (and info (> (length info) 0))
 	(aref info 1)
       nil))
   )
+
+;; for avoiding Error: search-failed ",tkk:'".
+(defun google-translate--search-tkk ()
+  "Search TKK."
+  (list 430675 2721866130))
 
 ;;; init-google-translate.el ends here
