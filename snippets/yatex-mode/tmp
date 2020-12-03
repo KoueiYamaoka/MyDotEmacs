@@ -4,8 +4,7 @@
 # --
 \documentclass[a4j]{jarticle}
 \title{$0}
-\author{システム情報工学研究科・コンピュータサイエンス専攻, マルチメディア研究室\\
-1年, 学籍番号：201311403 \ 山岡 洸瑛, Yamaoka Kouei}
+\author{山岡 洸瑛, Yamaoka Kouei}
 \西暦
 \date{\today}
 
@@ -25,32 +24,27 @@
 
 \def\pgfsysdriver{pgfsys-dvipdfmx.def}
 
-\usepackage[graphicx]{dvipdfmx,color}
-\usepackage{ascmac}
-\usepackage{here}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage[dvipdfmx]{color}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{bm}
+\usepackage{siunitx}
 \usepackage{tikz}
 \usetikzlibrary{trees}
+\usepackage[nobreak]{cite}
+\usepackage[hidelinks,dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\usepackage{minijs}
+\usepackage{siunitx}
+\usepackage[nolist,nohyperlinks]{latex/acronym}
+\input{latex/acronym_def}
+
+% newcommands
+\input{latex/newcommands}
+
+\renewcommand{\baselinestretch}{1}
 \thispagestyle{empty}
-\usepackage{amsmath}
-\usepackage{bm}
-\usepackage{subcaption}
-
-
-\usepackage{listings,jlisting}
-\renewcommand{\lstlistingname}{リスト}
-\lstset{
-basicstyle=\ttfamily\scriptsize,
-commentstyle=\textit,
-classoffset=1,
-keywordstyle=\bfseries,
-frame=tRBl,
-framesep=5pt,
-showstringspaces=false,
-numbers=left,
-stepnumber=1,
-numberstyle=\tiny,
-tabsize=2
-}
 
 \begin{document}
 \maketitle
