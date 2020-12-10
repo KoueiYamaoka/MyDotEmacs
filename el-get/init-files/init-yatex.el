@@ -1,18 +1,19 @@
-;;; init-yatex.el -- YaTeX for Emacs LaTeX Mode
+;;; init-yatex.el -- Yet Another LaTeX mode for Emacs
 ;;; Commentary:
 ;;; Code:
 ;; YaTeX mode
-(setq auto-mode-alist
-      (cons (cons "\\.tex$" 'yatex-mode) auto-mode-alist))
+
 (autoload 'yatex-mode "yatex" "Yet Another LaTeX mode" t)
-(setq tex-command "platex")
-(setq dviprint-command-format "dvipdfmx %s")
-(setq dvi2-command "open")
+(setq auto-mode-alist
+      (append '(("\\.tex$" . yatex-mode)
+		("\\.sty$" . yatex-mode)
+		("\\.cls$" . yatex-mode)
+		("\\.bbl$" . yatex-mode))
+	      auto-mode-alist))
+
+(setq YaTeX-use-AMS-LaTeX t)
+(setq tex-command "lualatex -synctex=1")
 (setq bibtex-command "pbibtex")
-(setq YaTeX-dvi2-command-ext-alist
-  '(("[agx]dvi\\|dviout\\|emacsclient" . ".dvi")
-    ("ghostview\\|gv" . ".ps")
-    ("acroread\\|pdf\\|Preview\\|TeXShop\\|Skim\\|evince\\|apvlv\\|open" . ".pdf")))
 
 (add-hook 'yatex-mode-hook 'turn-on-reftex)
 ;;; Character code of YaTeX
