@@ -333,6 +333,9 @@
 (setq org-agenda-files '("~/Dropbox/share/org"))
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
+;; reftex
+(setq reftex-default-bibliography '("/home/kouei/latex/articles", "/home/kouei/latex/publications"))
+
 
 ;;; theme settings
 ;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
