@@ -10,7 +10,7 @@
 	("*Help*" :align right)
 	("*Google Translate*" :align below :ratio 0.3)
 	("*Python3*" :align right :ratio 0.4)
-	("*quickrun*" :ignore t)
+	("*quickrun*" :align right :ratio 0.4)
 	(YaTeX-typeset-buffer :align right :ratio 0.2)
 	)
       )
