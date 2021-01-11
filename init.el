@@ -103,6 +103,7 @@
 (el-get-bundle image+)
 ;; Markdown-mode
 (el-get-bundle markdown-mode)
+(el-get-bundle markdown-preview-mode)
 ;; wakatime-mode
 (el-get-bundle wakatime/wakatime-mode)
 ;;;; download packages ends here
