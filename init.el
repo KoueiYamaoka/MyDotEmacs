@@ -335,7 +335,7 @@
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 ;; reftex
-(setq reftex-default-bibliography '("/home/kouei/latex/articles", "/home/kouei/latex/publications"))
+(setq reftex-default-bibliography '("/home/kouei/latex/articles" "/home/kouei/latex/publications"))
 
 
 ;;; theme settings
