@@ -12,7 +12,9 @@
 	      auto-mode-alist))
 
 (setq YaTeX-use-AMS-LaTeX t)
-(setq tex-command "lualatex -synctex=1")
+;; (setq tex-command "lualatex -synctex=1")
+(setq tex-command "platex")
+(setq dviprint-command-format "dvipdfmx %s")
 (setq bibtex-command "pbibtex")
 (setq dvi2-command "xdg-open") ; call by C-c t p after C-c t j
 (setq YaTeX-dvi2-command-ext-alist
