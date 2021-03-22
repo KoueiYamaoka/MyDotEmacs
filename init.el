@@ -106,6 +106,8 @@
 (el-get-bundle markdown-preview-mode)
 ;; wakatime-mode
 (el-get-bundle wakatime/wakatime-mode)
+;; Highlight-Indentation-for-Emacs
+(el-get-bundle DarthFennec/highlight-indent-guides)
 ;;;; download packages ends here
 (package-initialize)
 
