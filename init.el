@@ -108,6 +108,9 @@
 (el-get-bundle wakatime/wakatime-mode)
 ;; Highlight-Indentation-for-Emacs
 (el-get-bundle DarthFennec/highlight-indent-guides)
+;; expand C-a and C-e
+(el-get-bundle alezost/mwim.el
+  :name mwim)
 ;;;; download packages ends here
 (package-initialize)
 
