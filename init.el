@@ -81,6 +81,9 @@
 (el-get-bundle jedi)
 ;; python black: an auto-formatter
 (el-get-bundle proofit404/blacken)
+;; isort for emacs
+(el-get-bundle paetzke/py-isort.el
+  :name py-isort)
 ;; highlight symbol
 (el-get-bundle highlight-symbol)
 ;; expand-region
