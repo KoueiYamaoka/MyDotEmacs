@@ -21,6 +21,7 @@
   )
 (mkdir "~/.emacs.d/init/")
 (add-to-load-path "init/")
+(setq load-prefer-newer t)
 
 
 ;;;; el-get setting
@@ -77,6 +78,8 @@
 (el-get-bundle atykhonov/google-translate)
 ;; python-mode
 (el-get-bundle python-mode)
+;; python IDE for Emacs (used for folding codes)
+(el-get-bundle elpy)
 ;; jedi for python auto-complete
 (el-get-bundle jedi)
 ;; python black: an auto-formatter
@@ -232,6 +235,10 @@
 (cua-mode t)
 (setq cua-enable-cua-keys nil)
 (define-key global-map (kbd "C-x @") 'cua-set-rectangle-mark)
+
+;; hideshow
+(load-library "hideshow")
+(add-hook 'python-mode-hook 'hs-minor-mode)
 ;;;; end dafault mode activate settings
 
 ;;;; other elisp
