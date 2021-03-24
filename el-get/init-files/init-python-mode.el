@@ -2,6 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
+(require 'python-mode)
 (autoload 'python-mode "python-mode" "Python editing mode." t)
 (custom-set-variables
  '(py-indent-offset 4)
@@ -20,7 +21,10 @@
 
 ;; disable auto-fill-mode
 (add-hook ' python-mode-hook
-'(lambda () (auto-fill-mode -1)))
+	    '(lambda () (auto-fill-mode -1)))
+
+;; disable python-shell-send-buffer, which is defined in init-elpy.el instead
+(define-key python-mode-map (kbd "C-c C-c") nil)
 
 
 ;;; init-python-mode.el ends here
