@@ -55,6 +55,7 @@
 ;; flycheck
 (el-get-bundle flycheck/flycheck)
 ;; undotree
+(el-get-bundle queue)
 (el-get-bundle undo-tree)
 ;; undohist
 (el-get-bundle undohist)
