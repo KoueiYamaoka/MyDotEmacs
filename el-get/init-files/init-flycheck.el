@@ -10,4 +10,7 @@
 (global-set-key (kbd "C-c p") 'flycheck-previous-error)
 (global-set-key (kbd "C-c n") 'flycheck-next-error)
 
+;; python flake8
+(setq-default flycheck-flake8-maximum-line-length 88)
+
 ;;; init-flycheck.el ends here
