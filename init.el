@@ -79,8 +79,6 @@
 (el-get-bundle atykhonov/google-translate)
 ;; python-mode
 (el-get-bundle python-mode)
-;; python IDE for Emacs (used for folding codes)
-(el-get-bundle elpy)
 ;; jedi for python auto-complete
 (el-get-bundle jedi)
 ;; python black: an auto-formatter
@@ -118,6 +116,10 @@
 ;; expand C-a and C-e
 (el-get-bundle alezost/mwim.el
   :name mwim)
+;; keep scratch
+(el-get-bundle persistent-scratch)
+;; yaml-mode
+(el-get-bundle yaml-mode)
 ;;;; download packages ends here
 (package-initialize)
 
@@ -289,6 +291,8 @@
  '(py-force-py-shell-name-p t)
  '(py-indent-offset 4)
  '(py-shell-name "python3")
+ '(wakatime-cli-path "/home/kouei/miniconda3/bin/wakatime")
+ '(wakatime-python-bin nil)
  '(yas-trigger-key "TAB"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -352,6 +356,9 @@
 
 ;; reftex
 (setq reftex-default-bibliography '("/home/kouei/latex/articles" "/home/kouei/latex/publications"))
+
+;; keep scratch
+(persistent-scratch-setup-default)
 
 
 ;;; theme settings
