@@ -120,6 +120,8 @@
 (el-get-bundle persistent-scratch)
 ;; yaml-mode
 (el-get-bundle yaml-mode)
+;; org-journal
+(el-get-bundle bastibe/org-journal)
 ;;;; download packages ends here
 (package-initialize)
 
@@ -334,12 +336,20 @@
 (setq org-enforce-todo-dependencies t)
 (setq org-todo-keywords
       '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+
 ;; org-capture
 (define-key global-map (kbd "C-c v") 'org-capture)
 (setq org-capture-templates
-      '(("n" "Note" entry (file+headline "~/Dropbox/share/org/notes.org" "Notes")
+      '(
+	; notes
+	("n" "Note" entry (file+headline "~/Dropbox/share/org/notes.org" "Notes")
          "* %?\nEntered on %U\n %i\n %a")
-        ))
+	; org-journal
+	("j" "Journal entry" entry (function org-journal-find-location)
+	 "* %^{Title}\n%i%?")
+;	 "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")
+        )
+      )
 (defun show-org-buffer (file)
   "Show an org-file FILE on the current buffer."
   (interactive)
@@ -353,6 +363,8 @@
 ;; org-refine
 (setq org-agenda-files '("~/Dropbox/share/org"))
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
+;; org-journal
 
 ;; reftex
 (setq reftex-default-bibliography '("/home/kouei/latex/articles" "/home/kouei/latex/publications"))
