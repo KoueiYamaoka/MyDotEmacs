@@ -86,6 +86,9 @@
 ;; isort for emacs
 (el-get-bundle paetzke/py-isort.el
   :name py-isort)
+;; ein: jupyter for emacs
+(el-get-bundle ein)
+(el-get-bundle anaphora)
 ;; highlight symbol
 (el-get-bundle highlight-symbol)
 ;; expand-region
@@ -286,7 +289,7 @@
  '(anzu-search-threshold 100)
  '(custom-safe-themes
    (quote
-    ("58feee2fa2a723800986d34028b14e193fb78218a0d33b3799894ffe49965c60" default)))
+    ("7d937147c6dcb7b7693b98cb34af3fa024083c97167e6909c611ddc05b578034" "ed92c27d2d086496b232617213a4e4a28110bdc0730a9457edf74f81b782c5cf" "99cd014c6c9baae3dbd46e0762c0c13f1be3f27ab2bbdbaf7a4f0963e7adf311" "58feee2fa2a723800986d34028b14e193fb78218a0d33b3799894ffe49965c60" default)))
  '(package-selected-packages
    (quote
     (csv-mode seq py-yapf pkg-info matlab-mode let-alist flymake-easy)))
@@ -329,7 +332,7 @@
 
 
 ;;; org-mode settings
-(setq org-directory "~/Dropbox/share/org")
+(setq org-directory "~/Dropbox/share/org/")
 (setq org-default-notes-file "notes.org")
 (setq org-startup-folded 'showall)
 (setq org-log-done 'time)
@@ -357,7 +360,7 @@
       (let ((buffer (get-buffer file)))
         (switch-to-buffer buffer)
         (message "%s" file))
-    (find-file (concat "~/ownCloud/Org/" file))))
+    (find-file (concat org-directory file))))
 (global-set-key (kbd "C-M-o") '(lambda () (interactive)
                                  (show-org-buffer "notes.org")))
 ;; org-refine
@@ -372,14 +375,39 @@
 ;; keep scratch
 (persistent-scratch-setup-default)
 
+;;;; misc functions
+;; https://www.emacswiki.org/emacs/ReplaceCount
+(defun another-line (num-lines)
+  "Copies line, preserving cursor column, and increments any numbers found.
+  Copies a block of optional NUM-LINES lines.  If no optional argument is given,
+  then only one line is copied."
+  (interactive "p")
+  (if (not num-lines) (setq num-lines 0) (setq num-lines (1- num-lines)))
+  (let* ((col (current-column))
+	 (bol (save-excursion (forward-line (- num-lines)) (beginning-of-line) (point)))
+	 (eol (progn (end-of-line) (point)))
+	 (line (buffer-substring bol eol)))
+    (goto-char bol)
+    (while (re-search-forward "[0-9]+" eol 1)
+      (let ((num (string-to-number (buffer-substring
+				 (match-beginning 0) (match-end 0)))))
+	(replace-match (number-to-string (1+ num))))
+      (setq eol (save-excursion (goto-char eol) (end-of-line) (point))))
+    (goto-char bol)
+    (insert line "\n")
+    (move-to-column col)))
+(define-key global-map (kbd "M-o") 'another-line)
+
+
+
 
 ;;; theme settings
-;; (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-;; (setq custom-theme-directory "~/.emacs.d/themes/")
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(setq custom-theme-directory "~/.emacs.d/themes/")
 ;; (load-theme 'comidiaModified t t)
 ;; (enable-theme 'comidiaModified)
-;(load-theme 'atom-one-dark t t)
-;(enable-theme 'atom-one-dark)
+;; (load-theme 'atom-one-dark t t)
+;; (enable-theme 'atom-one-dark)
 
 
 
