@@ -125,6 +125,8 @@
 (el-get-bundle yaml-mode)
 ;; org-journal
 (el-get-bundle bastibe/org-journal)
+;; Atomic Chrome for Emacs
+(el-get-bundle atomic-chrome)
 ;;;; download packages ends here
 (package-initialize)
 
