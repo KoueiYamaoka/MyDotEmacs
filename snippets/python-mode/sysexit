@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: sysexit
+# key: exit
+# --
+import sys; sys.exit(0)
