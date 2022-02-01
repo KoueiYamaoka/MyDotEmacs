@@ -12,16 +12,14 @@
 	      auto-mode-alist))
 
 (setq YaTeX-use-AMS-LaTeX t)
-;; (setq tex-command "lualatex -synctex=1")
-(setq tex-command "platex")
-(setq dviprint-command-format "dvipdfmx %s")
+(setq tex-command "latexmk")
 (setq bibtex-command "pbibtex")
-(setq dvi2-command "xdg-open") ; call by C-c t p after C-c t j
 (setq YaTeX-dvi2-command-ext-alist
   '(("[agx]dvi\\|dviout\\|emacsclient" . ".dvi")
     ("ghostview\\|gv" . ".ps")
     ("acroread\\|pdf\\|Preview\\|TeXShop\\|Skim\\|evince\\|apvlv\\|open" . ".pdf")))
-(setq tex-pdfview-command "xdg-open") ; call by C-c t p after C-c t d
+(setq dvi2-command "evince") ; call by C-c t p
+(setq tex-pdfview-command "xdg-open")
 
 (add-hook 'yatex-mode-hook 'turn-on-reftex)
 ;;; Character code of YaTeX
@@ -31,9 +29,27 @@
 ;;; 3 = EUC (EUC-JP)
 ;;; 4 = UTF-8
 (setq YaTeX-kanji-code 4)
+(setq YaTeX-latex-message-code 'utf-8)
 
 ;; mode name setting
 ;(setcar (cdr (assq 'yatex-mode minor-mode-alist)) "yatex")
 (add-hook 'yatex-mode-hook '(lambda () (setq mode-name "yatex")))
+
+;; misc
+(setq YaTeX-electric-indent-mode t)
+
+
+;; set tex command
+(defun set-tex-command-for-yatex(latex-type)
+  (interactive "slatex-type:")
+  (cond
+   ((equal latex-type "platex")
+    (setq tex-command "platex"))
+   ((equal latex-type "lualatex")
+    (setq tex-command "lualatex -synctex=1"))
+   (t
+    (setq tex-command "latexmk")) ; default
+   )
+  )
 
 ;;; init-yatex.el ends here
