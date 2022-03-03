@@ -473,6 +473,8 @@
 ;;; theme settings
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (setq custom-theme-directory "~/.emacs.d/themes/")
+(load-theme 'my-dark-transparent t)
+
 
 
 ;;; init.el ends here
