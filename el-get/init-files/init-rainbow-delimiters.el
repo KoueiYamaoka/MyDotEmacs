@@ -3,5 +3,6 @@
 ;;; Code:
 
 (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+(add-hook 'yatex-mode-hook #'rainbow-delimiters-mode)
 
 ;;; init-rainbow-delimiters.el ends here
