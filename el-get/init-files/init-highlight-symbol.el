@@ -4,7 +4,6 @@
 
 ; auto-highlighting
 (add-hook 'prog-mode-hook 'highlight-symbol-mode)
-(add-hook 'org-mode-hook 'highlight-symbol-mode)
 ; highlight immediately
 (setq highlight-symbol-idle-delay 0.2)
 ; enable M-p/M-n to go to the p/n symbol
