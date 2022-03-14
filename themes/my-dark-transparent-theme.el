@@ -89,6 +89,12 @@
 				(:weight ,'normal :foreground ,"#bbffff"))))
 			    `(YaTeX-font-lock-crossref-face
 			      ((,class
-				(:underline ,t :foreground ,"#e5c06d")))))))
+				(:underline ,t :foreground ,"#e5c06d"))))
+			    `(markdown-pre-face
+			      ((,class
+				(:foreground ,"#bbffff"))))
+			    `(markdown-markup-face
+			      ((,class
+				(:foreground ,"#bbffff")))))))
 (provide-theme 'my-dark-transparent)
 (provide 'my-dark-transparent-theme)

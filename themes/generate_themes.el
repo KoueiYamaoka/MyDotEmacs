@@ -13,11 +13,16 @@
      `(font-lock-builtin-face ((,class (:weight ,'bold :slant ,'normal :foreground ,"#b0c4de"))))
      `(font-lock-comment-delimiter-face ((,class (:slant ,'normal :foreground ,"#ff7f24"))))
      `(font-lock-comment-face ((,class (:foreground ,"#ff7f24"))))
+
      ;; For YaTeX
      `(YaTeX-font-lock-declaration-face ((,class (:weight ,'bold :foreground ,"#87cefa"))))
      `(YaTeX-font-lock-include-face ((,class (:foreground ,"#87cefa"))))
      `(YaTeX-font-lock-formula-face ((,class (:weight ,'normal :foreground ,"#bbffff"))))
      `(YaTeX-font-lock-crossref-face ((,class (:underline ,t :foreground ,"#e5c06d"))))
+
+     ;; For Markdown
+     `(markdown-pre-face ((,class (:foreground ,"#bbffff"))))
+     `(markdown-markup-face ((,class (:foreground ,"#bbffff"))))
      ))
   )
 
