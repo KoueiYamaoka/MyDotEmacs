@@ -23,7 +23,7 @@
 (add-hook ' python-mode-hook
 	    '(lambda () (auto-fill-mode -1)))
 
-;; disable python-shell-send-buffer, which is defined in init-elpy.el instead
+;; disable python-shell-send-buffer. This bind is defined in init-elpy.el instead
 (define-key python-mode-map (kbd "C-c C-c") nil)
 
 
