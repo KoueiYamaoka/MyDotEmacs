@@ -284,6 +284,123 @@
 (define-key region-bindings-mode-map (kbd "M-9") 'region-to-bracket)
 (define-key region-bindings-mode-map (kbd "M-]") 'region-to-square-bracket)
 
+
+;; share the clipboard with OS X window
+(defun copy-from-osx ()
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbpaste" "*Messages*" "xsel" "--clipboard" "--output")))
+      )))
+
+(defun paste-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "xsel" "--clipboard" "--input")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+
+(setq interprogram-cut-function 'paste-to-osx)
+(setq interprogram-paste-function 'copy-from-osx)
+
+
+(require 'yspel)
+
+(defun my-insert-file-name (filename &optional args)
+  "Insert name of file FILENAME into buffer after point.
+
+  Prefixed with \\[universal-argument], expand the file name to
+  its fully canocalized path.  See `expand-file-name'.
+
+  Prefixed with \\[negative-argument], use relative path to file
+  name from current directory, `default-directory'.  See
+  `file-relative-name'.
+
+  The default with no prefix is to insert the file name exactly as
+  it appears in the minibuffer prompt."
+  ;; Based on insert-file in Emacs -- ashawley 20080926
+  (interactive "*fInsert file name: \nP")
+  (cond ((eq '- args)
+         (insert (expand-file-name filename)))
+        ((not (null args))
+         (insert filename))
+        (t
+         (insert (file-relative-name filename)))))
+(global-set-key "\C-c\C-i" 'my-insert-file-name)
+
+
+;;;; org-mode settings
+(setq org-directory "~/Dropbox/share/org/")
+(setq org-default-notes-file "notes.org")
+(setq org-startup-folded 'showall)
+(setq org-log-done 'time)
+(setq org-enforce-todo-dependencies t)
+(setq org-todo-keywords
+      '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+
+;; org-capture
+(define-key global-map (kbd "C-c v") 'org-capture)
+(setq org-capture-templates
+      '(
+	; notes
+	("n" "Note" entry (file+headline "~/Dropbox/share/org/notes.org" "Notes")
+         "* %?\nEntered on %U\n %i\n %a")
+	; org-journal
+	("j" "Journal entry" entry (function org-journal-find-location)
+	 "* %^{Title}\n%i%?")
+;	 "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")
+        )
+      )
+(defun show-org-buffer (file)
+  "Show an org-file FILE on the current buffer."
+  (interactive)
+  (if (get-buffer file)
+      (let ((buffer (get-buffer file)))
+        (switch-to-buffer buffer)
+        (message "%s" file))
+    (find-file (concat org-directory file))))
+(global-set-key (kbd "C-M-o") '(lambda () (interactive)
+                                 (show-org-buffer "notes.org")))
+;; org-refine
+(setq org-agenda-files '("~/Dropbox/share/org"))
+(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
+;;;; org-mode settings end here
+
+;; reftex
+(setq reftex-default-bibliography '("/home/kouei/latex/articles" "/home/kouei/latex/publications"))
+
+;; keep scratch
+(persistent-scratch-setup-default)
+
+;;;; misc functions
+;; https://www.emacswiki.org/emacs/ReplaceCount
+(defun another-line (num-lines)
+  "Copies line, preserving cursor column, and increments any numbers found.
+  Copies a block of optional NUM-LINES lines.  If no optional argument is given,
+  then only one line is copied."
+  (interactive "p")
+  (if (not num-lines) (setq num-lines 0) (setq num-lines (1- num-lines)))
+  (let* ((col (current-column))
+	 (bol (save-excursion (forward-line (- num-lines)) (beginning-of-line) (point)))
+	 (eol (progn (end-of-line) (point)))
+	 (line (buffer-substring bol eol)))
+    (goto-char bol)
+    (while (re-search-forward "[0-9]+" eol 1)
+      (let ((num (string-to-number (buffer-substring
+				 (match-beginning 0) (match-end 0)))))
+	(replace-match (number-to-string (1+ num))))
+      (setq eol (save-excursion (goto-char eol) (end-of-line) (point))))
+    (goto-char bol)
+    (insert line "\n")
+    (move-to-column col)))
+(define-key global-map (kbd "M-o") 'another-line)
+
+
+;;; theme settings
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+(setq custom-theme-directory "~/.emacs.d/themes/")
+(load-theme 'my-dark-transparent t)
+
+
+;; automatically added settings
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -377,105 +494,6 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
-(require 'yspel)
-
-(defun my-insert-file-name (filename &optional args)
-  "Insert name of file FILENAME into buffer after point.
-
-  Prefixed with \\[universal-argument], expand the file name to
-  its fully canocalized path.  See `expand-file-name'.
-
-  Prefixed with \\[negative-argument], use relative path to file
-  name from current directory, `default-directory'.  See
-  `file-relative-name'.
-
-  The default with no prefix is to insert the file name exactly as
-  it appears in the minibuffer prompt."
-  ;; Based on insert-file in Emacs -- ashawley 20080926
-  (interactive "*fInsert file name: \nP")
-  (cond ((eq '- args)
-         (insert (expand-file-name filename)))
-        ((not (null args))
-         (insert filename))
-        (t
-         (insert (file-relative-name filename)))))
-(global-set-key "\C-c\C-i" 'my-insert-file-name)
-
-
-;;; org-mode settings
-(setq org-directory "~/Dropbox/share/org/")
-(setq org-default-notes-file "notes.org")
-(setq org-startup-folded 'showall)
-(setq org-log-done 'time)
-(setq org-enforce-todo-dependencies t)
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
-
-;; org-capture
-(define-key global-map (kbd "C-c v") 'org-capture)
-(setq org-capture-templates
-      '(
-	; notes
-	("n" "Note" entry (file+headline "~/Dropbox/share/org/notes.org" "Notes")
-         "* %?\nEntered on %U\n %i\n %a")
-	; org-journal
-	("j" "Journal entry" entry (function org-journal-find-location)
-	 "* %^{Title}\n%i%?")
-;	 "* %(format-time-string org-journal-time-format)%^{Title}\n%i%?")
-        )
-      )
-(defun show-org-buffer (file)
-  "Show an org-file FILE on the current buffer."
-  (interactive)
-  (if (get-buffer file)
-      (let ((buffer (get-buffer file)))
-        (switch-to-buffer buffer)
-        (message "%s" file))
-    (find-file (concat org-directory file))))
-(global-set-key (kbd "C-M-o") '(lambda () (interactive)
-                                 (show-org-buffer "notes.org")))
-;; org-refine
-(setq org-agenda-files '("~/Dropbox/share/org"))
-(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-
-;; org-journal
-
-;; reftex
-(setq reftex-default-bibliography '("/home/kouei/latex/articles" "/home/kouei/latex/publications"))
-
-;; keep scratch
-(persistent-scratch-setup-default)
-
-;;;; misc functions
-;; https://www.emacswiki.org/emacs/ReplaceCount
-(defun another-line (num-lines)
-  "Copies line, preserving cursor column, and increments any numbers found.
-  Copies a block of optional NUM-LINES lines.  If no optional argument is given,
-  then only one line is copied."
-  (interactive "p")
-  (if (not num-lines) (setq num-lines 0) (setq num-lines (1- num-lines)))
-  (let* ((col (current-column))
-	 (bol (save-excursion (forward-line (- num-lines)) (beginning-of-line) (point)))
-	 (eol (progn (end-of-line) (point)))
-	 (line (buffer-substring bol eol)))
-    (goto-char bol)
-    (while (re-search-forward "[0-9]+" eol 1)
-      (let ((num (string-to-number (buffer-substring
-				 (match-beginning 0) (match-end 0)))))
-	(replace-match (number-to-string (1+ num))))
-      (setq eol (save-excursion (goto-char eol) (end-of-line) (point))))
-    (goto-char bol)
-    (insert line "\n")
-    (move-to-column col)))
-(define-key global-map (kbd "M-o") 'another-line)
-
-
-;;; theme settings
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(setq custom-theme-directory "~/.emacs.d/themes/")
-(load-theme 'my-dark-transparent t)
-
 
 
 ;;; init.el ends here
