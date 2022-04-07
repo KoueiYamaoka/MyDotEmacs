@@ -212,6 +212,9 @@
   (interactive "p")
   (delete-region (point) (progn (forward-word arg) (point))))
 (global-set-key (kbd "C-d") 'delete-word)
+;; use not tab but space
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)
 ;;;; basic setting ends here
 
 
@@ -327,7 +330,7 @@
 
 
 ;;;; org-mode settings
-(setq org-directory "~/Dropbox/share/org/")
+(setq org-directory "~/drive/org/")
 (setq org-default-notes-file "notes.org")
 (setq org-startup-folded 'showall)
 (setq org-log-done 'time)
@@ -340,7 +343,7 @@
 (setq org-capture-templates
       '(
 	; notes
-	("n" "Note" entry (file+headline "~/Dropbox/share/org/notes.org" "Notes")
+	("n" "Note" entry (file+headline "~/drive/org/notes.org" "Notes")
          "* %?\nEntered on %U\n %i\n %a")
 	; org-journal
 	("j" "Journal entry" entry (function org-journal-find-location)
@@ -359,7 +362,7 @@
 (global-set-key (kbd "C-M-o") '(lambda () (interactive)
                                  (show-org-buffer "notes.org")))
 ;; org-refine
-(setq org-agenda-files '("~/Dropbox/share/org"))
+(setq org-agenda-files '("~/drive/org"))
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
 
 ;;;; org-mode settings end here

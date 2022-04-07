@@ -2,7 +2,7 @@
 ;;; Commentary:
 ;;; Code:
 
-(setq org-journal-dir "~/Dropbox/share/org/diary")
+(setq org-journal-dir "~/drive/org/diary")
 (setq org-journal-file-format "%Y/%m/%d.org")
 (setq org-journal-date-format "%x %A")
 
