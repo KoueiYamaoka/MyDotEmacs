@@ -46,6 +46,9 @@
 ;; (el-get 'sync) % if write installing packages in init.el, dont write this setting
 ;;;; el-get setting ends here
 
+;;;; emacs directory
+(setq user-init-directory (concat user-emacs-directory "user-init-files/"))
+(byte-recompile-directory user-init-directory 0)
 
 ;;;; download packages via el-get
 ;; auto-complete
@@ -331,45 +334,9 @@
 (global-set-key "\C-c\C-i" 'my-insert-file-name)
 
 
-;;;; org-mode settings
-(setq org-directory "~/drive/org/")
-(setq org-default-notes-file "notes.org")
-(setq org-indent-indentation-per-level 4)
-(setq org-indent-mode-turns-on-hiding-stars nil)
-(setq org-startup-folded 'showall)
-(setq org-log-done 'time)
-(setq org-enforce-todo-dependencies t)
-(setq org-todo-keywords
-      '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
-
-;; org-capture
-(define-key global-map (kbd "C-c v") 'org-capture)
-(setq org-capture-templates
-      '(
-        ; notes
-        ("n" "Note" entry (file+headline "~/drive/org/notes.org" "Notes")
-         "* %?\nEntered on %U\n %i\n %a")
-        ; org-journal
-        ("j" "Journal entry" plain (function org-journal-find-location)
-         "** %^{Title}\n%i\n%?"
-         :jump-to-captured t :immediate-finish t :empty-lines-before 1)
-        )
-      )
-(defun show-org-buffer (file)
-  "Show an org-file FILE on the current buffer."
-  (interactive)
-  (if (get-buffer file)
-      (let ((buffer (get-buffer file)))
-        (switch-to-buffer buffer)
-        (message "%s" file))
-    (find-file (concat org-directory file))))
-(global-set-key (kbd "C-M-o") '(lambda () (interactive)
-                                 (show-org-buffer "notes.org")))
-;; org-refine
-(setq org-agenda-files '("~/drive/org"))
-(setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
-
-;;;; org-mode settings end here
+;; org-mode settings
+(eval-after-load "org-mode"
+  (load (concat user-init-directory "init-org-modes")))
 
 ;; reftex
 (setq reftex-default-bibliography '("/home/kouei/latex/articles" "/home/kouei/latex/publications"))
@@ -378,32 +345,11 @@
 (eval-after-load "persistent-scratch" '(persistent-scratch-setup-default))
 
 ;;;; misc functions
-;; https://www.emacswiki.org/emacs/ReplaceCount
-(defun another-line (num-lines)
-  "Copies line, preserving cursor column, and increments any numbers found.
-  Copies a block of optional NUM-LINES lines.  If no optional argument is given,
-  then only one line is copied."
-  (interactive "p")
-  (if (not num-lines) (setq num-lines 0) (setq num-lines (1- num-lines)))
-  (let* ((col (current-column))
-	 (bol (save-excursion (forward-line (- num-lines)) (beginning-of-line) (point)))
-	 (eol (progn (end-of-line) (point)))
-	 (line (buffer-substring bol eol)))
-    (goto-char bol)
-    (while (re-search-forward "[0-9]+" eol 1)
-      (let ((num (string-to-number (buffer-substring
-				 (match-beginning 0) (match-end 0)))))
-	(replace-match (number-to-string (1+ num))))
-      (setq eol (save-excursion (goto-char eol) (end-of-line) (point))))
-    (goto-char bol)
-    (insert line "\n")
-    (move-to-column col)))
-(define-key global-map (kbd "M-o") 'another-line)
-
+(load (concat user-init-directory "misc-functions"))
 
 ;;; theme settings
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-(setq custom-theme-directory "~/.emacs.d/themes/")
+(add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
+(setq custom-theme-directory (concat user-emacs-directory "themes/"))
 (load-theme 'my-dark-transparent t)
 
 ;; load external files
