@@ -368,7 +368,7 @@
 (setq reftex-default-bibliography '("/home/kouei/latex/articles" "/home/kouei/latex/publications"))
 
 ;; keep scratch
-(persistent-scratch-setup-default)
+(eval-after-load "persistent-scratch" '(persistent-scratch-setup-default))
 
 ;;;; misc functions
 ;; https://www.emacswiki.org/emacs/ReplaceCount
@@ -398,6 +398,9 @@
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 (setq custom-theme-directory "~/.emacs.d/themes/")
 (load-theme 'my-dark-transparent t)
+
+;; load external files
+(load (concat user-emacs-directory "api_keys"))
 
 
 ;; automatically added settings
