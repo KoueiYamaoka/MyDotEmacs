@@ -23,6 +23,9 @@
      ;; For Markdown
      `(markdown-pre-face ((,class (:foreground ,"#bbffff"))))
      `(markdown-markup-face ((,class (:foreground ,"#bbffff"))))
+
+     ;; For org
+     `(org-hide ((,class (:foreground ,"#333333"))))
      ))
   )
 
