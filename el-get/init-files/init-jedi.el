@@ -12,4 +12,9 @@
      (define-key jedi-mode-map (kbd "C-c .") nil)
      ))
 
+(eval-after-load "flyspell"
+  '(progn
+     (ac-flyspell-workaround)
+     ))
+
 ;;; init-jedi.el ends here
