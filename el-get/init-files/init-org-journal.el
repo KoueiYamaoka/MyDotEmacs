@@ -27,6 +27,7 @@
     (org-narrow-to-subtree))
   (goto-char (point-max)))
 
+
 (defun org-journal-save-entry-and-exit()
   "Simple convenience function.
   Saves the buffer of the current day's entry and kills the window
@@ -34,6 +35,8 @@
   At org-journal github page, (By @dhruvparamhans)"
   (interactive)
   (save-buffer)
+  (setq org-ascii-text-width 1000)
+  (org-ascii-export-to-ascii)
   (kill-buffer-and-window))
 
 (with-eval-after-load 'org-journal

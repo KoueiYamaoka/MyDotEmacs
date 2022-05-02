@@ -2,6 +2,9 @@
 ;;;;; Commentary:
 ;;;;; Code:
 
+;; global settings
+(setq user-full-name "Kouei Yamaoka")
+
 ;;; Define a function adding a load-path
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -335,11 +338,11 @@
 
 
 ;; org-mode settings
-(eval-after-load "org-mode"
+(eval-after-load 'org
   (load (concat user-init-directory "init-org-modes")))
 
 ;; reftex
-(setq reftex-default-bibliography '("/home/kouei/latex/articles" "/home/kouei/latex/publications"))
+(setq reftex-default-bibliography '("/home/kouei/latex/bib/articles" "/home/kouei/latex/bib/publications"))
 
 ;; keep scratch
 (eval-after-load "persistent-scratch" '(persistent-scratch-setup-default))
@@ -350,7 +353,10 @@
 ;;; theme settings
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
 (setq custom-theme-directory (concat user-emacs-directory "themes/"))
-(load-theme 'my-dark-transparent t)
+(defun load-my-theme ()
+  (load-theme 'my-dark-transparent t))
+(load-my-theme)
+(add-hook 'org-mode-hook 'load-my-theme)
 
 ;; load external files
 (load (concat user-emacs-directory "api_keys"))
