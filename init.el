@@ -339,7 +339,8 @@
 
 ;; org-mode settings
 (eval-after-load 'org
-  (load (concat user-init-directory "init-org-modes")))
+  (eval-after-load 'reftex
+    (load (concat user-init-directory "init-org-modes"))))
 
 ;; reftex
 (setq reftex-default-bibliography '("/home/kouei/latex/bib/articles" "/home/kouei/latex/bib/publications"))
