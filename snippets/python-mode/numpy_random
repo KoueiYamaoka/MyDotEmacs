@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: numpy_random
+# key: rnd
+# --
+np.random.random()
