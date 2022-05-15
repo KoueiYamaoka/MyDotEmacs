@@ -2,7 +2,10 @@
 ;;; Commentary: this file loaded in init.el via (load)
 ;;; Code:
 
-;; (eval-after-load 'reftex (test-citation))
+(require 'org)
+(require 'reftex)
+(require 'reftex-cite)
+(add-hook 'org-mode-hook 'reftex-mode)
 
 ;; general settings
 (setq org-directory "~/drive/org/")
@@ -14,35 +17,25 @@
 (setq org-enforce-todo-dependencies t)
 (setq org-todo-keywords
       '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+(setq system-time-locale "C")
+(define-key org-mode-map (kbd "C-c s") 'org-show-subtree)
 
 ;; file paths
 (setq notes-path (concat org-directory "notes.org"))
-(setq papers-directory "~/org-test/papers/")
+(setq papers-directory "~/Documents/org/papers/")
 (setq tde-papers (concat papers-directory "tde.org"))
 
-;; org-capture
-(defun get-cite-info-by-reftex (&optional no-insert format-key)
-  ;; check for recursive edit
-  (reftex-check-recursive-edit)
+;; reftex
+(setq reftex-default-bibliography '("/home/kouei/latex/bib/articles"
+                                    "/home/kouei/latex/bib/publications"
+                                    "/home/kouei/latex/bib/read_papers"))
 
-  ;; This function may also be called outside reftex-mode.
-  ;; Thus look for the scanning info only if in reftex-mode.
 
-  (when reftex-mode
-    (reftex-access-scan-info nil))
 
-  ;; Call do-get-cite-info-by-reftex, but protected
-  (unwind-protect
-      (do-get-cite-info-by-reftex current-prefix-arg no-insert format-key)
-    (reftex-kill-temporary-buffers)))
+(defun get-cite-info-by-reftex ()
 
-(defun do-get-cite-info-by-reftex (&optional arg no-insert format-key)
-  ;; (let* ((format (reftex-figure-out-cite-format arg no-insert format-key))
-  ;;        (docstruct-symbol reftex-docstruct-symbol)
-  ;;        (selected-entries (reftex-offer-bib-menu))
-  ;;        (insert-entries selected-entries)
-  ;;        entry string cite-view)
-
+  ;; copied from do-reftex-citation from reftex-cite.el
+  ;; *from here to
   (let* ((selected-entries (reftex-offer-bib-menu))
          (insert-entries selected-entries)
          entry string cite-view)
@@ -57,7 +50,6 @@
       ;; It makes sense to compute the cite-view strings.
       (setq cite-view t))
 
-
     (when (eq (car selected-entries) 'concat)
       ;; All keys go into a single command - we need to trick a little
       ;; FIXME: Unfortunately, this means that commenting does not work right.
@@ -66,6 +58,7 @@
                                     reftex-cite-key-separator)))
         (setq insert-entries
               (list (list concat-keys (cons "&key" concat-keys))))))
+    ;; *here
 
     (let ((entry (pop insert-entries)))
 
@@ -82,33 +75,22 @@
   )
 
 
-(defun test-citation ()
-  (interactive)
-  (get-cite-info-by-reftex)
-  (print (concat "* " bib_title "%?\n"
-                 ":PROPERTIES:\n"
-                 ":CREATED: %<%Y%m%d>\n"
-                 ":Key: " bib_key "\n"
-                 ":Title: " bib_title "\n"
-                 ":Authors: " bib_author "\n"
-                 ":Journal: " bib_journal "\n"
-                 ":Year: " bib_year "\n"
-                 ":Volume: " bib_volume "\n"
-                 ":Number: " bib_number "\n"
-                 ":Pages: " bib_pages "\n"
-                 ":END:\n\n"
-                 "** Abstract\n- \n\n"
-                 "** Results\n- "))
-  )
-
+;; org-capture templates
+(setq paper-reading-format (concat "** Abstract\n- %?\n\n"
+                                   "** Difference\n- \n\n"
+                                   "** Core\n- \n\n"
+                                   "** Results\n- \n\n"
+                                   "** Discussion\n- \n\n"
+                                   "** Next [/]\n*** TODO \n")
+      )
 
 (defun paper-with-title-template ()
-  (setq title (read-string "Title: "))
-  (print (concat "* " title "%?\n"
+  (setq bib_title (read-string "Title: "))
+  (print (concat "\n\n* " bib_title "\n"
                  ":PROPERTIES:\n"
-                 ":CREATED: %<%Y%m%d>\n"
+                 ":CREATED: %<%Y-%m-%d>\n"
                  ":Key:\n"
-                 ":Title: " title "\n"
+                 ":Title: " bib_title "\n"
                  ":Authors:\n"
                  ":Journal:\n"
                  ":Year:\n"
@@ -116,15 +98,15 @@
                  ":Number:\n"
                  ":Pages:\n"
                  ":END:\n\n"
-                 "** Abstract\n- \n\n"
-                 "** Results\n- "))
+                 paper-reading-format))
   )
 
 (defun paper-with-cite-template ()
   (get-cite-info-by-reftex)
-  (print (concat "* " bib_title "%?\n"
+  (reftex-kill-temporary-buffers)
+  (print (concat "\n\n* " bib_title "\n"
                  ":PROPERTIES:\n"
-                 ":CREATED: %<%Y%m%d>\n"
+                 ":CREATED: %<%Y-%m-%d>\n"
                  ":Key: " bib_key "\n"
                  ":Title: " bib_title "\n"
                  ":Authors: " bib_author "\n"
@@ -134,10 +116,8 @@
                  ":Number: " bib_number "\n"
                  ":Pages: " bib_pages "\n"
                  ":END:\n\n"
-                 "** Abstract\n- \n\n"
-                 "** Results\n- "))
+                 paper-reading-format))
   )
-
 
 
 ;; org-capture
@@ -150,18 +130,18 @@
         ; org-journal
         ("j" "📔 Journal entry" plain (function org-journal-find-location)
          "** %?"
-         :jump-to-captured t :immediate-finish t :empty-lines-before 1)
+         :jump-to-captured t :immediate-finish t :empty-lines-before 2)
         ;; papers
-        ("t" "📄 TDE papers (title)" entry (file tde-papers)
+        ("T" "📄 TDE papers (title)" entry (file tde-papers)
          (function paper-with-title-template)
-         :jump-to-captured t
+         :jump-to-captured t :immediate-finish t :empty-lines-before 2
          )
-        ("T" "📄 TDE papers (cite)" entry (file tde-papers)
+        ("t" "📄 TDE papers (cite)" entry (file tde-papers)
          (function paper-with-cite-template)
-         :jump-to-captured t
+         :jump-to-captured t :immediate-finish t :empty-lines-before 2
          )
-        )
-      )
+        ))
+
 (defun show-org-buffer (file)
   "Show an org-file FILE on the current buffer."
   (interactive)
@@ -185,10 +165,6 @@
      (string-trim (substring-no-properties
                    (org-table-get-field (org-table-current-column) "")))))
   )
-(require 'org)
 (define-key org-mode-map (kbd "C-c w") 'org-table-kill-cell)
-
-
-
 
 ;;; init-org-modes.el ends here

@@ -235,7 +235,7 @@
 ;; fly spell setting
 (setq-default ispell-program-name "aspell")
 					; use spell check even if there are several japanese
-(eval-after-load "ispell"
+(with-eval-after-load "ispell"
   '(add-to-list 'ispell-skip-region-alist '("[^\000-\377]+")))
 					; auto load fly spell
 (mapc
@@ -338,15 +338,10 @@
 
 
 ;; org-mode settings
-(eval-after-load 'org
-  (eval-after-load 'reftex
-    (load (concat user-init-directory "init-org-modes"))))
-
-;; reftex
-(setq reftex-default-bibliography '("/home/kouei/latex/bib/articles" "/home/kouei/latex/bib/publications"))
+(load (concat user-init-directory "init-org-modes"))
 
 ;; keep scratch
-(eval-after-load "persistent-scratch" '(persistent-scratch-setup-default))
+(with-eval-after-load "persistent-scratch" '(persistent-scratch-setup-default))
 
 ;;;; misc functions
 (load (concat user-init-directory "misc-functions"))
