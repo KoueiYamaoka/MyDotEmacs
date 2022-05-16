@@ -5,6 +5,7 @@
 (require 'org)
 (require 'reftex)
 (require 'reftex-cite)
+(require 'ox-latex)
 (add-hook 'org-mode-hook 'reftex-mode)
 
 ;; general settings
@@ -29,8 +30,6 @@
 (setq reftex-default-bibliography '("/home/kouei/latex/bib/articles"
                                     "/home/kouei/latex/bib/publications"
                                     "/home/kouei/latex/bib/read_papers"))
-
-
 
 (defun get-cite-info-by-reftex ()
 
@@ -157,6 +156,38 @@
 ;; org-refine
 (setq org-agenda-files org-directory)
 (setq org-refile-targets '((org-agenda-files :maxlevel . 3)))
+
+;; latex
+;; \\setmainfont{IPAexMincho}
+;; \\setsansfont{IPAexGothic}
+;; \\setmainjfont[BoldFont=IPAexGothic]{IPAexMincho}
+;; \\setsansjfont{IPAexGothic}
+;; \\newjfontfamily\\jisninety[CJKShape=JIS1990]{IPAexMincho}
+(setq org-latex-pdf-process
+      '("lualatex --draftmode %f"
+        "lualatex %f"))
+(add-to-list 'org-latex-classes
+             '("paper"
+               "
+\\documentclass[10pt,a4paper,oneside]{ltjsarticle}
+\\usepackage{luatexja-fontspec}
+[NO-DEFAULT-PACKAGES]
+\\usepackage{graphicx}
+\\usepackage{amsmath}
+\\usepackage{amsfonts}
+\\usepackage{bm}
+\\usepackage{siunitx}
+\\usepackage{booktabs}
+\\usepackage{multirow}
+\\usepackage{longtable}
+\\usepackage[unicode,hidelinks]{hyperref}
+"
+  ("\\section{%s}" . "\\section*{%s}")
+  ("\\subsection{%s}" . "\\subsection*{%s}")
+  ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+  ("\\paragraph{%s}" . "\\paragraph*{%s}")
+  ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))
+(setq org-latex-default-class "paper")
 
 ;; table
 (defun org-table-kill-cell ()
