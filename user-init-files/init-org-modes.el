@@ -76,7 +76,8 @@
 
 
 ;; org-capture templates
-(setq paper-reading-format (concat "** Abstract\n- %?\n\n"
+(setq paper-reading-format (concat "- [[pdf:][PDF]]\n\n"
+                                   "** Abstract\n- %?\n\n"
                                    "** Difference\n- \n\n"
                                    "** Core\n- \n\n"
                                    "** Results\n- \n\n"
