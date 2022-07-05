@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: revise_comment
+# key: rv
+# expand-env: ((yas-indent-line 'fixed))
+# --
+\item{\bf \underline{Comment~\hll{R${1:`(read-string "Reviewer id: ")`}.${2:`(read-string "Comment id: ")`}}}}: $0
+%
+\textcolor{red}{\item{\bf \underline{Response~R$1.$2}}:}
+\\\\
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\hrulefill
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
