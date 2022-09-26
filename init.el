@@ -139,6 +139,8 @@
 (el-get-bundle rainbow-mode)
 ;; solarized for Emacs theme
 (el-get-bundle solarized-emacs)
+;; open files with external apps
+(el-get-bundle openwith)
 ;;;; download packages ends here
 (package-initialize)
 
@@ -452,6 +454,5 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
-
 
 ;;; init.el ends here
