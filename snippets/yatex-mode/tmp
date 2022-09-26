@@ -2,49 +2,45 @@
 # name: tmp
 # key: tmp
 # --
-\documentclass[a4j]{jarticle}
-\title{$0}
-\author{山岡 洸瑛, Yamaoka Kouei}
-\西暦
-\date{\today}
+\documentclass[a4paper,12pt]{ltjsarticle}
 
-%余白設定
-\setlength{\topmargin}{20mm}
-\addtolength{\topmargin}{-1in}
-\setlength{\oddsidemargin}{20mm}
-\addtolength{\oddsidemargin}{-1in}
-\setlength{\evensidemargin}{15mm}
-\addtolength{\evensidemargin}{-1in}
-\setlength{\textwidth}{170mm}
-\setlength{\textheight}{254mm}
-\setlength{\headsep}{0mm}
-\setlength{\headheight}{0mm}
-\setlength{\topskip}{0mm}
+% latex
+\usepackage{luatexja}
+\usepackage{luatexja-fontspec}
+\usepackage[top=25truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
 
-
-\def\pgfsysdriver{pgfsys-dvipdfmx.def}
-
-\usepackage[dvipdfmx]{graphicx}
-\usepackage[dvipdfmx]{color}
+% math
 \usepackage{amsmath}
 \usepackage{amsfonts}
-\usepackage{bm}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+% text
 \usepackage{siunitx}
-\usepackage{tikz}
-\usetikzlibrary{trees}
+\usepackage[nolist,nohyperlinks]{acronym}
+
+% figure and table
+% \usepackage{subfigure}
+\usepackage{graphicx}
+\usepackage{subfig}
+
+
+% misc
+\usepackage{subfiles}
+\usepackage{url}
+\usepackage[unicode,hidelinks,pdfusetitle]{hyperref}
 \usepackage[nobreak]{cite}
-\usepackage[hidelinks,dvipdfmx]{hyperref}
-\usepackage{pxjahyper}
-\usepackage{minijs}
-\usepackage{siunitx}
-\usepackage[nolist,nohyperlinks]{latex/acronym}
-\input{latex/acronym_def}
 
-% newcommands
-\input{latex/newcommands}
 
-\renewcommand{\baselinestretch}{1}
-\thispagestyle{empty}
+% load the other preambles
+% \input{/home/kouei/latex/preamble/font-settings}
+\input{/home/kouei/latex/preamble/newcommands}
+\input{/home/kouei/latex/preamble/acronym_def}
+
+
+\title{Title}
+\author{Kouei Yamaoka}
+\date{\today}
 
 \begin{document}
 \maketitle

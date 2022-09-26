@@ -181,6 +181,7 @@
 \\usepackage{multirow}
 \\usepackage{longtable}
 \\usepackage[unicode,hidelinks]{hyperref}
+\\input{/home/kouei/latex/preamble/newcommands}
 "
   ("\\section{%s}" . "\\section*{%s}")
   ("\\subsection{%s}" . "\\subsection*{%s}")
