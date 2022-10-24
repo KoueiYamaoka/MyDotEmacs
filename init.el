@@ -142,6 +142,9 @@
 (el-get-bundle solarized-emacs)
 ;; open files with external apps
 (el-get-bundle openwith)
+;; better zap-up-to-char
+(el-get-bundle zop-to-char
+  (global-set-key (kbd "M-z") 'zop-up-to-char))
 ;;;; download packages ends here
 
 ;;;; basic setting
