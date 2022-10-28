@@ -24,5 +24,4 @@
     (move-to-column col)))
 (define-key global-map (kbd "M-o") 'another-line)
 
-
 ;;; misc-functions.el ends here

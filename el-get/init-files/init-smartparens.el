@@ -4,7 +4,8 @@
 
 (require 'smartparens-config)
 
-; hooks
 (add-hook 'prog-mode-hook #'smartparens-mode)
+(add-hook 'yatex-mode-hook #'smartparens-mode)
+(sp-pair "<" ">")
 
 ;;; init-jedi.el ends here

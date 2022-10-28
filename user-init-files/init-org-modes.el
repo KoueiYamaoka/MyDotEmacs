@@ -20,6 +20,7 @@
       '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
 (setq system-time-locale "C")
 (define-key org-mode-map (kbd "C-c s") 'org-show-subtree)
+(define-key org-mode-map (kbd "M-;") 'org-comment-dwim-2)
 
 ;; file paths
 (setq notes-path (concat org-directory "notes.org"))
