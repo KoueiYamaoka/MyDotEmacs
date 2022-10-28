@@ -5,6 +5,12 @@
 ;; global settings
 (setq user-full-name "Kouei Yamaoka")
 
+;; mozc settings
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-mozc")
+(require 'mozc)
+(setq default-input-method "japanese-mozc")
+(prefer-coding-system 'utf-8)
+
 ;;; Define a function adding a load-path
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -55,6 +61,8 @@
 (byte-recompile-directory user-init-directory 0)
 
 ;;;; download packages via el-get
+;; cmigego
+(el-get-bundle migemo)
 ;; auto-complete
 (el-get-bundle auto-complete)
 ;; yasnippet
@@ -78,7 +86,7 @@
 (el-get-bundle helm)
 (el-get-bundle helm-ag)
 (el-get-bundle helm-descbinds)
-;; shackle instead of popwin
+;; shackle; an alternative of popwin
 (el-get-bundle wasamasa/shackle)
 ;; anzu
 (el-get-bundle anzu)
@@ -96,6 +104,8 @@
 ;; ein: jupyter for emacs
 (el-get-bundle ein)
 (el-get-bundle anaphora)
+;; enable org-mode-like outline in everywhere
+(el-get-bundle outline-magic)
 ;; highlight symbol
 (el-get-bundle highlight-symbol)
 ;; expand-region
@@ -111,11 +121,9 @@
 ;; jinja2
 (el-get-bundle paradoxxxzero/jinja2-mode)
 ;; smart minor mode for dealing with pairs
-(el-get-bundle Fuco1/smartparens)
+(el-get-bundle smartparens)
 ;; highlights delimiters according to their depth
-(el-get-bundle Fanael/rainbow-delimiters)
-;; csv-mode
-;; (el-get-bundle csv-mode)
+(el-get-bundle rainbow-delimiters)
 ;; image viewer
 (el-get-bundle image+)
 ;; Markdown-mode
@@ -125,9 +133,6 @@
 (el-get-bundle wakatime/wakatime-mode)
 ;; Highlight-Indentation-for-Emacs
 (el-get-bundle DarthFennec/highlight-indent-guides)
-;; expand C-a and C-e
-(el-get-bundle alezost/mwim.el
-  :name mwim)
 ;; keep scratch
 (el-get-bundle Fanael/persistent-scratch)
 ;; yaml-mode
@@ -141,10 +146,24 @@
 ;; solarized for Emacs theme
 (el-get-bundle solarized-emacs)
 ;; open files with external apps
-(el-get-bundle openwith)
+;; (el-get-bundle openwith)
+;; emacs-libvterm
+(el-get-bundle vterm)
+;; pdf-tools
+(el-get-bundle pdf-tools)
+;; never lose your cursor again
+(el-get-bundle beacon)
+(beacon-mode 1)
+;;;; enhance default commands
 ;; better zap-up-to-char
 (el-get-bundle zop-to-char
   (global-set-key (kbd "M-z") 'zop-up-to-char))
+;; better comment-dwim
+(el-get-bundle comment-dwim-2
+  (global-set-key (kbd "M-;") 'comment-dwim-2))
+;; expand C-a and C-e
+(el-get-bundle alezost/mwim.el
+  :name mwim)
 ;;;; download packages ends here
 
 ;;;; basic setting
@@ -268,6 +287,10 @@
 ;; hideshow
 (load-library "hideshow")
 (add-hook 'python-mode-hook 'hs-minor-mode)
+
+;; midnight-mode settings
+;; with midnight-mode enabled, clean-buffer-list will kill buffers that haven't visited in three days
+(add-hook 'emacs-startup-hook 'midnight-mode)
 ;;;; end dafault mode activate settings
 
 ;;;; other elisp
@@ -341,26 +364,27 @@
 (global-set-key "\C-c\C-i" 'my-insert-file-name)
 
 
-;; org-mode settings
+;; load files in user-init-directory
 (load (concat user-init-directory "init-org-modes"))
+(load (concat user-init-directory "misc-functions"))
+(load (concat user-init-directory "defaults-with-gui"))
 
 ;; keep scratch
 (with-eval-after-load "persistent-scratch" '(persistent-scratch-setup-default))
 
-;;;; misc functions
-(load (concat user-init-directory "misc-functions"))
 
 ;;; theme settings
 (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
 (setq custom-theme-directory (concat user-emacs-directory "themes/"))
-(defun load-my-theme ()
-  (load-theme 'my-dark-transparent t))
-(load-my-theme)
-(add-hook 'org-mode-hook 'load-my-theme)
+;; (defun load-my-theme ()
+;;   (load-theme 'my-dark-transparent t))
+;; (load-my-theme)
+;; (add-hook 'org-mode-hook 'load-my-theme)
 
 ;; load external files
 (load (concat user-emacs-directory "api_keys"))
 
+;;;; manual settings end here
 
 ;; automatically added settings
 (custom-set-variables
@@ -451,3 +475,4 @@
  )
 
 ;;; init.el ends here
+

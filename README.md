@@ -1,9 +1,9 @@
 # MyDotEmacs
 
 ## How to Install
-### install mercurial for git
+### install external libraries
 ```sh
-$ sudo apt-get insatll mercurial
+$ sudo apt insatll mercurial cmigemo
 ```
 
 ### for python
@@ -25,7 +25,14 @@ Then, run emacs
 
 ## alias
 ```sh
-alias e='emacsclient -nw -a ""'
+alias e="emacs"
+function emacs() {
+    if [[ "$INSIDE_EMACS" = 'vterm' ]]; then
+        vterm_printf "51;Eswitch-to-prev-buffer"
+    else
+        emacsclient -nw -a "" $1
+    fi
+}
 alias ekill='emacsclient -e "(kill-emacs)"'
 ```
 
@@ -33,5 +40,5 @@ alias ekill='emacsclient -e "(kill-emacs)"'
 Write following setting to ~/.gitconfig
 ```sh
 [core]
-    editor = "/usr/bin/emacsclient -t" --alternate-editor /usr/bin/emacs
+    editor = "emacsclient -t" --alternate-editor emacs
 ```
