@@ -10,11 +10,7 @@
 (define-key vterm-mode-map (kbd "C-o") 'other-window)
 
 ;; commands that emacs is allowed to execute form vterm
-;; (defun switch-to-previous-buffer ()
-;;   (interactive)
-;;   (switch-to-buffer (other-buffer (current-buffer) 1)))
 (add-to-list 'vterm-eval-cmds '("switch-to-prev-buffer" switch-to-prev-buffer))
-
 
 ;; default settings
 (setq show-trailing-whitespace nil)
