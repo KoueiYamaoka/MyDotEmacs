@@ -3,7 +3,7 @@
 ## How to Install
 ### install external libraries
 ```sh
-$ sudo apt insatll mercurial cmigemo
+$ sudo apt insatll mercurial cmigemo fcitx-libs-dev emacs-mozc cmake libtool libtool-bin
 ```
 
 ### for python
@@ -19,6 +19,12 @@ M-x jedi:install-server
 ### aspell setting
 ```sh
 echo "lang en_US" > ~/.aspell.conf
+```
+
+### pdf-tools
+
+``` sh
+$ sudo apt install libpng-dev zlib1g-dev libpoppler-glib-dev
 ```
 
 Then, run emacs
