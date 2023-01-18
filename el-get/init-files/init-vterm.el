@@ -13,6 +13,6 @@
 (add-to-list 'vterm-eval-cmds '("switch-to-prev-buffer" switch-to-prev-buffer))
 
 ;; default settings
-(setq show-trailing-whitespace nil)
+(add-hook 'vterm-mode-hook (lambda() (setq show-trailing-whitespace nil)))
 
 ;;; init-anzu.el ends here
