@@ -1,4 +1,0 @@
-(:name py-yapf
-       :type git
-       :url "https://github.com/paetzke/py-yapf.el"
-       :features py-yapf)
