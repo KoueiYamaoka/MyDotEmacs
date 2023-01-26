@@ -9,7 +9,7 @@
   '((custom-theme-set-faces
      theme-name
      ;; Default
-     `(default ((,class (:foreground ,"#dde2dd" :background ,"#071020"))))
+     `(default ((,class (:foreground ,"#dde2dd" :background ,"#26292c"))))
      `(font-lock-builtin-face ((,class (:weight ,'bold :slant ,'normal :foreground ,"#b0c4de"))))
      `(font-lock-comment-delimiter-face ((,class (:slant ,'normal :foreground ,"#ff7f24"))))
      `(font-lock-comment-face ((,class (:foreground ,"#ff7f24"))))
@@ -28,4 +28,5 @@
      `(org-hide ((,class (:foreground ,"#333333"))))
      ))
   )
+
 

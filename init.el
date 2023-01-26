@@ -2,6 +2,15 @@
 ;;;;; Commentary:
 ;;;;; Code:
 
+;; coding system setting; maybe unnecessary
+(set-language-environment "Japanese")
+(prefer-coding-system 'utf-8)
+(set-default 'buffer-file-coding-system 'utf-8)
+
+;; font
+(custom-set-faces
+ '(default ((t (:family "Ricty Diminished" :foundry "PfEd" :slant normal :weight normal :height 128 :width normal)))))
+
 ;; <leaf-install-code>
 (eval-and-compile
   (customize-set-variable
@@ -67,6 +76,7 @@
     :config
     (defalias 'yes-or-no-p 'y-or-n-p) ; "yes or no" to "y or n"
     (set-face-background 'trailing-whitespace "#b14770")
+    (set-face-attribute 'default nil :height 150)
     )
 
   (leaf files
@@ -86,6 +96,13 @@
     :tag "builtin" "files"
     :added "2023-01-18"
     :custom ((uniquify-buffer-name-style . 'post-forward-angle-brackets))
+    )
+
+  (leaf elec-pair
+    :doc "Automatic parenthesis pairing"
+    :tag "builtin"
+    :added "2023-01-26"
+    :custom (electric-pair-mode . t)
     )
 
   (leaf midnight
@@ -184,12 +201,15 @@
     :url "https://www.dr-qubit.org/undo-tree.html"
     :added "2023-01-18"
     :ensure t
-    :custom ((undo-tree-history-directory-alist . '("." . "~/.emacs.d/undotree")))
     :bind (("C-x u" . undo-tree-visualize))
-    :config (global-undo-tree-mode)
+    :custom ((undo-tree-history-directory-alist . '(("." . "~/.emacs.d/undotree"))))
+    :hook (find-file-hook . undo-tree-load-history)
+    :config
+    (global-undo-tree-mode)
     )
 
   (leaf undohist
+    :disabled t
     :doc "Persistent undo history for GNU Emacs"
     :req "cl-lib-1.0"
     :tag "convenience"
@@ -603,6 +623,7 @@
     )
 
   (leaf smartparens
+    :disabled t
     :doc "Automatic insertion, wrapping and paredit-like navigation with user defined pairs."
     :req "dash-2.13.0" "cl-lib-0.3"
     :tag "editing" "convenience" "abbrev"
@@ -612,8 +633,6 @@
     :require smartparens-config
     :hook (after-init-hook . smartparens-global-strict-mode)
     :custom (electric-pair-mode . nil)
-    :config
-    (sp-pair "<" ">")
     )
 
   (leaf mwim
@@ -768,14 +787,13 @@
                        (org-table-get-field (org-table-current-column) "")))))
       )
 
+    ;; paths
+    (setq org-directory "~/Documents/org/")
+    (setq notes-path (expand-file-name "notes.org" org-directory))
+    (setq papers-directory (expand-file-name "papers/" org-directory))
+    (setq tde-papers (expand-file-name "tde.org" papers-directory))
 
     :custom (
-             ;; paths
-             (org-directory . "~/Documents/org/")
-             (notes-path . '(concat org-directory "notes.org"))
-             (papers-directory . '(concat org-directory "papers/"))
-             (tde-papers . '(concat papers-directory "tde.org"))
-
              ;; main
              (org-default-notes-file . "notes.org")
              (org-indent-indentation-per-level . 4)
@@ -865,7 +883,6 @@
     )
 
   (leaf *load-theme
-    :disabled t
     :after solarized-theme
     :config
     (load-theme 'my-dark-transparent t)
@@ -990,5 +1007,15 @@
         (delete-file
          (buffer-file-name (current-buffer)))))
     :hook (after-save-hook . ky/delete-file-if-no-contents)
+    )
+
+  (leaf open-org-files
+    :preface
+    (defun memo ()
+      (interactive)
+      (find-file "~/Documents/org/memo.org"))
+    (defun notes ()
+      (interactive)
+      (find-file "~/Documents/org/notes.org"))
     )
   )
