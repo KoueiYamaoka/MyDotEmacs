@@ -6,5 +6,6 @@ el-get/
 eln-cache/
 undohist/
 undotree/
+wordfreq-dicts/
 *.elc
 history

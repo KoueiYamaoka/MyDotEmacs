@@ -324,14 +324,21 @@
       :after company-quickhelp)
     )
 
-  (leaf company-math
-    :doc "Completion backends for unicode math symbols and latex tags"
-    :req "company-0.8.0" "math-symbol-lists-1.3"
-    :tag "completion" "symbols" "unicode"
-    :url "https://github.com/vspinu/company-math"
-    :added "2023-01-19"
-    :ensure t
-    :after company math-symbol-lists)
+  (leaf company-wordfreq
+    :doc "Company backend for human language texts"
+    :req "emacs-27.1" "company-0.9"
+    :tag "matching" "convenience" "company" "emacs>=27.1"
+    :url "https://github.com/johannes-mueller/company-wordfreq.el"
+    :added "2023-01-26"
+    :el-get johannes-mueller/company-wordfreq.el
+    :config
+    (add-hook 'text-mode-hook (lambda ()
+                                (setq-local company-backends
+                                            '(company-wordfreq
+                                              company-dabbrev
+                                              company-capf))
+                                (setq-local company-transformers nil)))
+    )
   )
 
 ;; search
