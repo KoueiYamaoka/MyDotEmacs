@@ -203,7 +203,7 @@
     :ensure t
     :bind (("C-x u" . undo-tree-visualize))
     :custom ((undo-tree-history-directory-alist . '(("." . "~/.emacs.d/undotree"))))
-    :hook (find-file-hook . undo-tree-load-history)
+    ;; :hook (find-file-hook . undo-tree-load-history)
     :config
     (global-undo-tree-mode)
     )
@@ -216,6 +216,33 @@
     :added "2023-01-18"
     :ensure t
     :config (undohist-initialize)
+    )
+  )
+
+(leaf vterm
+  :doc "Fully-featured terminal emulator"
+  :req "emacs-25.1"
+  :tag "terminals" "emacs>=25.1"
+  :url "https://github.com/akermu/emacs-libvterm"
+  :added "2023-01-27"
+  :ensure t
+  :require t
+  :hook (vterm-mode-hook . (lambda() (setq show-trailing-whitespace nil)))
+  :bind ((:vterm-mode-map("C-h" . backward-delete-char-untabify)
+                         ("C-d" . delete-word)
+                         ("C-o" . other-window)))
+  :config
+  (add-to-list 'vterm-eval-cmds '("switch-to-prev-buffer" switch-to-prev-buffer))
+  (leaf *vterm-on-emacs
+    :after vterm
+    :preface
+    (defun command-to-exit-emacs ()
+      (interactive)
+      (if (display-graphic-p)
+          (vterm)
+        (save-buffers-kill-terminal)))
+    :config
+    (global-set-key (kbd "C-x C-c") 'command-to-exit-emacs)
     )
   )
 
