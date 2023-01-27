@@ -7,6 +7,11 @@
 (prefer-coding-system 'utf-8)
 (set-default 'buffer-file-coding-system 'utf-8)
 
+;; mozc
+(add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-mozc")
+(require 'mozc)
+(setq default-input-method "japanese-mozc")
+
 ;; font
 (custom-set-faces
  '(default ((t (:family "Ricty Diminished" :foundry "PfEd" :slant normal :weight normal :height 128 :width normal)))))
@@ -118,7 +123,8 @@
     :added "2023-01-19"
     :global-minor-mode cua-mode
     :custom ((cua-enable-cua-keys . nil))
-    :bind ("C-x 2" . cua-set-rectangle-mark)
+    :bind (("C-x 2" . cua-set-rectangle-mark)
+           (:cua-global-keymap ("C-<return>" . nil)))
     )
 
   (leaf linum
