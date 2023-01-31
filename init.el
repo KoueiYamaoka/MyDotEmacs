@@ -73,8 +73,8 @@
              (require-final-newline . t)
              (scroll-preserve-screen-position . t)
              (scroll-error-top-bottom . t)
-             ;; (menu-bar-mode . nil)
-             ;; (tool-bar-mode . nil)
+             (menu-bar-mode . nil)
+             (tool-bar-mode . nil)
              (scroll-bar-mode . nil)
              (completion-ignore-case . t)
              )
@@ -124,7 +124,7 @@
     :global-minor-mode cua-mode
     :custom ((cua-enable-cua-keys . nil))
     :bind (("C-x 2" . cua-set-rectangle-mark)
-           (:cua-global-keymap ("C-<return>" . nil)))
+           (:cua-global-keymap ("C-<return>" . newline)))
     )
 
   (leaf linum
@@ -567,8 +567,9 @@
   :after jsonrpc flymake project xref eldoc
   :hook ((python-mode-hook . eglot-ensure)
          )
+  :custom (eldoc-echo-area-use-multiline-p . nil)
   :config
-  ;; (add-hook 'python-mode-hook (lambda () (add-hook 'before-save-hook 'eglot-format-buffer))) ; don't work
+  (add-hook 'python-mode-hook (lambda () (add-hook 'before-save-hook 'eglot-format-buffer))) ; don't work
   )
 
 ;; python
