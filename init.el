@@ -154,7 +154,8 @@
       :added "2023-01-20"
       :hook ((emacs-lisp-mode-hook . flyspell-prog-mode)
              (python-mode-hook . flyspell-prog-mode)
-             (yatex-mode-hook . flyspell-mode ))
+             (yatex-mode-hook . flyspell-mode )
+             (text-mode-hook . flyspell-mode ))
       )
     )
 
@@ -694,6 +695,7 @@
     :tag "outlines"
     :added "2023-01-20"
     :ensure t)
+
   )
 
 (leaf markdown-mode
@@ -899,6 +901,24 @@
     :after org
     )
   )
+
+;; pdf
+(leaf pdf-tools
+  :doc "Support library for PDF documents"
+  :req "emacs-26.3" "tablist-1.0" "let-alist-1.0.4"
+  :tag "multimedia" "files" "emacs>=26.3"
+  :url "http://github.com/vedang/pdf-tools/"
+  :added "2023-01-31"
+  :emacs>= 26.3
+  :ensure t
+  :after tablist
+  :hook ((pdf-view-mode-hook . pdf-tools-enable-minor-modes)
+         (pdf-view-mode-hook . auto-revert-mode))
+  :config
+  (pdf-loader-install)
+  (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
+  )
+
 
 ;; theme
 (leaf *theme
