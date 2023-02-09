@@ -12,9 +12,12 @@
 (require 'mozc)
 (setq default-input-method "japanese-mozc")
 
+;; load local_custom, including api keys
+(load "~/.emacs.d/local_custom")
+
 ;; font
 (custom-set-faces
- '(default ((t (:family "Ricty Diminished" :foundry "PfEd" :slant normal :weight normal :height 128 :width normal)))))
+ '(default ((t (:family "HackGen" :foundry "PfEd" :slant normal :weight normal :height 143 :width normal)))))
 
 ;; <leaf-install-code>
 (eval-and-compile
@@ -56,7 +59,7 @@
     :custom ((user-full-name . "Kouei Yamaoka")
              (user-mail-address . "kouei525@gmail.com")
              (shell-file-name . "/bin/zsh")
-             (debug-on-error . t)
+             (debug-on-error . nil)
              (delete-auto-save-files . t)
              (backup-inhibited . t)
              (blink-cursor-mode . 0)
@@ -81,7 +84,6 @@
     :config
     (defalias 'yes-or-no-p 'y-or-n-p) ; "yes or no" to "y or n"
     (set-face-background 'trailing-whitespace "#b14770")
-    (set-face-attribute 'default nil :height 150)
     )
 
   (leaf files
@@ -123,8 +125,10 @@
     :added "2023-01-19"
     :global-minor-mode cua-mode
     :custom ((cua-enable-cua-keys . nil))
-    :bind (("C-x 2" . cua-set-rectangle-mark)
-           (:cua-global-keymap ("C-<return>" . newline)))
+    :bind ("C-x 2" . cua-set-rectangle-mark)
+    :config
+    (leaf-keys ((:cua-global-keymap ("C-<return>" . newline)))
+               )
     )
 
   (leaf linum
@@ -405,7 +409,7 @@
   :ensure t
   :custom ((migemo-command . "cmigemo")
            (migemo-options . '("-q" "--emacs"))
-           (migemo-dictionary . "/usr/local/share/migemo/utf-8/migemo-dict")
+           (migemo-dictionary . user-migemo-dictionary)
            (migemo-user-dictionary . nil)
            (migemo-regex-dictionary . nil)
            (migemo-coding-system  . 'utf-8-unix)
@@ -832,8 +836,10 @@
     :custom (
              ;; main
              (org-default-notes-file . "notes.org")
-             (org-indent-indentation-per-level . 4)
+             (org-indent-indentation-per-level . 2)
              (org-indent-mode-turns-on-hiding-stars . nil)
+             (org-hide-leading-stars . t)
+             (org-startup-indented . t)
              (org-startup-folded . 'showall)
              (org-log-done . 'time)
              (org-enforce-todo-dependencies . t)
@@ -970,6 +976,15 @@
          (message "init time: %.3f sec"
                   (float-time (time-subtract after-init-time before-init-time)))))
     )
+
+  (leaf wakatime-mode
+    :doc "Automatic time tracking extension for WakaTime"
+    :tag "comm" "calendar"
+    :added "2023-02-07"
+    :ensure t
+    :config
+    (global-wakatime-mode)
+    )
   )
 
 (leaf image+
@@ -1073,3 +1088,4 @@
       (find-file "~/Documents/org/notes.org"))
     )
   )
+

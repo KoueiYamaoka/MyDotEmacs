@@ -7,6 +7,7 @@ eln-cache/
 undohist/
 undotree/
 wordfreq-dicts/
+local_custom.el
 *.elc
 history
 bookmarks
