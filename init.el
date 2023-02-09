@@ -827,6 +827,11 @@
                        (org-table-get-field (org-table-current-column) "")))))
       )
 
+    (defun org-scheduled-tomorrow ()
+      (interactive)
+      (org-schedule nil "+1d")
+      )
+
     ;; paths
     (setq org-directory "~/Documents/org/")
     (setq notes-path (expand-file-name "notes.org" org-directory))
@@ -844,7 +849,7 @@
              (org-log-done . 'time)
              (org-enforce-todo-dependencies . t)
              (org-todo-keywords
-              . '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)")))
+              . '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)" "SOMEDAY(s)")))
              (system-time-locale . "C")
 
              ;; reftex
@@ -890,9 +895,10 @@
     :bind (("C-c s" . org-show-subtree)
            ("M-;" . org-comment-dwim-2)
            ("C-c v" . org-capture)
-           ("C-M-o" . '(lambda () (interactive) (show-org-buffer "notes.org")))
            (:org-mode-map
             ("C-c w" . org-table-kill-cell)
+            ("C-c n" . org-next-visible-heading)
+            ("C-c C-n" . org-scheduled-tomorrow)
             )
            )
     )
@@ -1086,6 +1092,10 @@
     (defun notes ()
       (interactive)
       (find-file "~/Documents/org/notes.org"))
+    )
+    (defun todo ()
+      (interactive)
+      (find-file "~/Documents/org/todo.org"))
     )
   )
 
