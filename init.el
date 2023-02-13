@@ -257,7 +257,37 @@
     )
   )
 
-;; completion
+(leaf *hydra-system
+  :config
+  (leaf *hydra-font
+    :hydra (hydra-zoom ()
+                       "Zoom"
+                       ("g" text-scale-increase "in")
+                       ("l" text-scale-decrease "out")
+                       ("r" (text-scale-set 0) "reset")
+                       ("0" (text-scale-set 0) :bind nil :exit t)
+                       )
+    :bind ("<f2>" . hydra-zoom/body)
+    )
+  
+  (leaf *hydra-pinky
+    :hydra (hydra-pinky ()
+                        "pinky"
+                        ("n" next-line)
+                        ("p" previous-line)
+                        ("f" forward-char)
+                        ("b" backward-char)
+                        ("a" beginning-of-line)
+                        ("e" move-end-of-line)
+                        ("l" recenter-top-bottom)
+                        ("SPC" set-mark-command)
+                        ("g" keyboard-quit)
+                        )
+    :bind ("C-c p" . hydra-pinky/body)
+    )
+  )
+
+;; Completion
 (leaf vertico
   :doc "VERTical Interactive COmpletion"
   :req "emacs-27.1"
@@ -662,7 +692,6 @@
     )
 
   (leaf smartparens
-    :disabled t
     :doc "Automatic insertion, wrapping and paredit-like navigation with user defined pairs."
     :req "dash-2.13.0" "cl-lib-0.3"
     :tag "editing" "convenience" "abbrev"
@@ -670,7 +699,7 @@
     :added "2023-01-19"
     :ensure t
     :require smartparens-config
-    :hook (after-init-hook . smartparens-global-strict-mode)
+    ;; :hook (after-init-hook . smartparens-global-strict-mode)
     :custom (electric-pair-mode . nil)
     )
 
@@ -837,6 +866,7 @@
     (setq notes-path (expand-file-name "notes.org" org-directory))
     (setq papers-directory (expand-file-name "papers/" org-directory))
     (setq tde-papers (expand-file-name "tde.org" papers-directory))
+    (setq done-list (expand-file-name "done.org" org-directory))
 
     :custom (
              ;; main
@@ -886,16 +916,15 @@
                    :jump-to-captured t :immediate-finish t :empty-lines-before 2)
                   ))
 
-             ;; org-refine
-             (org-agenda-files . org-directory)
-             (org-refile-targets . '((org-agenda-files :maxlevel . 3)))
+             ;; org-refile
+             (org-refile-targets . '((done-list :maxlevel . 2)))
              )
 
 
     :bind (("C-c s" . org-show-subtree)
-           ("M-;" . org-comment-dwim-2)
            ("C-c v" . org-capture)
            (:org-mode-map
+            ("M-;" . org-comment-dwim-2)
             ("C-c w" . org-table-kill-cell)
             ("C-c n" . org-next-visible-heading)
             ("C-c C-n" . org-scheduled-tomorrow)
