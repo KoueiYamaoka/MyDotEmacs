@@ -269,7 +269,7 @@
                        )
     :bind ("<f2>" . hydra-zoom/body)
     )
-  
+
   (leaf *hydra-pinky
     :hydra (hydra-pinky ()
                         "pinky"
@@ -699,7 +699,7 @@
     :added "2023-01-19"
     :ensure t
     :require smartparens-config
-    ;; :hook (after-init-hook . smartparens-global-strict-mode)
+    :hook (after-init-hook . smartparens-global-mode)
     :custom (electric-pair-mode . nil)
     )
 
@@ -1120,11 +1120,10 @@
       (find-file "~/Documents/org/memo.org"))
     (defun notes ()
       (interactive)
-      (find-file "~/Documents/org/notes.org"))
+      (find-file "~/Documents/org/notes.org")
     )
     (defun todo ()
       (interactive)
       (find-file "~/Documents/org/todo.org"))
     )
   )
-
