@@ -1103,6 +1103,18 @@
     :bind ("M-o" . another-line)
     )
 
+  (defun open-externally (filename)
+    (interactive "fOpen externally: ")
+    (let ((process-connection-type nil))
+      (start-process-shell-command "open-externally" nil (concat "xdg-open " filename)))
+    )
+
+  (defun open-current-directory ()
+    (interactive)
+    (let ((process-connection-type nil))
+      (start-process-shell-command "open-current-directory" nil (concat "xdg-open " default-directory)))
+    )
+
   (leaf delete-file-if-no-content
     :preface
     (defun ky/delete-file-if-no-contents ()
