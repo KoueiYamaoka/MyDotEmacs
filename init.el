@@ -863,10 +863,10 @@
 
     ;; paths
     (setq org-directory "~/Documents/org/")
-    (setq notes-path (expand-file-name "notes.org" org-directory))
+    (setq notes-path (expand-file-name "notes/notes.org" org-directory))
     (setq papers-directory (expand-file-name "papers/" org-directory))
     (setq tde-papers (expand-file-name "tde.org" papers-directory))
-    (setq done-list (expand-file-name "done.org" org-directory))
+    (setq done-list (expand-file-name "notes/done.org" org-directory))
 
     :custom (
              ;; main
@@ -1129,13 +1129,13 @@
     :preface
     (defun memo ()
       (interactive)
-      (find-file "~/Documents/org/memo.org"))
+      (find-file "~/Documents/org/notes/memo.org"))
     (defun notes ()
       (interactive)
-      (find-file "~/Documents/org/notes.org")
+      (find-file "~/Documents/org/notes/notes.org")
     )
     (defun todo ()
       (interactive)
-      (find-file "~/Documents/org/todo.org"))
+      (find-file "~/Documents/org/notes/todo.org"))
     )
   )
