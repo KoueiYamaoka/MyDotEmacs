@@ -889,15 +889,6 @@
                   "/home/kouei/latex/bib/read_papers"))
 
              ;; org-capture
-             (paper-reading-format
-              . '(concat "- [[pdf:][PDF]]\n\n"
-                        "** Abstract\n- %?\n\n"
-                        "** Difference\n- \n\n"
-                        "** Core\n- \n\n"
-                        "** Results\n- \n\n"
-                        "** Discussion\n- \n\n"
-                        "** Next [/]\n*** TODO \n")
-              )
              (org-capture-templates
               . '(
                   ; notes
@@ -930,6 +921,16 @@
             ("C-c C-n" . org-scheduled-tomorrow)
             )
            )
+    :config
+    (setq paper-reading-format
+          (concat "- [[pdf:][PDF]]\n\n"
+                  "** Abstract\n- %?\n\n"
+                  "** Difference\n- \n\n"
+                  "** Core\n- \n\n"
+                  "** Results\n- \n\n"
+                  "** Discussion\n- \n\n"
+                  "** Next [/]\n*** TODO \n")
+     )
     )
 
   (leaf org-journal
@@ -1132,8 +1133,7 @@
       (find-file "~/Documents/org/notes/memo.org"))
     (defun notes ()
       (interactive)
-      (find-file "~/Documents/org/notes/notes.org")
-    )
+      (find-file "~/Documents/org/notes/notes.org"))
     (defun todo ()
       (interactive)
       (find-file "~/Documents/org/notes/todo.org"))
