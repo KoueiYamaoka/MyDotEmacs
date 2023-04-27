@@ -241,7 +241,8 @@
   :hook (vterm-mode-hook . (lambda() (setq show-trailing-whitespace nil)))
   :bind ((:vterm-mode-map("C-h" . backward-delete-char-untabify)
                          ("C-d" . delete-word)
-                         ("C-o" . other-window)))
+                         ("C-o" . other-window)
+                         ("C-y" . vterm-yank)))
   :config
   (add-to-list 'vterm-eval-cmds '("switch-to-prev-buffer" switch-to-prev-buffer))
   (leaf *vterm-on-emacs
@@ -481,48 +482,51 @@
   :global-minor-mode shackle-mode
   )
 
-(leaf google-translate
-  :doc "Emacs interface to Google Translate"
-  :req "emacs-24.3" "popup-0.5.8"
-  :tag "convenience" "emacs>=24.3"
-  :url "https://github.com/atykhonov/google-translate"
-  :added "2023-01-19"
-  :ensure t
-  :require t
-  :bind (("C-x t" . google-translate-enja-or-jaen)
-         ("C-x C-t" . google-translate-query-translate))
-  :preface
-  ;; auto set source lang and target lang
-  (defun google-translate-enja-or-jaen (&optional string)
-    (interactive)
-    (setq string
-	      (cond ((stringp string) string)
-	            (current-prefix-arg
-	             (read-string "Google Translate: "))
-	            ((use-region-p)
-	             (buffer-substring (region-beginning) (region-end)))
-	            (t
-	             (thing-at-point 'word))))
-    (let* ((asciip (string-match
-		            "[a-zA-Z]"
-		            string)))
-      (run-at-time 0.1 nil 'deactivate-mark)
-      (google-translate-translate
-       (if asciip "en" "ja")
-       (if asciip "ja" "en")
-       string)))
+(leaf *AI-tools
+  :config
+  (leaf google-translate
+    :doc "Emacs interface to Google Translate"
+    :req "emacs-24.3" "popup-0.5.8"
+    :tag "convenience" "emacs>=24.3"
+    :url "https://github.com/atykhonov/google-translate"
+    :added "2023-01-19"
+    :ensure t
+    :require t
+    :bind (("C-x t" . google-translate-enja-or-jaen)
+           ("C-x C-t" . google-translate-query-translate))
+    :preface
+    ;; auto set source lang and target lang
+    (defun google-translate-enja-or-jaen (&optional string)
+      (interactive)
+      (setq string
+	        (cond ((stringp string) string)
+	              (current-prefix-arg
+	               (read-string "Google Translate: "))
+	              ((use-region-p)
+	               (buffer-substring (region-beginning) (region-end)))
+	              (t
+	               (thing-at-point 'word))))
+      (let* ((asciip (string-match
+		              "[a-zA-Z]"
+		              string)))
+        (run-at-time 0.1 nil 'deactivate-mark)
+        (google-translate-translate
+         (if asciip "en" "ja")
+         (if asciip "ja" "en")
+         string)))
 
-  ;; for avoiding args-out-of-range [] 1
-  (defun google-translate-json-suggestion (json)
-    (let ((info (aref json 7)))
-      (if (and info (> (length info) 0))
-	      (aref info 1)
-        nil))
-    )
+    ;; for avoiding args-out-of-range [] 1
+    (defun google-translate-json-suggestion (json)
+      (let ((info (aref json 7)))
+        (if (and info (> (length info) 0))
+	        (aref info 1)
+          nil))
+      )
 
-  ;; for avoiding Error: search-failed ",tkk:'".
-  (defun google-translate--search-tkk ()
-    (list 430675 2721866130)
+    ;; for avoiding Error: search-failed ",tkk:'".
+    (defun google-translate--search-tkk ()
+      (list 430675 2721866130)
+      )
     )
   )
 
@@ -1130,6 +1134,27 @@
         (insert line "\n")
         (move-to-column col)))
     :bind ("M-o" . another-line)
+    )
+
+  (leaf align-regexp-repeated
+    (defun align-regexp-repeated (start stop regexp)
+      "Like align-regexp, but repeated for multiple columns. See http://www.emacswiki.org/emacs/AlignCommands"
+      (interactive "r\nsAlign regexp: ")
+      (let ((spacing 1)
+            (old-buffer-size (buffer-size)))
+        ;; If our align regexp is just spaces, then we don't need any
+        ;; extra spacing.
+        (when (string-match regexp " ")
+          (setq spacing 0))
+        (align-regexp start stop
+                      ;; add space at beginning of regexp
+                      (concat "\\([[:space:]]*\\)" regexp)
+                      1 spacing t)
+        ;; modify stop because align-regexp will add/remove characters
+        (align-regexp start (+ stop (- (buffer-size) old-buffer-size))
+                      ;; add space at end of regexp
+                      (concat regexp "\\([[:space:]]*\\)")
+                      1 spacing t)))
     )
 
   (defun open-externally (filename)

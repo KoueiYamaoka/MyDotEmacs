@@ -4,6 +4,7 @@ transient/
 elpa/
 el-get/
 eln-cache/
+init/
 undohist/
 undotree/
 wordfreq-dicts/
@@ -13,3 +14,7 @@ history
 bookmarks
 kkcrc
 tramp
+srecode-map.el
+recentf
+request
+custom.el
