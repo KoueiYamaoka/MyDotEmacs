@@ -649,6 +649,7 @@
   :require t yatexprc
   :mode "\\.tex$" "\\.sty$" "\\.bbl$"
   :custom ((YaTeX-use-AMS-LaTeX . t)
+           (YaTeX-inhibit-prefix-letter . t)
            (tex-command . "latexmk")
            (bibtex-command . "pbibtex")
            (tex-pdfview-command . "xdg-open")
@@ -930,7 +931,34 @@
                   "** Results\n- \n\n"
                   "** Discussion\n- \n\n"
                   "** Next [/]\n*** TODO \n")
-     )
+          )
+    (setq org-latex-pdf-process
+          '("lualatex --draftmode %f"
+            "lualatex %f"))
+    (add-to-list 'org-latex-classes
+                 '("paper"
+                   "
+\\documentclass[10pt,a4paper,oneside]{ltjsarticle}
+\\usepackage{luatexja-fontspec}
+[NO-DEFAULT-PACKAGES]
+\\usepackage{graphicx}
+\\usepackage{amsmath}
+\\usepackage{amsfonts}
+\\usepackage{bm}
+\\usepackage{siunitx}
+\\usepackage{booktabs}
+\\usepackage{multirow}
+\\usepackage{longtable}
+\\usepackage[unicode,hidelinks]{hyperref}
+\\input{/home/kouei/latex/preamble/newcommands}
+"
+                   ("\\section{%s}" . "\\section*{%s}")
+                   ("\\subsection{%s}" . "\\subsection*{%s}")
+                   ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                   ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                   ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
+                 )
+    (setq org-latex-default-class "paper")
     )
 
   (leaf org-journal
