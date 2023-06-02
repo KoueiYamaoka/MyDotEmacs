@@ -646,38 +646,53 @@
 
 
 ;; tex
-(leaf yatex
-  :doc "Yet Another tex-mode for emacs //野鳥//"
-  :added "2023-01-19"
-  :ensure t
-  :require t yatexprc
-  :mode "\\.tex$" "\\.sty$" "\\.bbl$"
-  :custom ((YaTeX-use-AMS-LaTeX . t)
-           (YaTeX-inhibit-prefix-letter . t)
-           (tex-command . "latexmk")
-           (bibtex-command . "pbibtex")
-           (tex-pdfview-command . "xdg-open")
-           (YaTeX-electric-indent-mode . t)
-           (YaTeX-latex-message-code . 'utf-8)
-           (YaTeX-kanji-code . 4)
-           (YaTeX-dvi2-command-ext-alist .
-            '(("[agx]dvi\\|dviout\\|emacsclient" . ".dvi")
-              ("ghostview\\|gv" . ".ps")
-              ("acroread\\|pdf\\|Preview\\|TeXShop\\|Skim\\|evince\\|apvlv\\|open" . ".pdf")))
-           (dvi2-command . "evince")
-           )
-  :hook (yatex-mode-hook . turn-on-reftex)
-  :preface
-  (defun set-tex-command-for-yatex(latex-type)
-    (interactive "slatex-type:")
-    (cond
-     ((equal latex-type "platex")
-      (setq tex-command "platex"))
-     ((equal latex-type "lualatex")
-      (setq tex-command "lualatex -synctex=1"))
-     (t
-      (setq tex-command "latexmk")) ; default
-     )
+(leaf *latex
+  :config
+  (leaf yatex
+    :doc "Yet Another tex-mode for emacs //野鳥//"
+    :added "2023-01-19"
+    :ensure t
+    :require t yatexprc
+    :mode "\\.tex$" "\\.sty$" "\\.bbl$"
+    :custom ((YaTeX-use-AMS-LaTeX . t)
+             (YaTeX-inhibit-prefix-letter . t)
+             (tex-command . "latexmk")
+             (bibtex-command . "pbibtex")
+             (tex-pdfview-command . "xdg-open")
+             (YaTeX-electric-indent-mode . t)
+             (YaTeX-latex-message-code . 'utf-8)
+             (YaTeX-kanji-code . 4)
+             (YaTeX-dvi2-command-ext-alist .
+                                           '(("[agx]dvi\\|dviout\\|emacsclient" . ".dvi")
+                                             ("ghostview\\|gv" . ".ps")
+                                             ("acroread\\|pdf\\|Preview\\|TeXShop\\|Skim\\|evince\\|apvlv\\|open" . ".pdf")))
+             (dvi2-command . "evince")
+             )
+    :hook (yatex-mode-hook . turn-on-reftex)
+    :preface
+    (defun set-tex-command-for-yatex(latex-type)
+      (interactive "slatex-type:")
+      (cond
+       ((equal latex-type "platex")
+        (setq tex-command "platex"))
+       ((equal latex-type "lualatex")
+        (setq tex-command "lualatex -synctex=1"))
+       (t
+        (setq tex-command "latexmk")) ; default
+       )
+      )
+    )
+
+  (leaf reftex
+    :doc "minor mode for doing \\label, \\ref, \\cite, \\index in LaTeX"
+    :tag "builtin"
+    :added "2023-06-01"
+    :config
+    (setq reftex-default-bibliography
+          '("/home/kouei/latex/bib/articles"
+            "/home/kouei/latex/bib/publications"
+            "/home/kouei/latex/bib/read_papers")
+          )
     )
   )
 
@@ -887,12 +902,6 @@
               . '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)" "SOMEDAY(s)")))
              (system-time-locale . "C")
 
-             ;; reftex
-             (reftex-default-bibliography
-              . '("/home/kouei/latex/bib/articles"
-                  "/home/kouei/latex/bib/publications"
-                  "/home/kouei/latex/bib/read_papers"))
-
              ;; org-capture
              (org-capture-templates
               . '(
@@ -962,6 +971,16 @@
                    ("\\paragraph{%s}" . "\\paragraph*{%s}")
                    ("\\subparagraph{%s}" . "\\subparagraph*{%s}"))
                  )
+
+    (add-to-list 'org-latex-classes
+                 '("beamer"
+                   "\\documentclass[dvipdfmx,presentation]{beamer}
+               [NO-DEFAULT-PACKAGES] [PACKAGES] [EXTRA]"
+                   ("\\section\{%s\}" . "\\section*\{%s\}")
+                   ("\\subsection\{%s\}" . "\\subsection*\{%s\}")
+                   ("\\subsubsection\{%s\}" . "\\subsubsection*\{%s\}"))
+                 )
+
     (setq org-latex-default-class "paper")
     )
 
@@ -1137,6 +1156,7 @@
     )
 
   (leaf align-regexp-repeated
+    :preface
     (defun align-regexp-repeated (start stop regexp)
       "Like align-regexp, but repeated for multiple columns. See http://www.emacswiki.org/emacs/AlignCommands"
       (interactive "r\nsAlign regexp: ")
