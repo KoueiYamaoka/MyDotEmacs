@@ -764,6 +764,21 @@
 
   )
 
+(leaf *git
+  :config
+  (leaf magit
+    :doc "A Git porcelain inside Emacs."
+    :req "emacs-25.1" "compat-29.1.3.4" "dash-20221013" "git-commit-20230101" "magit-section-20230101" "transient-20230201" "with-editor-20230118"
+    :tag "vc" "tools" "git" "emacs>=25.1"
+    :url "https://github.com/magit/magit"
+    :added "2023-07-21"
+    :emacs>= 25.1
+    :ensure t
+    :after compat git-commit magit-section with-editor
+    :bind ("C-x g" . magit-status)
+    )
+  )
+
 (leaf markdown-mode
   :doc "Major mode for Markdown-formatted text"
   :req "emacs-26.1"
