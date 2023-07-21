@@ -625,7 +625,8 @@
     :url "https://github.com/proofit404/blacken"
     :added "2023-01-19"
     :ensure t
-    :custom ((blacken-line-length . 119))
+    :custom ((blacken-line-length . 119)
+             (blacken-executable . "/home/kouei/.pyenv/shims/black"))
     :hook (python-mode-hook . blacken-mode)
     )
 
@@ -647,6 +648,18 @@
 
 ;; tex
 (leaf *latex
+  (leaf bibtex
+    :doc "BibTeX mode for GNU Emacs"
+    :tag "builtin"
+    :added "2023-07-04"
+    :config
+    (add-hook 'TeX-mode-hook
+          #'(lambda ()
+              (setq bibtex-comment-start "%")
+              )
+          )
+    )
+
   :config
   (leaf yatex
     :doc "Yet Another tex-mode for emacs //野鳥//"
