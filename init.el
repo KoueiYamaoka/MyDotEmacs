@@ -694,6 +694,15 @@
         (setq tex-command "latexmk")) ; default
        )
       )
+    :config
+    (defun YaTeX-preview-default-main (command)
+      "Copied from yatexprc"
+      "Return default preview target file"
+      (if (get 'dvi2-command 'region)
+		  (substring YaTeX-texput-file
+				     0 (rindex YaTeX-texput-file ?.))
+        ;; return $(readlink main.pdf) instead of main.pdf
+		(concat "$(readlink " (YaTeX-get-preview-file-name command) ")")))
     )
 
   (leaf reftex
