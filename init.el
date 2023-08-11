@@ -445,7 +445,16 @@
            (migemo-regex-dictionary . nil)
            (migemo-coding-system  . 'utf-8-unix)
            (migemo-isearch-min-length . 2))
-  :hook (emacs-startup-hook . migemo-init)
+  :preface
+  (defun my-toggle-migemo-isearch-enable ()
+    (cond
+     ((eq (length isearch-string) 0) 'ignore)
+     ((< (length isearch-string) migemo-isearch-min-length) (setq migemo-isearch-enable-p nil))
+     ((eq (length isearch-string) migemo-isearch-min-length) (setq migemo-isearch-enable-p t)))
+    )
+
+  :hook ((emacs-startup-hook . migemo-init)
+         (isearch-update-post-hook . my-toggle-migemo-isearch-enable))
   )
 
 (leaf anzu
