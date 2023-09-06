@@ -1039,6 +1039,13 @@
     :ensure t
     :after org
     )
+
+  (leaf ox-gfm
+    :doc "Github Flavored Markdown Back-End for Org Export Engine"
+    :tag "github" "markdown" "wp" "org"
+    :added "2023-09-06"
+    :ensure t
+    :after org)
   )
 
 ;; pdf
