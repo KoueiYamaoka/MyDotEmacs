@@ -944,6 +944,7 @@
              (org-startup-folded . 'showall)
              (org-log-done . 'time)
              (org-enforce-todo-dependencies . t)
+             (org-startup-truncated . nil)
              (org-todo-keywords
               . '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)" "SOMEDAY(s)")))
              (system-time-locale . "C")
