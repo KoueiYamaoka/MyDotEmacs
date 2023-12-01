@@ -2,9 +2,9 @@
 # name: fig
 # key: fig
 # --
-\begin{figure}[htb]
+\begin{figure}[t]
  \centering
-  \includegraphics[width=1\columnwidth]{fig/$1.pdf}
+  \includegraphics[width=1\columnwidth]{\figpath/$1.pdf}
  \caption{$2}
- \label{$3}
+ \plabel{$3}
 \end{figure}

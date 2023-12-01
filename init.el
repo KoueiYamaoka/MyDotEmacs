@@ -196,6 +196,7 @@
               ("M-3" . split-window-horizontally)
               ("C-o" . other-window)
               ("M-$" . ispell-buffer)
+              ("C-x C-j" . nil)
               )
              )
   (define-key key-translation-map [?\C-h] [?\C-?])
@@ -690,7 +691,9 @@
                                              ("acroread\\|pdf\\|Preview\\|TeXShop\\|Skim\\|evince\\|apvlv\\|open" . ".pdf")))
              (dvi2-command . "evince")
              )
-    :hook (yatex-mode-hook . turn-on-reftex)
+    :hook ((yatex-mode-hook . turn-on-reftex)
+           (yatex-mode-hook . set-my-yatex-font-locks)
+           )
     :preface
     (defun set-tex-command-for-yatex(latex-type)
       (interactive "slatex-type:")
@@ -703,6 +706,27 @@
         (setq tex-command "latexmk")) ; default
        )
       )
+
+    ;; font-lock
+    (defun set-my-yatex-font-locks ()
+      (font-lock-add-keywords 'yatex-mode
+                              '(("\\\\plabel{.+?}" . YaTeX-font-lock-crossref-face)
+                                ("\\\\plabel\\[.+?\\]{.+?}" . YaTeX-font-lock-crossref-face)
+                                ("\\\\Ref{.+?}" . YaTeX-font-lock-crossref-face)
+                                ("\\\\Cref{.+?}" . YaTeX-font-lock-crossref-face)
+                                ("\\\\gls.*?{.+?}" . YaTeX-font-lock-label-face)
+                                ("\\\\Gls.*?{.+?}" . YaTeX-font-lock-label-face)
+                                ("\\\\\\(Hz\\|kHz\\|m\\|cm\\|h\\|mins\\|s\\|ms\\|dB\\|pct\\){.+?}" . YaTeX-font-lock-formula-face)
+                                ("\\\\text.*?{.+?}" . YaTeX-font-lock-declaration-face)
+                                ("\\\\etal" . YaTeX-font-lock-declaration-face)
+                                ("\\\\ftn.*?( \\|\\.)" . YaTeX-font-lock-declaration-face)
+                                ("\\\\mtdnm{.+?}" . font-lock-keyword-face)
+                                ("``\\(.*?\\)''" . font-lock-string-face)
+
+                                )
+                              )
+      )
+
     :config
     (defun YaTeX-preview-default-main (command)
       "Copied from yatexprc"
@@ -711,8 +735,9 @@
 		  (substring YaTeX-texput-file
 				     0 (rindex YaTeX-texput-file ?.))
         ;; return $(readlink main.pdf) instead of main.pdf
-		(concat "$(readlink " (YaTeX-get-preview-file-name command) ")")))
-    )
+		(concat "$(readlink " (YaTeX-get-preview-file-name command) ")"))
+      )
+    ) ; yatex-mode ends here
 
   (leaf reftex
     :doc "minor mode for doing \\label, \\ref, \\cite, \\index in LaTeX"
@@ -1264,5 +1289,16 @@
     (defun todo ()
       (interactive)
       (find-file "~/Documents/org/notes/todo.org"))
+    )
+
+  ;; https://www.emacswiki.org/emacs/InsertFileName
+  (defun insert-filename (filename &optional args)
+    (interactive "*fInsert file name: \nP")
+    (cond ((eq '- args)
+           (insert (expand-file-name filename)))
+          ((not (null args))
+           (insert filename))
+          (t
+           (insert (file-relative-name filename))))
     )
   )
