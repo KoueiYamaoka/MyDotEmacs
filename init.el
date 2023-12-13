@@ -1301,4 +1301,48 @@
           (t
            (insert (file-relative-name filename))))
     )
+
+  ;; 選択範囲を計算してバッファに出力
+  ;; gist-id: b967d6a7441f85aa541d
+  ;; gist-name: calculate-region-and-insert.el
+  (defun add-number-grouping (number &optional separator)
+    "Add commas to NUMBER and return it as a string.
+     Optional SEPARATOR is the string to use to separate groups.
+     It defaults to a comma."
+    (let ((num (number-to-string number))
+          (op (or separator ",")))
+      (while (string-match "\\(.*[0-9]\\)\\([0-9][0-9][0-9].*\\)" num)
+        (setq num (concat
+                   (match-string 1 num) op
+                   (match-string 2 num))))
+      num)
+    )
+  (defun calculate-region-and-insert (beg end)
+    "Calculate natural text of region and insert to current buffer.  BEG, END."
+    (interactive "r")
+    (let* ((strings (if mark-active
+                        (buffer-substring-no-properties beg end)
+                      (read-string " Expression: " "")))
+           (is_num_format (string-match "," (buffer-substring-no-properties beg end)))
+           result)
+      (when mark-active
+        (with-temp-buffer
+          (insert strings)
+          (perform-replace "[\t,　 ]+" "" nil t nil nil nil (point-min) (point-max))
+          (perform-replace "\n" "+" nil t nil nil nil (point-min) (point-max))
+          (perform-replace "[^0-9\\+\\*/\\(\\)^\\.-]" "+" nil t nil nil nil (point-min) (point-max))
+          (perform-replace "\\++" "+" nil t nil nil nil (point-min) (point-max))
+          (perform-replace "\\+$" "" nil t nil nil nil (point-min) (point-max))
+          (perform-replace "^\\++" "" nil t nil nil nil (point-min) (point-max))
+          (setq strings (buffer-substring-no-properties (point-min) (point-max))))
+        (goto-char end)
+        (end-of-line)
+        (newline))
+      (setq result (calc-eval strings))
+      (when is_num_format (setq result (add-number-grouping (string-to-number result) ",")))
+      (when (string-match "\\.$" result)
+        (setq result (substring result 0 (match-beginning 0))))
+      (insert result))
+    )
+
   )
