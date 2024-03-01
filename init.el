@@ -2,6 +2,9 @@
 ;;;;; Commentary:
 ;;;;; Code:
 
+;; byte compile
+;(byte-compile-file (expand-file-name "~/.emacs.d/init.el") 0)
+
 ;; coding system setting; maybe unnecessary
 (set-language-environment "Japanese")
 (prefer-coding-system 'utf-8)
@@ -853,6 +856,16 @@
 
     :hook (org-mode-hook . reftex-mode)
     :preface
+    (defvar ky/bib_title)
+    (defvar ky/bib_author)
+    (defvar ky/bib_year)
+    (defvar ky/bib_month)
+    (defvar ky/bib_journal)
+    (defvar ky/bib_volume)
+    (defvar ky/bib_number)
+    (defvar ky/bib_pages)
+    (defvar ky/bib_key)
+
     (defun get-cite-info-by-reftex ()
       ;; copied from do-reftex-citation from reftex-cite.el
       ;; *from here to
@@ -882,25 +895,25 @@
 
         (let ((entry (pop insert-entries)))
 
-          (setq bib_title (reftex-get-bib-field "title" entry)
-                bib_author (reftex-get-bib-field "author" entry)
-                bib_year (reftex-get-bib-field "year" entry)
-                bib_month (reftex-get-bib-field "month" entry)
-                bib_journal (reftex-get-bib-field "journal" entry)
-                bib_volume (reftex-get-bib-field "volume" entry)
-                bib_number (reftex-get-bib-field "number" entry)
-                bib_pages (reftex-get-bib-field "pages" entry)
-                bib_key (reftex-get-bib-field "&key" entry))
+          (setq ky/bib_title (reftex-get-bib-field "title" entry)
+                ky/bib_author (reftex-get-bib-field "author" entry)
+                ky/bib_year (reftex-get-bib-field "year" entry)
+                ky/bib_month (reftex-get-bib-field "month" entry)
+                ky/bib_journal (reftex-get-bib-field "journal" entry)
+                ky/bib_volume (reftex-get-bib-field "volume" entry)
+                ky/bib_number (reftex-get-bib-field "number" entry)
+                ky/bib_pages (reftex-get-bib-field "pages" entry)
+                ky/bib_key (reftex-get-bib-field "&key" entry))
           ))
       )
 
     (defun paper-with-title-template ()
-      (setq bib_title (read-string "Title: "))
-      (print (concat "\n\n* " bib_title "\n"
+      (setq ky/bib_title (read-string "Title: "))
+      (print (concat "\n\n* " ky/bib_title "\n"
                      ":PROPERTIES:\n"
                      ":CREATED: %<%Y-%m-%d>\n"
                      ":Key:\n"
-                     ":Title: " bib_title "\n"
+                     ":Title: " ky/bib_title "\n"
                      ":Authors:\n"
                      ":Journal:\n"
                      ":Year:\n"
@@ -914,17 +927,17 @@
     (defun paper-with-cite-template ()
       (get-cite-info-by-reftex)
       (reftex-kill-temporary-buffers)
-      (print (concat "\n\n* " bib_title "\n"
+      (print (concat "\n\n* " ky/bib_title "\n"
                      ":PROPERTIES:\n"
                      ":CREATED: %<%Y-%m-%d>\n"
-                     ":Key: " bib_key "\n"
-                     ":Title: " bib_title "\n"
-                     ":Authors: " bib_author "\n"
-                     ":Journal: " bib_journal "\n"
-                     ":Year: " bib_year "\n"
-                     ":Volume: " bib_volume "\n"
-                     ":Number: " bib_number "\n"
-                     ":Pages: " bib_pages "\n"
+                     ":Key: " ky/bib_key "\n"
+                     ":Title: " ky/bib_title "\n"
+                     ":Authors: " ky/bib_author "\n"
+                     ":Journal: " ky/bib_journal "\n"
+                     ":Year: " ky/bib_year "\n"
+                     ":Volume: " ky/bib_volume "\n"
+                     ":Number: " ky/bib_number "\n"
+                     ":Pages: " ky/bib_pages "\n"
                      ":END:\n\n"
                      paper-reading-format))
       )
