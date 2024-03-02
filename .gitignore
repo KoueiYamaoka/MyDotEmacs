@@ -8,6 +8,7 @@ init/
 undohist/
 undotree/
 wordfreq-dicts/
+tree-sitter/
 local_custom.el
 *.elc
 history

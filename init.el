@@ -3,7 +3,7 @@
 ;;;;; Code:
 
 ;; byte compile
-;(byte-compile-file (expand-file-name "~/.emacs.d/init.el") 0)
+; (byte-compile-file (expand-file-name "~/.emacs.d/init.el") 0)
 
 ;; coding system setting; maybe unnecessary
 (set-language-environment "Japanese")
@@ -168,8 +168,8 @@
 
   (leaf *clipboard
     :doc "share the clipboard with OS X window"
-    :custom ((x-select-enable-clipboard . t)
-             (interprogram-paste-function . 'x-cut-buffer-or-selection-value))
+    :custom ((x-select-enable-clipboard . t))
+             ;; (interprogram-paste-function . 'x-get-selection-value))
     )
   )
 
@@ -243,10 +243,18 @@
   :ensure t
   :require t
   :hook (vterm-mode-hook . (lambda() (setq show-trailing-whitespace nil)))
+  :preface
+  (defun ky/vterm-send-kill-line ()
+    "Send `C-k' to libvterm."
+    (interactive)
+    (kill-ring-save (point) (vterm-end-of-line))
+    (vterm-send-key "k" nil nil t))
+
   :bind ((:vterm-mode-map("C-h" . backward-delete-char-untabify)
                          ("C-d" . delete-word)
                          ("C-o" . other-window)
-                         ("C-y" . vterm-yank)))
+                         ("C-y" . vterm-yank)
+                         ("C-k" . ky/vterm-send-kill-line)))
   :config
   (add-to-list 'vterm-eval-cmds '("switch-to-prev-buffer" switch-to-prev-buffer))
   (leaf *vterm-on-emacs
@@ -585,15 +593,63 @@
           nil
         (highlight-indent-guides--highlighter-default level responsive display)))
 
-    :custom ((highlight-indent-guides-method . 'character)
-             (highlight-indent-guides-character . ?|)
+    ;; (defun highlight-indent-guides--bitmap-dots (width height crep zrep)
+    ;;   "Defines a dotted guide line, with 2x2 pixel dots, and 3 or 4 dots per row."
+    ;;   (let* ((left (/ (- width 2) 2))
+    ;;          (right (- width left 2))
+    ;;          (space3 (/ height 3))
+    ;;          (space31 (/ (- space3 2) 2))
+    ;;          (space4 (/ height 4))
+    ;;          (space41 (/ (- space4 2) 2))
+    ;;          (row1 (append (make-list left zrep) (make-list 2 crep) (make-list right zrep)))
+    ;;          (row2 (make-list width zrep))
+    ;;          space space1 rows)
+    ;;     (if (< (abs (- space4 space41 space41)) (abs (- space3 space31 space31)))
+    ;;         (setq space space4 space1 space41)
+    ;;       (setq space space3 space1 space31))
+    ;;     (dotimes (i height rows)
+    ;;       (if (let ((x (mod (- i space1) space))) (or (eq x 0) (eq x 1)))
+    ;;           (setq rows (cons row1 rows))
+    ;;         (setq rows (cons row2 rows)))))
+    ;;   )
+
+    :custom ((highlight-indent-guides-method . 'bitmap)
+             ;; (highlight-indent-guides-character . ?|)
              (highlight-indent-guides-auto-enabled . nil)
-             (highlight-indent-guides-highlighter-function . 'my-highlighter))
+             ;; (highlight-indent-guides-highlighter-function . 'my-highlighter)
+             )
 
     :hook ((python-mode-hook . highlight-indent-guides-mode)
+           (python-ts-mode-hook . highlight-indent-guides-mode)
            (html-mode-hook . highlight-indent-guides-mode))
 
-    :config (set-face-foreground 'highlight-indent-guides-character-face "blue")
+    :config
+    ;; (set-face-foreground 'highlight-indent-guides-character-face (face-foreground font-lock--face))
+    (set-face-foreground 'highlight-indent-guides-character-face "#bbffff")
+    (set-face-foreground 'highlight-indent-guides-top-character-face "#bbffff")
+    (set-face-foreground 'highlight-indent-guides-odd-face "#bbffff")
+    (set-face-foreground 'highlight-indent-guides-even-face "#bbffff")
+    (set-face-foreground 'highlight-indent-guides-stack-character-face "#bbffff")
+    )
+
+  (leaf treesit
+    :doc "tree-sitter utilities"
+    :tag "builtin" "languages" "tree-sitter" "treesit"
+    :emacs>= 29.0
+    :added "2024-03-02"
+    :custom (treesit-font-lock-level . 3)
+    :config
+    (leaf treesit-auto
+      :doc "Automatically use tree-sitter enhanced major modes"
+      :req "emacs-29.0"
+      :tag "convenience" "fallback" "mode" "major" "automatic" "auto" "treesitter" "emacs>=29.0"
+      :url "https://github.com/renzmann/treesit-auto.git"
+      :added "2024-03-02"
+      :ensure t
+      :require t
+      :custom (treesit-auto-install . 'prompt)
+      :config (global-treesit-auto-mode)
+      )
     )
 
   (leaf comment-dwim-2
@@ -677,7 +733,7 @@
   (leaf yatex
     :doc "Yet Another tex-mode for emacs //野鳥//"
     :added "2023-01-19"
-    :ensure t
+    :el-get KoueiYamaoka/yatex
     :require t yatexprc
     :mode "\\.tex$" "\\.sty$" "\\.bbl$"
     :custom ((YaTeX-use-AMS-LaTeX . t)
@@ -693,6 +749,7 @@
                                              ("ghostview\\|gv" . ".ps")
                                              ("acroread\\|pdf\\|Preview\\|TeXShop\\|Skim\\|evince\\|apvlv\\|open" . ".pdf")))
              (dvi2-command . "evince")
+             (YaTeX-use-hilit19 . nil)
              )
     :hook ((yatex-mode-hook . turn-on-reftex)
            (yatex-mode-hook . set-my-yatex-font-locks)
@@ -728,17 +785,6 @@
 
                                 )
                               )
-      )
-
-    :config
-    (defun YaTeX-preview-default-main (command)
-      "Copied from yatexprc"
-      "Return default preview target file"
-      (if (get 'dvi2-command 'region)
-		  (substring YaTeX-texput-file
-				     0 (rindex YaTeX-texput-file ?.))
-        ;; return $(readlink main.pdf) instead of main.pdf
-		(concat "$(readlink " (YaTeX-get-preview-file-name command) ")"))
       )
     ) ; yatex-mode ends here
 
@@ -1011,7 +1057,7 @@
              )
 
 
-    :bind (("C-c s" . org-show-subtree)
+    :bind (("C-c s" . org-fold-show-subtree)
            ("C-c v" . org-capture)
            (:org-mode-map
             ("M-;" . org-comment-dwim-2)
