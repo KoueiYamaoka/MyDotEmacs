@@ -988,6 +988,20 @@
                      paper-reading-format))
       )
 
+    (defun review-template ()
+      (setq ky/review-local-file (read-string "Path: "))
+      (make-directory (concat org-directory "notes/review/" ky/review-local-file))
+      (print (concat "*** TODO %?\n"
+                     ":PROPERTIES:\n"
+                     ":SOCIETY:\n"
+                     ":TYPE:\n"
+                     ":URL:\n"
+                     ":LOCAL: ./review/" ky/review-local-file "\n"
+                     ":FILE: [[./review/" ky/review-local-file "/paper.pdf]]\n"
+                     ":END:"
+                     ))
+      )
+
     (defun show-org-buffer (file)
       "Show an org-file FILE on the current buffer."
       (interactive)
@@ -1014,6 +1028,7 @@
     ;; paths
     (setq org-directory "~/Documents/org/")
     (setq notes-path (expand-file-name "notes/notes.org" org-directory))
+    (setq todo-path (expand-file-name "notes/todo.org" org-directory))
     (setq papers-directory (expand-file-name "papers/" org-directory))
     (setq tde-papers (expand-file-name "tde.org" papers-directory))
     (setq done-list (expand-file-name "notes/done.org" org-directory))
@@ -1050,6 +1065,9 @@
                   ("t" "📄 TDE papers (cite)" entry (file tde-papers)
                    (function paper-with-cite-template)
                    :jump-to-captured t :immediate-finish t :empty-lines-before 2)
+                  ("r" "Review" entry (file+headline todo-path "Review")
+                   (function review-template)
+                   :jump-to-captured t :empty-lines 3 :empty-lines-before 2)
                   ))
 
              ;; org-refile
