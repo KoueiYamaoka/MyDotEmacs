@@ -1,6 +1,6 @@
-;;;;; init.el -- emacs init file
-;;;;; Commentary:
-;;;;; Code:
+;;;;; init.el -- my emacs init file
+;;; Commentary:
+;;; Code:
 
 ;; byte compile
 ; (byte-compile-file (expand-file-name "~/.emacs.d/init.el") 0)
@@ -14,6 +14,7 @@
 (add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-mozc")
 (require 'mozc)
 (setq default-input-method "japanese-mozc")
+(setq mozc-candidate-style 'echo-area)
 
 ;; load local_custom, including api keys
 (load "~/.emacs.d/local_custom")
@@ -47,9 +48,10 @@
   )
 ;; </leaf-install-code>
 
-;; Avoid custom adding configs to init.el automatically
+;; builtin functions
 (leaf *builtins
   :config
+  ;; Avoid custom adding configs to init.el automatically
   (leaf cus-edit
     :doc "tools for customizing Emacs and Lisp packages"
     :tag "builtin" "faces" "help"
@@ -104,43 +106,38 @@
   (leaf uniquify
     :doc "unique buffer names dependent on file name"
     :tag "builtin" "files"
-    :added "2023-01-18"
     :custom ((uniquify-buffer-name-style . 'post-forward-angle-brackets))
     )
 
   (leaf elec-pair
     :doc "Automatic parenthesis pairing"
     :tag "builtin"
-    :added "2023-01-26"
     :custom (electric-pair-mode . t)
     )
 
   (leaf midnight
     :doc "run something every midnight, e.g., kill old buffers"
     :tag "builtin"
-    :added "2023-01-19"
-    :hook (emacs-startup-hook . midnight-mode)
+    :hook (emacs-startup-hook)
     )
 
   (leaf cua-base
     :doc "emulate CUA key bindings"
     :tag "builtin"
-    :added "2023-01-19"
-    :global-minor-mode cua-mode
+    :require t
+    :commands cua-mode
     :custom ((cua-enable-cua-keys . nil))
     :bind ("C-x 2" . cua-set-rectangle-mark)
     :config
-    (leaf-keys ((:cua-global-keymap ("C-<return>" . newline)))
-               )
+    (cua-mode 1)
+    (leaf-keys ((:cua-global-keymap ("C-<return>" . newline))))
     )
 
   (leaf linum
     :doc "display line numbers in the left margin"
     :tag "builtin"
-    :added "2023-01-19"
+    :bind ([f6] . display-line-numbers-mode)
     :custom (linum-format . "%3d")
-    :config
-    (global-set-key [f6] 'linum-mode) ; How do I get assigned it to [f6] using :bind?
     )
 
   (leaf *spellcheck
@@ -148,22 +145,18 @@
     (leaf ispell
       :doc "interface to spell checkers"
       :tag "builtin"
-      :added "2023-01-20"
       :custom (ispell-program-name . "aspell")
       :config
-                                        ; use spell check even if there are several japanese
+      ; use spell check even if there are several Japanese
       (add-to-list 'ispell-skip-region-alist '("[^\000-\377]+"))
       )
 
     (leaf flyspell
       :doc "On-the-fly spell checker"
       :tag "builtin"
-      :added "2023-01-20"
       :hook ((emacs-lisp-mode-hook . flyspell-prog-mode)
              (python-mode-hook . flyspell-prog-mode)
-             (yatex-mode-hook . flyspell-mode )
-             (text-mode-hook . flyspell-mode ))
-      )
+             yatex-mode-hook text-mode-hook))
     )
 
   (leaf *clipboard
@@ -181,28 +174,32 @@
 
 (leaf macrostep
   :ensure t
-  :bind (("C-c e" . macrostep-expand)))
+  :bind (("C-c e" . macrostep-expand))
+  )
 
 (leaf *keybindings
-  :config
+  :preface
   (defun delete-word (arg)
     (interactive "p")
-    (delete-region (point) (progn (forward-word arg) (point))))
-  (leaf-keys (("C-d" . delete-word)
-              ("C-z" . undo)
-              ("C-c ;" . comment-or-uncomment-region)
-              ("C-c q" . query-replace)
-              ("C-c r" . replace-string)
-              ("M-0" . delete-window)
-              ("M-1" . delete-other-windows)
-              ("M-2" . split-window-vertically)
-              ("M-3" . split-window-horizontally)
-              ("C-o" . other-window)
-              ("M-$" . ispell-buffer)
-              ("C-x C-j" . nil)
-              )
-             )
-  (define-key key-translation-map [?\C-h] [?\C-?])
+    (delete-region (point) (progn (forward-word arg) (point)))
+    )
+
+  :bind (("C-d" . delete-word)
+         ("C-z" . undo)
+         ("C-c ;" . comment-or-uncomment-region)
+         ("C-c q" . query-replace)
+         ("C-c r" . replace-string)
+         ("M-0" . delete-window)
+         ("M-1" . delete-other-windows)
+         ("M-2" . split-window-vertically)
+         ("M-3" . split-window-horizontally)
+         ("C-o" . other-window)
+         ("M-$" . ispell-buffer)
+         ("C-h" . delete-backward-char)
+         ("C-x C-j"))
+
+  ;; :config
+  ;; (define-key key-translation-map [?\C-h] [?\C-?])
   )
 
 ;;;; packages
@@ -212,9 +209,8 @@
   (leaf undo-tree
     :doc "Treat undo history as a tree"
     :req "queue-0.2" "emacs-24.3"
-    :tag "tree" "history" "redo" "undo" "files" "convenience" "emacs>=24.3"
+    :tag "tree" "history" "redo" "undo" "files" "convenience"
     :url "https://www.dr-qubit.org/undo-tree.html"
-    :added "2023-01-18"
     :ensure t
     :bind (("C-x u" . undo-tree-visualize))
     :custom ((undo-tree-history-directory-alist . '(("." . "~/.emacs.d/undotree"))))
@@ -228,7 +224,6 @@
     :doc "Persistent undo history for GNU Emacs"
     :req "cl-lib-1.0"
     :tag "convenience"
-    :added "2023-01-18"
     :ensure t
     :config (undohist-initialize)
     )
@@ -237,9 +232,8 @@
 (leaf vterm
   :doc "Fully-featured terminal emulator"
   :req "emacs-25.1"
-  :tag "terminals" "emacs>=25.1"
+  :tag "terminals"
   :url "https://github.com/akermu/emacs-libvterm"
-  :added "2023-01-27"
   :ensure t
   :require t
   :hook (vterm-mode-hook . (lambda() (setq show-trailing-whitespace nil)))
@@ -250,7 +244,7 @@
     (kill-ring-save (point) (vterm-end-of-line))
     (vterm-send-key "k" nil nil t))
 
-  :bind ((:vterm-mode-map("C-h" . backward-delete-char-untabify)
+  :bind ((:vterm-mode-map("C-h" . vterm-send-backspace)
                          ("C-d" . delete-word)
                          ("C-o" . other-window)
                          ("C-y" . vterm-yank)
@@ -304,25 +298,21 @@
 (leaf vertico
   :doc "VERTical Interactive COmpletion"
   :req "emacs-27.1"
-  :tag "emacs>=27.1"
   :url "https://github.com/minad/vertico"
-  :added "2023-01-18"
   :ensure t
   :global-minor-mode vertico-mode
   :config
   (leaf savehist
     :doc "Save minibuffer history"
     :tag "builtin"
-    :added "2023-01-18"
     :init (savehist-mode)
     )
 
   (leaf vertico-directory
     :doc "Ido-like directory navigation for Vertico"
     :req "emacs-27.1" "vertico-1.0"
-    :tag "out-of-MELPA" "emacs>=27.1"
+    :tag "out-of-MELPA"
     :url "https://github.com/minad/vertico"
-    :added "2023-01-19"
     :ensure nil
     :after vertico
     :require t
@@ -334,9 +324,8 @@
   (leaf orderless
     :doc "Completion style for matching regexps in any order"
     :req "emacs-26.1"
-    :tag "extensions" "emacs>=26.1"
+    :tag "extensions"
     :url "https://github.com/oantolin/orderless"
-    :added "2023-01-18"
     :ensure t
     :custom ((completion-styles . '(orderless)))
     )
@@ -345,7 +334,6 @@
     :doc "Enrich existing commands with completion annotations"
     :req "emacs-27.1" "compat-29.1.1.1"
     :url "https://github.com/minad/marginalia"
-    :added "2023-01-18"
     :ensure t
     :global-minor-mode marginalia-mode
     )
@@ -354,7 +342,6 @@
     :doc "Consulting completing-read"
     :req "emacs-27.1" "compat-29.1.1.1"
     :url "https://github.com/minad/consult"
-    :added "2023-01-18"
     :ensure t
     :bind (("C-x j" . consult-goto-line))
     )
@@ -363,9 +350,8 @@
 (leaf company
   :doc "Modular text completion framework"
   :req "emacs-25.1"
-  :tag "matching" "convenience" "abbrev" "emacs>=25.1"
+  :tag "matching" "convenience" "abbrev"
   :url "http://company-mode.github.io/"
-  :added "2023-01-19"
   :ensure t
   :global-minor-mode global-company-mode
   :preface
@@ -408,9 +394,8 @@
   (leaf company-quickhelp
     :doc "Popup documentation for completion candidates"
     :req "emacs-24.3" "company-0.8.9" "pos-tip-0.4.6"
-    :tag "quickhelp" "documentation" "popup" "company" "emacs>=24.3"
+    :tag "quickhelp" "documentation" "popup" "company"
     :url "https://www.github.com/expez/company-quickhelp"
-    :added "2023-01-19"
     :ensure t
     :after company pos-tip
     :global-minor-mode company-quickhelp-mode
@@ -418,9 +403,8 @@
     (leaf company-quickhelp-terminal
       :doc "Terminal support for company-quickhelp"
       :req "emacs-24.4" "company-quickhelp-2.2.0" "popup-0.5.3"
-      :tag "help" "tip" "support" "extends" "terminal" "convenience" "emacs>=24.4"
+      :tag "help" "tip" "support" "extends" "terminal" "convenience"
       :url "https://github.com/jcs-elpa/company-quickhelp-terminal"
-      :added "2023-01-19"
       :ensure t
       :after company-quickhelp)
     )
@@ -428,9 +412,8 @@
   (leaf company-wordfreq
     :doc "Company backend for human language texts"
     :req "emacs-27.1" "company-0.9"
-    :tag "matching" "convenience" "company" "emacs>=27.1"
+    :tag "matching" "convenience" "company"
     :url "https://github.com/johannes-mueller/company-wordfreq.el"
-    :added "2023-01-26"
     :el-get johannes-mueller/company-wordfreq.el
     :config
     (add-hook 'text-mode-hook (lambda ()
@@ -447,7 +430,6 @@
   :doc "Japanese incremental search through dynamic pattern expansion"
   :req "cl-lib-0.5"
   :url "https://github.com/emacs-jp/migemo"
-  :added "2023-01-18"
   :if (executable-find "cmigemo")
   :ensure t
   :custom ((migemo-command . "cmigemo")
@@ -472,9 +454,7 @@
 (leaf anzu
   :doc "Show number of matches in mode-line while searching"
   :req "emacs-25.1"
-  :tag "emacs>=25.1"
   :url "https://github.com/emacsorphanage/anzu"
-  :added "2023-01-18"
   :ensure t
   ;; :after migemo
   :init (global-anzu-mode)
@@ -488,9 +468,8 @@
 (leaf shackle
   :doc "Enforce rules for popups"
   :req "emacs-24.3" "cl-lib-0.5"
-  :tag "convenience" "emacs>=24.3"
+  :tag "convenience"
   :url "https://depp.brause.cc/shackle"
-  :added "2023-01-19"
   :ensure t
   :custom ((shackle-rules . '((compilation-mode :align below :ratio 0.2)
 	                         ("*Help*" :align right)
@@ -498,9 +477,9 @@
 	                         ("*Python*" :align right :ratio 0.5)
 	                         ("*Python3*" :align right :ratio 0.5)
 	                         ("*quickrun*" :align right :ratio 0.4)
-	                         (YaTeX-typeset-buffer :align right :ratio 0.2)))
+	                         (YaTeX-typeset-buffer :align below :ratio 0.2)))
            (shackle-lighter . ""))
-  :global-minor-mode shackle-mode
+  :config (shackle-mode 1)
   )
 
 (leaf *AI-tools
@@ -508,11 +487,10 @@
   (leaf google-translate
     :doc "Emacs interface to Google Translate"
     :req "emacs-24.3" "popup-0.5.8"
-    :tag "convenience" "emacs>=24.3"
+    :tag "convenience"
     :url "https://github.com/atykhonov/google-translate"
-    :added "2023-01-19"
     :ensure t
-    :require t
+    :commands google-translate-translate
     :bind (("C-x t" . google-translate-enja-or-jaen)
            ("C-x C-t" . google-translate-query-translate))
     :preface
@@ -557,9 +535,8 @@
   (leaf quickrun
     :doc "Run commands quickly"
     :req "emacs-26.1" "ht-2.0"
-    :tag "tools" "emacs>=26.1"
+    :tag "tools"
     :url "https://github.com/emacsorphanage/quickrun"
-    :added "2023-01-19"
     :ensure t
     :bind (("C-c c" . quickrun)
            ("C-c a c" . quickrun-with-arg))
@@ -569,82 +546,50 @@
     :doc "automatic and manual symbol highlighting"
     :tag "matching" "faces"
     :url "http://nschum.de/src/emacs/highlight-symbol/"
-    :added "2023-01-19"
     :ensure t
     :custom ((highlight-symbol-idle-delay . 0.2)
              (highlight-symbol-colors . '("LightSeaGreen" "HotPink" "SlateBlue1" "DarkOrange" "SpringGreen1" "tan" "DodgerBlue1")))
-    :hook ((prog-mode-hook . highlight-symbol-mode)
-           (html-mode-hook . highlight-symbol-mode)
-           (prog-mode-hook . highlight-symbol-nav-mode)
-           )
+    :hook ((prog-mode-hook . highlight-symbol-nav-mode)
+           prog-mode-hook html-mode-hook)
     )
 
   (leaf highlight-indent-guides
     :doc "Minor mode to highlight indentation"
     :req "emacs-24.1"
-    :tag "emacs>=24.1"
     :url "https://github.com/DarthFennec/highlight-indent-guides"
-    :added "2023-01-19"
     :ensure t
-    :require t
+    :commands highlight-indent-guides--highlighter-default
+    :hook (python-mode-hook python-ts-mode-hook html-mode-hook)
     :preface
     (defun my-highlighter (level responsive display)
       (if (> 1 level)
           nil
         (highlight-indent-guides--highlighter-default level responsive display)))
 
-    ;; (defun highlight-indent-guides--bitmap-dots (width height crep zrep)
-    ;;   "Defines a dotted guide line, with 2x2 pixel dots, and 3 or 4 dots per row."
-    ;;   (let* ((left (/ (- width 2) 2))
-    ;;          (right (- width left 2))
-    ;;          (space3 (/ height 3))
-    ;;          (space31 (/ (- space3 2) 2))
-    ;;          (space4 (/ height 4))
-    ;;          (space41 (/ (- space4 2) 2))
-    ;;          (row1 (append (make-list left zrep) (make-list 2 crep) (make-list right zrep)))
-    ;;          (row2 (make-list width zrep))
-    ;;          space space1 rows)
-    ;;     (if (< (abs (- space4 space41 space41)) (abs (- space3 space31 space31)))
-    ;;         (setq space space4 space1 space41)
-    ;;       (setq space space3 space1 space31))
-    ;;     (dotimes (i height rows)
-    ;;       (if (let ((x (mod (- i space1) space))) (or (eq x 0) (eq x 1)))
-    ;;           (setq rows (cons row1 rows))
-    ;;         (setq rows (cons row2 rows)))))
-    ;;   )
-
-    :custom ((highlight-indent-guides-method . 'bitmap)
-             ;; (highlight-indent-guides-character . ?|)
+    :custom ((highlight-indent-guides-method . 'character)
+             (highlight-indent-guides-character . ?|)
              (highlight-indent-guides-auto-enabled . nil)
-             ;; (highlight-indent-guides-highlighter-function . 'my-highlighter)
-             )
-
-    :hook ((python-mode-hook . highlight-indent-guides-mode)
-           (python-ts-mode-hook . highlight-indent-guides-mode)
-           (html-mode-hook . highlight-indent-guides-mode))
+             (highlight-indent-guides-highlighter-function . 'my-highlighter)
+             (highlight-indent-guides-responsive . 'stack))
 
     :config
-    ;; (set-face-foreground 'highlight-indent-guides-character-face (face-foreground font-lock--face))
     (set-face-foreground 'highlight-indent-guides-character-face "#bbffff")
-    (set-face-foreground 'highlight-indent-guides-top-character-face "#bbffff")
-    (set-face-foreground 'highlight-indent-guides-odd-face "#bbffff")
-    (set-face-foreground 'highlight-indent-guides-even-face "#bbffff")
-    (set-face-foreground 'highlight-indent-guides-stack-character-face "#bbffff")
+    (set-face-foreground 'highlight-indent-guides-top-character-face "green")
+    (set-face-foreground 'highlight-indent-guides-stack-character-face "DeepSkyBlue")
     )
+
 
   (leaf treesit
     :doc "tree-sitter utilities"
     :tag "builtin" "languages" "tree-sitter" "treesit"
     :emacs>= 29.0
-    :added "2024-03-02"
     :custom (treesit-font-lock-level . 3)
     :config
     (leaf treesit-auto
       :doc "Automatically use tree-sitter enhanced major modes"
       :req "emacs-29.0"
-      :tag "convenience" "fallback" "mode" "major" "automatic" "auto" "treesitter" "emacs>=29.0"
+      :tag "convenience" "fallback" "mode" "major" "automatic" "auto" "treesitter"
       :url "https://github.com/renzmann/treesit-auto.git"
-      :added "2024-03-02"
       :ensure t
       :require t
       :custom (treesit-auto-install . 'prompt)
@@ -655,9 +600,8 @@
   (leaf comment-dwim-2
     :doc "An all-in-one comment command to rule them all"
     :req "emacs-24.4"
-    :tag "convenience" "emacs>=24.4"
+    :tag "convenience"
     :url "https://github.com/remyferre/comment-dwim-2"
-    :added "2023-01-19"
     :bind (("M-;" . comment-dwim-2))
     :ensure t
     :after org
@@ -668,13 +612,13 @@
 (leaf eglot
   :doc "The Emacs Client for LSP servers"
   :req "emacs-26.3" "jsonrpc-1.0.14" "flymake-1.2.1" "project-0.3.0" "xref-1.0.1" "eldoc-1.11.0" "seq-2.23"
-  :tag "languages" "convenience" "emacs>=26.3"
+  :tag "languages" "convenience"
   :url "https://github.com/joaotavora/eglot"
-  :added "2023-01-24"
   :ensure t
+  :require t
+  :commands eglot-ensure
   :after jsonrpc flymake project xref eldoc
-  :hook ((python-mode-hook . eglot-ensure)
-         )
+  :hook ((python-mode-hook . eglot-ensure))
   :custom (eldoc-echo-area-use-multiline-p . nil)
   :config
   (add-hook 'python-mode-hook (lambda () (add-hook 'before-save-hook 'eglot-format-buffer))) ; don't work
@@ -684,33 +628,28 @@
 (leaf python
   :doc "Python's flying circus support for Emacs"
   :tag "builtin"
-  :added "2023-01-19"
   :custom (python-indent-guess-indent-offset-verbose . nil)
   :config
   (leaf blacken
     :doc "Reformat python buffers using the black formatter"
     :req "emacs-25.2"
-    :tag "emacs>=25.2"
     :url "https://github.com/proofit404/blacken"
-    :added "2023-01-19"
     :ensure t
     :custom ((blacken-line-length . 119)
              (blacken-executable . "/home/kouei/.pyenv/shims/black"))
-    :hook (python-mode-hook . blacken-mode)
+    :hook (python-mode-hook)
     )
 
   (leaf poetry
     :doc "Interface to Poetry"
     :req "transient-0.2.0" "pyvenv-1.2" "emacs-25.1"
-    :tag "tools" "python" "emacs>=25.1"
+    :tag "tools" "python"
     :url "https://github.com/galaunay/poetry.el"
-    :added "2023-01-24"
     :ensure t
-    :require t
+    ;; :commands poetry-tracking-mode
     :custom (poetry-tracking-strategy . 'switch-buffer)
-    :hook ((python-mode . poetry-tracking-mode)
-           ;; (python-mode . (lambda () ((poetry-venv-workon)))) ; don't work
-           )
+    :hook ((python-mode-hook . poetry-tracking-mode)
+           (python-ts-mode-hook . poetry-tracking-mode))
     )
   )
 
@@ -720,7 +659,6 @@
   (leaf bibtex
     :doc "BibTeX mode for GNU Emacs"
     :tag "builtin"
-    :added "2023-07-04"
     :config
     (add-hook 'TeX-mode-hook
           #'(lambda ()
@@ -732,7 +670,6 @@
   :config
   (leaf yatex
     :doc "Yet Another tex-mode for emacs //野鳥//"
-    :added "2023-01-19"
     :el-get KoueiYamaoka/yatex
     :require t yatexprc
     :mode "\\.tex$" "\\.sty$" "\\.bbl$"
@@ -791,7 +728,6 @@
   (leaf reftex
     :doc "minor mode for doing \\label, \\ref, \\cite, \\index in LaTeX"
     :tag "builtin"
-    :added "2023-06-01"
     :config
     (setq reftex-default-bibliography
           '("/home/kouei/latex/bib/articles"
@@ -809,11 +745,11 @@
     :req "cl-lib-0.5"
     :tag "emulation" "convenience"
     :url "http://github.com/joaotavora/yasnippet"
-    :added "2023-01-19"
     :ensure t
     :custom ((yas-snippet-dirs . '("~/.emacs.d/snippets"))
              (yas-trigger-key . "TAB"))
-    :global-minor-mode yas-global-mode
+    :config
+    (yas-global-mode 1)
     )
 
   (leaf smartparens
@@ -821,7 +757,6 @@
     :req "dash-2.13.0" "cl-lib-0.3"
     :tag "editing" "convenience" "abbrev"
     :url "https://github.com/Fuco1/smartparens"
-    :added "2023-01-19"
     :ensure t
     :require smartparens-config
     :hook (after-init-hook . smartparens-global-mode)
@@ -832,7 +767,6 @@
     :doc "Switch between the beginning/end of line or code"
     :tag "convenience"
     :url "https://github.com/alezost/mwim.el"
-    :added "2023-01-19"
     :ensure t
     :bind (("C-a" . mwim-beginning)
            ("C-e" . mwim-end))
@@ -842,16 +776,14 @@
     :doc "Highlight brackets according to their depth"
     :tag "tools" "lisp" "convenience" "faces"
     :url "https://github.com/Fanael/rainbow-delimiters"
-    :added "2023-01-19"
     :ensure t
-    :global-minor-mode rainbow-delimiters-mode
+    :hook (prog-mode-hook)
     )
 
   (leaf outline-magic
     :disabled t
     :doc "outline mode extensions for Emacs"
     :tag "outlines"
-    :added "2023-01-20"
     :ensure t)
 
   )
@@ -861,9 +793,8 @@
   (leaf magit
     :doc "A Git porcelain inside Emacs."
     :req "emacs-25.1" "compat-29.1.3.4" "dash-20221013" "git-commit-20230101" "magit-section-20230101" "transient-20230201" "with-editor-20230118"
-    :tag "vc" "tools" "git" "emacs>=25.1"
+    :tag "vc" "tools" "git"
     :url "https://github.com/magit/magit"
-    :added "2023-07-21"
     :emacs>= 25.1
     :ensure t
     :after compat git-commit magit-section with-editor
@@ -874,17 +805,15 @@
 (leaf markdown-mode
   :doc "Major mode for Markdown-formatted text"
   :req "emacs-26.1"
-  :tag "itex" "github flavored markdown" "markdown" "emacs>=26.1"
+  :tag "itex" "github flavored markdown" "markdown"
   :url "https://jblevins.org/projects/markdown-mode/"
-  :added "2023-01-19"
   :ensure t
   :config
   (leaf markdown-preview-mode
     :doc "markdown realtime preview minor mode."
     :req "emacs-24.4" "websocket-1.6" "markdown-mode-2.0" "cl-lib-0.5" "web-server-0.1.1"
-    :tag "convenience" "gfm" "markdown" "emacs>=24.4"
+    :tag "convenience" "gfm" "markdown"
     :url "https://github.com/ancane/markdown-preview-mode"
-    :added "2023-01-19"
     :ensure t
     :after websocket markdown-mode web-server
     :custom (markdown-preview-stylesheets . '(list "github.css"))
@@ -897,11 +826,11 @@
   (leaf org
     :doc "Outline-based notes management and organizer"
     :tag "builtin"
-    :added "2023-01-20"
     :require t reftex reftex-cite ox-latex
 
     :hook (org-mode-hook . reftex-mode)
     :preface
+    ;; variables
     (defvar ky/bib_title)
     (defvar ky/bib_author)
     (defvar ky/bib_year)
@@ -911,7 +840,17 @@
     (defvar ky/bib_number)
     (defvar ky/bib_pages)
     (defvar ky/bib_key)
+    (defvar ky/review-local-file)
 
+    ;; paths
+    (defvar org-directory "~/Documents/org/")
+    (defvar notes-path (expand-file-name "notes/notes.org" org-directory))
+    (defvar todo-path (expand-file-name "notes/todo.org" org-directory))
+    (defvar papers-directory (expand-file-name "papers/" org-directory))
+    (defvar tde-papers (expand-file-name "tde.org" papers-directory))
+    (defvar done-list (expand-file-name "notes/done.org" org-directory))
+
+    ;; reftex
     (defun get-cite-info-by-reftex ()
       ;; copied from do-reftex-citation from reftex-cite.el
       ;; *from here to
@@ -952,6 +891,17 @@
                 ky/bib_key (reftex-get-bib-field "&key" entry))
           ))
       )
+
+    ;; org-capture
+    (defvar paper-reading-format
+          (concat "- [[pdf:][PDF]]\n\n"
+                  "** Abstract\n- %?\n\n"
+                  "** Difference\n- \n\n"
+                  "** Core\n- \n\n"
+                  "** Results\n- \n\n"
+                  "** Discussion\n- \n\n"
+                  "** Next [/]\n*** TODO \n")
+          )
 
     (defun paper-with-title-template ()
       (setq ky/bib_title (read-string "Title: "))
@@ -1002,6 +952,7 @@
                      ))
       )
 
+    ;; others
     (defun show-org-buffer (file)
       "Show an org-file FILE on the current buffer."
       (interactive)
@@ -1024,14 +975,6 @@
       (interactive)
       (org-schedule nil "+1d")
       )
-
-    ;; paths
-    (setq org-directory "~/Documents/org/")
-    (setq notes-path (expand-file-name "notes/notes.org" org-directory))
-    (setq todo-path (expand-file-name "notes/todo.org" org-directory))
-    (setq papers-directory (expand-file-name "papers/" org-directory))
-    (setq tde-papers (expand-file-name "tde.org" papers-directory))
-    (setq done-list (expand-file-name "notes/done.org" org-directory))
 
     :custom (
              ;; main
@@ -1085,15 +1028,6 @@
             )
            )
     :config
-    (setq paper-reading-format
-          (concat "- [[pdf:][PDF]]\n\n"
-                  "** Abstract\n- %?\n\n"
-                  "** Difference\n- \n\n"
-                  "** Core\n- \n\n"
-                  "** Results\n- \n\n"
-                  "** Discussion\n- \n\n"
-                  "** Next [/]\n*** TODO \n")
-          )
     (setq org-latex-pdf-process
           '("lualatex --draftmode %f"
             "lualatex %f"))
@@ -1136,9 +1070,7 @@
   (leaf org-journal
     :doc "a simple org-mode based journaling mode"
     :req "emacs-25.1" "org-9.1"
-    :tag "emacs>=25.1"
     :url "http://github.com/bastibe/org-journal"
-    :added "2023-01-20"
     :ensure t
     :after org
     )
@@ -1146,7 +1078,6 @@
   (leaf ox-gfm
     :doc "Github Flavored Markdown Back-End for Org Export Engine"
     :tag "github" "markdown" "wp" "org"
-    :added "2023-09-06"
     :ensure t
     :after org)
   )
@@ -1155,9 +1086,8 @@
 (leaf pdf-tools
   :doc "Support library for PDF documents"
   :req "emacs-26.3" "tablist-1.0" "let-alist-1.0.4"
-  :tag "multimedia" "files" "emacs>=26.3"
+  :tag "multimedia" "files"
   :url "http://github.com/vedang/pdf-tools/"
-  :added "2023-01-31"
   :emacs>= 26.3
   :ensure t
   :after tablist
@@ -1171,18 +1101,17 @@
 
 ;; theme
 (leaf *theme
-  :init
+  :config
   (add-to-list 'custom-theme-load-path (concat user-emacs-directory "themes/"))
   (setq custom-theme-directory (concat user-emacs-directory "themes/"))
-  :config
+
   (leaf solarized-theme
     :doc "The Solarized color theme"
     :req "emacs-24.1"
-    :tag "solarized" "themes" "convenience" "emacs>=24.1"
+    :tag "solarized" "themes" "convenience"
     :url "http://github.com/bbatsov/solarized-emacs"
-    :added "2023-01-19"
     :ensure t
-    :require t
+    :require t ; need
     )
 
   (leaf *load-theme
@@ -1198,18 +1127,16 @@
   (leaf beacon
     :doc "Highlight the cursor whenever the window scrolls; never lose your cursor again"
     :req "emacs-25.1"
-    :tag "convenience" "emacs>=25.1"
+    :tag "convenience"
     :url "https://github.com/Malabarba/beacon"
-    :added "2023-01-18"
     :ensure t
-    :global-minor-mode beacon-mode
+    :config (beacon-mode 1)
     )
 
   (leaf rainbow-mode
     :doc "Colorize color names in buffers"
     :tag "faces"
     :url "https://elpa.gnu.org/packages/rainbow-mode.html"
-    :added "2023-01-19"
     :ensure t)
 
   (leaf *show-startup-time
@@ -1223,7 +1150,6 @@
   (leaf wakatime-mode
     :doc "Automatic time tracking extension for WakaTime"
     :tag "comm" "calendar"
-    :added "2023-02-07"
     :ensure t
     :config
     (global-wakatime-mode)
@@ -1235,16 +1161,14 @@
   :req "cl-lib-0.3"
   :tag "extensions" "multimedia"
   :url "https://github.com/mhayashi1120/Emacs-imagex"
-  :added "2023-01-19"
   :ensure t)
 
 
 (leaf csv-mode
   :doc "Major mode for editing comma/char separated values"
   :req "emacs-27.1" "cl-lib-0.5"
-  :tag "convenience" "emacs>=27.1"
+  :tag "convenience"
   :url "https://elpa.gnu.org/packages/csv-mode.html"
-  :added "2023-01-19"
   :ensure t
   :bind (("C-c C-f" . forward-sexp)
          ("C-c C-b" . backward-sexp)
@@ -1254,9 +1178,8 @@
 (leaf yaml-mode
   :doc "Major mode for editing YAML files"
   :req "emacs-24.1"
-  :tag "yaml" "data" "emacs>=24.1"
+  :tag "yaml" "data"
   :url "https://github.com/yoshiki/yaml-mode"
-  :added "2023-01-19"
   :ensure t)
 
 (leaf *web
@@ -1264,9 +1187,8 @@
   (leaf web-mode
     :doc "major mode for editing web templates"
     :req "emacs-23.1"
-    :tag "languages" "emacs>=23.1"
+    :tag "languages"
     :url "https://web-mode.org"
-    :added "2023-01-19"
     :ensure t
     :mode "\\.html$"
     :custom ((web-mode-markup-indent-offset . 2)
@@ -1280,7 +1202,6 @@
 
   (leaf jinja2-mode
     :doc "A major mode for jinja2"
-    :added "2023-01-19"
     :ensure t)
   )
 
@@ -1318,8 +1239,7 @@
       (interactive "r\nsAlign regexp: ")
       (let ((spacing 1)
             (old-buffer-size (buffer-size)))
-        ;; If our align regexp is just spaces, then we don't need any
-        ;; extra spacing.
+        ;; If our align regexp is just spaces, then we don't need any extra spacing.
         (when (string-match regexp " ")
           (setq spacing 0))
         (align-regexp start stop
@@ -1423,3 +1343,5 @@
     )
 
   )
+
+;; init.el ends here
