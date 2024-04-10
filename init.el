@@ -844,11 +844,12 @@
 
     ;; paths
     (defvar org-directory "~/Documents/org/")
-    (defvar notes-path (expand-file-name "notes/notes.org" org-directory))
-    (defvar todo-path (expand-file-name "notes/todo.org" org-directory))
+    (defvar notes-directory "~/Documents/org/notes/")
+    (defvar notes-path (expand-file-name "notes.org" notes-directory))
+    (defvar todo-path (expand-file-name "todo.org" notes-directory))
     (defvar papers-directory (expand-file-name "papers/" org-directory))
     (defvar tde-papers (expand-file-name "tde.org" papers-directory))
-    (defvar done-list (expand-file-name "notes/done.org" org-directory))
+    (defvar done-list (expand-file-name "done.org" notes-directory))
 
     ;; reftex
     (defun get-cite-info-by-reftex ()
@@ -1075,12 +1076,22 @@
     :after org
     )
 
+  (leaf org-agenda
+    :doc "Dynamic task and appointment lists for Org"
+    :tag "builtin" "wp" "calendar" "hypermedia" "outlines"
+    :url "https://orgmode.org"
+    :custom (org-agenda-restore-windows-after-quit . t)
+    :config
+    ;; (custom-set-variables '(org-agenda-files (list org-directory)))
+    (custom-set-variables '(org-agenda-files (list notes-directory)))
+    )
+
   (leaf ox-gfm
     :doc "Github Flavored Markdown Back-End for Org Export Engine"
     :tag "github" "markdown" "wp" "org"
     :ensure t
     :after org)
-  )
+  ) ; org-mode ends here
 
 ;; pdf
 (leaf pdf-tools
