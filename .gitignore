@@ -9,6 +9,7 @@ undohist/
 undotree/
 wordfreq-dicts/
 tree-sitter/
+persist/
 local_custom.el
 *.elc
 history
@@ -19,3 +20,6 @@ srecode-map.el
 recentf
 request
 custom.el
+.org-generic-id-locations
+.org-id-locations
+oauth2-auto.plist

@@ -473,6 +473,7 @@
   :ensure t
   :custom ((shackle-rules . '((compilation-mode :align below :ratio 0.2)
 	                         ("*Help*" :align right)
+	                         ("*Warnings*" :align below :ratio 0.2)
 	                         ("*Google Translate*" :align below :ratio 0.3)
 	                         ("*Python*" :align right :ratio 0.5)
 	                         ("*Python3*" :align right :ratio 0.5)
@@ -653,6 +654,13 @@
     )
   )
 
+;; matlab
+(leaf matlab-mode
+  :doc "Major mode for MATLAB(R) dot-m files"
+  :added "2024-04-22"
+  :ensure t
+  :bind ("C-h" . delete-backward-char)
+  )
 
 ;; tex
 (leaf *latex
@@ -715,6 +723,7 @@
                                 ("\\\\Gls.*?{.+?}" . YaTeX-font-lock-label-face)
                                 ("\\\\\\(Hz\\|kHz\\|m\\|cm\\|h\\|mins\\|s\\|ms\\|dB\\|pct\\){.+?}" . YaTeX-font-lock-formula-face)
                                 ("\\\\text.*?{.+?}" . YaTeX-font-lock-declaration-face)
+                                ("\\\\ulbf.*?{.+?}" . YaTeX-font-lock-declaration-face)
                                 ("\\\\etal" . YaTeX-font-lock-declaration-face)
                                 ("\\\\ftn.*?( \\|\\.)" . YaTeX-font-lock-declaration-face)
                                 ("\\\\mtdnm{.+?}" . font-lock-keyword-face)
@@ -1107,6 +1116,22 @@
   :config
   (pdf-loader-install)
   (add-to-list 'auto-mode-alist '("\\.pdf\\'" . pdf-view-mode))
+  )
+
+;; secretary
+(leaf *secretary
+  (leaf org-gcal
+    :doc "Org sync with Google Calendar"
+    :req "aio-1.0" "alert-1.2" "elnode-20190702.1509" "emacs-26.1" "org-9.3" "persist-0.4" "request-20190901" "request-deferred-20181129"
+    :tag "convenience"
+    :url "https://github.com/kidd/org-gcal.el"
+    :emacs>= 26.1
+    :ensure t
+    :after aio alert elnode org persist request-deferred
+    :require t
+    :config
+    (ky/set-org-gcal-keys)
+    )
   )
 
 
