@@ -130,7 +130,7 @@
     :bind ("C-x 2" . cua-set-rectangle-mark)
     :config
     (cua-mode 1)
-    (leaf-keys ((:cua-global-keymap ("C-<return>" . newline))))
+    (leaf-keys ((:cua-global-keymap ("C-<return>" . nil))))
     )
 
   (leaf linum
@@ -251,6 +251,7 @@
                          ("C-k" . ky/vterm-send-kill-line)))
   :config
   (add-to-list 'vterm-eval-cmds '("switch-to-prev-buffer" switch-to-prev-buffer))
+
   (leaf *vterm-on-emacs
     :after vterm
     :preface
@@ -659,7 +660,8 @@
   :doc "Major mode for MATLAB(R) dot-m files"
   :added "2024-04-22"
   :ensure t
-  :bind ("C-h" . delete-backward-char)
+  :config
+  (leaf-keys ((:matlab-mode-map ("C-h" . delete-backward-char))))
   )
 
 ;; tex
@@ -1032,6 +1034,7 @@
            ("C-c v" . org-capture)
            (:org-mode-map
             ("M-;" . org-comment-dwim-2)
+            ("C-<return>" . org-insert-heading)
             ("C-c w" . org-table-kill-cell)
             ("C-c n" . org-next-visible-heading)
             ("C-c C-n" . org-scheduled-tomorrow)
@@ -1131,6 +1134,46 @@
     :require t
     :config
     (ky/set-org-gcal-keys)
+    )
+
+  (leaf myreminder
+    :preface
+    (defun ky/notify (title msg time)
+      (interactive)
+      (shell-command-to-string
+       (concat
+        "echo \"notify-send '"
+        (mapconcat #'shell-quote-argument
+                   (list title msg)
+                   "' '")
+        "' -i "
+        (concat (car image-load-path) "icons/hicolor/128x128/apps/emacs.png")
+        "\" | at "
+        (shell-quote-argument time)
+        )
+       )
+      (message (concat "Set reminder " (string-trim msg) " at " (string-trim time)))
+      )
+
+    (defun ky/reminder (msg time)
+      (interactive)
+      (ky/notify "Reminder" msg time)
+      )
+
+    (defun ky/set-reminder-from-text ()
+      "usage: title@time-of-remind"
+      (interactive)
+      (if (region-active-p)
+          (let* ((instring (buffer-substring (region-beginning) (region-end)))
+                 (msg (car (split-string instring "@")))
+                 (time (car (cdr (split-string instring "@"))))
+                 )
+            (ky/reminder msg (compute-time-subtraction time 5))
+            (ky/reminder msg (compute-time-subtraction time 10))
+            )
+        (message "Empty region")))
+
+    :bind ("C-c m" . ky/set-reminder-from-text)
     )
   )
 
@@ -1378,6 +1421,18 @@
       (insert result))
     )
 
+  (defun compute-time-subtraction (time sep)
+    "Compute hh:mm - m min, e.g., 15:00 - 5 -> 14:55"
+    (let* ((hour-min (split-string time ":"))
+           (hour (string-to-number (car hour-min)))
+           (min (string-to-number (car (cdr hour-min))))
+           (total-min (- (+ (* hour 60) min) (if (stringp sep) (string-to-number sep) sep)))
+           (ret-hour (format "%02d" (/ total-min 60)))
+           (ret-min (format "%02d" (mod total-min 60)))
+           )
+      (concat ret-hour ":" ret-min)
+      )
+    )
   )
 
 ;; init.el ends here
