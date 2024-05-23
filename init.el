@@ -1096,6 +1096,12 @@
     :config
     ;; (custom-set-variables '(org-agenda-files (list org-directory)))
     (custom-set-variables '(org-agenda-files (list notes-directory)))
+    (custom-set-variables '(org-agenda-custom-commands
+                            '(("c" "Custom agenda, ignore DONE tag"
+                               ((agenda ""))
+                               ((org-agenda-tag-filter-preset '("-DONE"))))))
+                          )
+    (leaf-keys (("C-c C-a" . org-agenda)))
     )
 
   (leaf ox-gfm
