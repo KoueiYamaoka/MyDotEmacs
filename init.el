@@ -18,6 +18,7 @@
 
 ;; load local_custom, including api keys
 (load "~/.emacs.d/local_custom")
+(defun kouei () (interactive) (insert "洸瑛"))
 
 ;; font
 (custom-set-faces
@@ -559,6 +560,7 @@
     :doc "Minor mode to highlight indentation"
     :req "emacs-24.1"
     :url "https://github.com/DarthFennec/highlight-indent-guides"
+    :disabled t
     :ensure t
     :commands highlight-indent-guides--highlighter-default
     :hook (python-mode-hook python-ts-mode-hook html-mode-hook)
@@ -608,6 +610,50 @@
     :ensure t
     :after org
     )
+
+  (leaf flymake
+    :doc "A universal on-the-fly syntax checker"
+    :tag "builtin"
+    :added "2024-05-30"
+    :config
+    (setq flymake-max-parallel-syntax-checks nil)
+    (setq temporary-file-directory "~/.emacs.d/tmp/")
+    (setq flymake-number-of-errors-to-display 4)
+    )
+
+  (leaf flymake-ruff
+    :doc "A flymake plugin for python files using ruff"
+    :req "emacs-26.1" "project-0.3.0"
+    :url "https://github.com/erickgnavar/flymake-ruff"
+    :ensure t
+    :after project
+    :hook (eglot-managed-mode-hook . (lambda ()
+                                       (when (derived-mode-p 'python-mode 'python-ts-mode)
+                                         (flymake-ruff-load)))
+                                   )
+    :config
+    (setq flymake-ruff--default-configs '("ruff.toml" ".ruff.toml"))
+    )
+
+  (leaf reformatter
+    :doc "Define commands which run reformatters on the current buffer"
+    :req "emacs-24.3"
+    :tag "tools" "convenience" "emacs>=24.3"
+    :url "https://github.com/purcell/emacs-reformatter"
+    :ensure t
+    :hook ((python-ts-mode-hook . ruff-format-on-save-mode)
+           (python-ts-mode-hook . isort-format-on-save-mode))
+    :config
+    ;; ruff
+    (reformatter-define ruff-format
+      :program "ruff"
+      :args (list "format" "--stdin-filename" (or (buffer-file-name) input-file))
+      )
+    ;; isort
+    (reformatter-define isort-format
+      :program "isort"
+      :args '("--stdout" "--atomic" "-"))
+    )
   )
 
 ;; lsp
@@ -617,13 +663,13 @@
   :tag "languages" "convenience"
   :url "https://github.com/joaotavora/eglot"
   :ensure t
-  :require t
   :commands eglot-ensure
   :after jsonrpc flymake project xref eldoc
-  :hook ((python-mode-hook . eglot-ensure))
+  :hook ((python-base-mode-hook . eglot-ensure))
   :custom (eldoc-echo-area-use-multiline-p . nil)
   :config
-  (add-hook 'python-mode-hook (lambda () (add-hook 'before-save-hook 'eglot-format-buffer))) ; don't work
+  (add-to-list 'eglot-server-programs '(python-base-mode "pylsp"))
+  ;; (add-hook 'python-mode-hook (lambda () (add-hook 'before-save-hook 'eglot-format-buffer))) ; don't work
   )
 
 ;; python
@@ -660,6 +706,7 @@
   :doc "Major mode for MATLAB(R) dot-m files"
   :added "2024-04-22"
   :ensure t
+  :require t
   :config
   (leaf-keys ((:matlab-mode-map ("C-h" . delete-backward-char))))
   )
@@ -1119,6 +1166,7 @@
   :url "http://github.com/vedang/pdf-tools/"
   :emacs>= 26.3
   :ensure t
+  :disabled t
   :after tablist
   :hook ((pdf-view-mode-hook . pdf-tools-enable-minor-modes)
          (pdf-view-mode-hook . auto-revert-mode))
@@ -1129,6 +1177,7 @@
 
 ;; secretary
 (leaf *secretary
+  :config
   (leaf org-gcal
     :doc "Org sync with Google Calendar"
     :req "aio-1.0" "alert-1.2" "elnode-20190702.1509" "emacs-26.1" "org-9.3" "persist-0.4" "request-20190901" "request-deferred-20181129"
@@ -1142,8 +1191,9 @@
     (ky/set-org-gcal-keys)
     )
 
-  (leaf myreminder
-    :preface
+  (leaf *myreminder
+    :bind ("C-c m" . ky/set-reminder-from-text)
+    :config
     (defun ky/notify (title msg time)
       (interactive)
       (shell-command-to-string
@@ -1179,7 +1229,6 @@
             )
         (message "Empty region")))
 
-    :bind ("C-c m" . ky/set-reminder-from-text)
     )
   )
 
