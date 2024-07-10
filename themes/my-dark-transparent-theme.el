@@ -68,7 +68,7 @@
   '((custom-theme-set-faces theme-name
                             `(default
                                ((,class
-                                 (:foreground ,"#dde2dd" :background ,"#071020"))))
+                                 (:foreground ,"#dde2dd" :background ,"#26292c"))))
                             `(font-lock-builtin-face
                               ((,class
                                 (:weight ,'bold :slant ,'normal :foreground ,"#b0c4de"))))

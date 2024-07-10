@@ -1,5 +1,0 @@
-(:name undo-tree
-       :description "Treat undo history as a tree"
-       :website "https://gitlab.com/tsc25/undo-tree"
-       :type git
-       :url "https://gitlab.com/tsc25/undo-tree")

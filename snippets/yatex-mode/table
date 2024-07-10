@@ -1,0 +1,15 @@
+# key: tbl
+# name: table
+# --
+ \begin{table}[t]
+  \tablesisetup
+  \setlength{\tabcolsep}{4pt}
+  \caption{hoge}
+  \label{tbl:}
+  \vspace{-23pt}
+  \scalebox{1}{
+  \centering
+  \begin{tabular}[t]{lcc}\toprule
+   a & b & c \\\\
+  \bottomrule\end{tabular}}
+ \end{table}
