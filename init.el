@@ -1193,7 +1193,7 @@
 
   (leaf *myreminder
     :bind ("C-c m" . ky/set-reminder-from-text)
-    :config
+    :preface
     (defun ky/notify (title msg time)
       (interactive)
       (shell-command-to-string
