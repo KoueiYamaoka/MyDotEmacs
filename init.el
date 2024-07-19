@@ -5,24 +5,9 @@
 ;; byte compile
 ; (byte-compile-file (expand-file-name "~/.emacs.d/init.el") 0)
 
-;; coding system setting; maybe unnecessary
-(set-language-environment "Japanese")
-(prefer-coding-system 'utf-8)
-(set-default 'buffer-file-coding-system 'utf-8)
-
-;; mozc
-(add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-mozc")
-(require 'mozc)
-(setq default-input-method "japanese-mozc")
-(setq mozc-candidate-style 'echo-area)
-
 ;; load local_custom, including api keys
 (load "~/.emacs.d/local_custom")
-(defun kouei () (interactive) (insert "洸瑛"))
 
-;; font
-(custom-set-faces
- '(default ((t (:family "HackGen" :foundry "PfEd" :slant normal :weight normal :height 143 :width normal)))))
 
 ;; <leaf-install-code>
 (eval-and-compile
@@ -49,6 +34,11 @@
   )
 ;; </leaf-install-code>
 
+
+;; ----------------------------
+;;    Generic Configurations
+;; ----------------------------
+
 ;; builtin functions
 (leaf *builtins
   :config
@@ -62,9 +52,7 @@
   (leaf cus-start
     :doc "define customization properties of builtins"
     :tag "builtin" "internal"
-    :custom ((user-full-name . "Kouei Yamaoka")
-             (user-mail-address . "kouei525@gmail.com")
-             (shell-file-name . "/bin/zsh")
+    :custom ((shell-file-name . "/bin/zsh")
              (debug-on-error . nil)
              (delete-auto-save-files . t)
              (backup-inhibited . t)
@@ -82,8 +70,6 @@
              (require-final-newline . t)
              (scroll-preserve-screen-position . t)
              (scroll-error-top-bottom . t)
-             (menu-bar-mode . nil)
-             (tool-bar-mode . nil)
              (scroll-bar-mode . nil)
              (completion-ignore-case . t)
              )
@@ -203,37 +189,77 @@
   ;; (define-key key-translation-map [?\C-h] [?\C-?])
   )
 
+(leaf *coding-system
+  :doc "Use UTF-8"
+  :config
+  (set-language-environment "Japanese")
+  (prefer-coding-system          'utf-8-unix)
+  (set-default-coding-systems    'utf-8-unix)
+  (set-selection-coding-system   'utf-8-unix)
+  (set-buffer-file-coding-system 'utf-8-unix)
+  )
+
+(leaf mozc
+  :doc "minor mode to input Japanese with Mozc"
+  :req "emacs-24.3"
+  :emacs>= 24.3
+  :ensure t
+  :require t
+  :config
+  (add-to-list 'load-path "/usr/share/emacs/site-lisp/emacs-mozc")
+  (setq default-input-method "japanese-mozc")
+  (setq mozc-candidate-style 'echo-area)
+  )
+
+(leaf font
+  :doc "Font settings"
+  :config
+  (custom-set-faces
+   '(default ((t (:family "HackGen" :foundry "PfEd" :slant normal :weight normal :height 143 :width normal)))))
+  ;; Font Size checker
+  ;;
+  ;; |∞≤≥ ∏∑∫ ×±⊆⊇|
+  ;; |αβγ δεζ ηθικλu|
+  ;; |abcdef ghijkl|
+  ;; |ABCDEF GHIJKL|
+  ;; |'";:-+ =/\~`?|
+  ;; |日本語 の美観|
+  ;; |あいう えおか|
+  ;; |アイウ エオカ|
+  ;; |ｱｲｳｴｵｶ ｷｸｹｺｻｼ|
+)
+
 ;;;; packages
 ;; system
+(leaf no-littering
+  :doc "Help keeping ~/.config/emacs clean"
+  :url "https://github.com/emacscollective/no-littering"
+  :emacs>= 25.1
+  :ensure t
+  :after compat
+  )
+
+
 (leaf *undo-tools
   :config
   (leaf undo-tree
     :doc "Treat undo history as a tree"
     :req "queue-0.2" "emacs-24.3"
-    :tag "tree" "history" "redo" "undo" "files" "convenience"
     :url "https://www.dr-qubit.org/undo-tree.html"
     :ensure t
     :bind (("C-x u" . undo-tree-visualize))
-    :custom ((undo-tree-history-directory-alist . '(("." . "~/.emacs.d/undotree"))))
-    ;; :hook (find-file-hook . undo-tree-load-history)
+    :custom ((undo-tree-history-directory-alist . '(("." . "~/.emacs.d/undotree")))
+             (undo-tree-visualizer-diff . t)
+             (undo-tree-auto-save-history . t)
+             )
     :config
     (global-undo-tree-mode)
-    )
-
-  (leaf undohist
-    :disabled t
-    :doc "Persistent undo history for GNU Emacs"
-    :req "cl-lib-1.0"
-    :tag "convenience"
-    :ensure t
-    :config (undohist-initialize)
     )
   )
 
 (leaf vterm
   :doc "Fully-featured terminal emulator"
   :req "emacs-25.1"
-  :tag "terminals"
   :url "https://github.com/akermu/emacs-libvterm"
   :ensure t
   :require t
@@ -699,16 +725,6 @@
     :hook ((python-mode-hook . poetry-tracking-mode)
            (python-ts-mode-hook . poetry-tracking-mode))
     )
-  )
-
-;; matlab
-(leaf matlab-mode
-  :doc "Major mode for MATLAB(R) dot-m files"
-  :added "2024-04-22"
-  :ensure t
-  :require t
-  :config
-  (leaf-keys ((:matlab-mode-map ("C-h" . delete-backward-char))))
   )
 
 ;; tex
@@ -1178,19 +1194,6 @@
 ;; secretary
 (leaf *secretary
   :config
-  (leaf org-gcal
-    :doc "Org sync with Google Calendar"
-    :req "aio-1.0" "alert-1.2" "elnode-20190702.1509" "emacs-26.1" "org-9.3" "persist-0.4" "request-20190901" "request-deferred-20181129"
-    :tag "convenience"
-    :url "https://github.com/kidd/org-gcal.el"
-    :emacs>= 26.1
-    :ensure t
-    :after aio alert elnode org persist request-deferred
-    :require t
-    :config
-    (ky/set-org-gcal-keys)
-    )
-
   (leaf *myreminder
     :bind ("C-c m" . ky/set-reminder-from-text)
     :preface
