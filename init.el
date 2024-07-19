@@ -5,9 +5,23 @@
 ;; byte compile
 ; (byte-compile-file (expand-file-name "~/.emacs.d/init.el") 0)
 
+;; for faster loading
+; temporary disabled Magic File Name
+(defconst my-saved-file-name-handler-alist file-name-handler-alist)
+(setq file-name-handler-alist nil)
+
+;; native-comp
+(with-eval-after-load 'comp
+  (setq native-comp-async-jobs-number 8)
+  (setq native-comp-speed 3)
+  (setq native-comp-async-report-warnings-errors nil))
+(native-compile-async "~/.emacs.d/init.el")
+(native-compile-async "~/.emacs.d/early-init.el")
+(native-compile-async "~/.emacs.d/el-get" 'recursively)
+(native-compile-async "~/.emacs.d/elpa" 'recursively)
+
 ;; load local_custom, including api keys
 (load "~/.emacs.d/local_custom")
-
 
 ;; <leaf-install-code>
 (eval-and-compile
@@ -1492,5 +1506,9 @@
       )
     )
   )
+
+;; postprocessing
+(setq file-name-handler-alist my-saved-file-name-handler-alist)
+(setq gc-cons-threshold 16777216) ; 16mb
 
 ;; init.el ends here
