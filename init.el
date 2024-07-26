@@ -59,13 +59,11 @@
   ;; Avoid custom adding configs to init.el automatically
   (leaf cus-edit
     :doc "tools for customizing Emacs and Lisp packages"
-    :tag "builtin" "faces" "help"
     :custom `((custom-file . ,(locate-user-emacs-file "custom.el")))
     )
 
   (leaf cus-start
     :doc "define customization properties of builtins"
-    :tag "builtin" "internal"
     :custom ((shell-file-name . "/bin/zsh")
              (debug-on-error . nil)
              (delete-auto-save-files . t)
@@ -94,37 +92,31 @@
 
   (leaf files
     :doc "file input and output commands"
-    :tag "builtin"
     :custom ((auto-save-timeout . 15)
              (auto-save-interval . 50))
     )
 
   (leaf delsel
     :doc "delete selected region if you insert"
-    :tag "builtin"
     :global-minor-mode delete-selection-mode)
 
   (leaf uniquify
     :doc "unique buffer names dependent on file name"
-    :tag "builtin" "files"
     :custom ((uniquify-buffer-name-style . 'post-forward-angle-brackets))
     )
 
   (leaf elec-pair
     :doc "Automatic parenthesis pairing"
-    :tag "builtin"
     :custom (electric-pair-mode . t)
     )
 
   (leaf midnight
     :doc "run something every midnight, e.g., kill old buffers"
-    :tag "builtin"
     :hook (emacs-startup-hook)
     )
 
   (leaf cua-base
     :doc "emulate CUA key bindings"
-    :tag "builtin"
     :require t
     :commands cua-mode
     :custom ((cua-enable-cua-keys . nil))
@@ -136,7 +128,6 @@
 
   (leaf linum
     :doc "display line numbers in the left margin"
-    :tag "builtin"
     :bind ([f6] . display-line-numbers-mode)
     :custom (linum-format . "%3d")
     )
@@ -145,7 +136,6 @@
     :config
     (leaf ispell
       :doc "interface to spell checkers"
-      :tag "builtin"
       :custom (ispell-program-name . "aspell")
       :config
       ; use spell check even if there are several Japanese
@@ -154,7 +144,6 @@
 
     (leaf flyspell
       :doc "On-the-fly spell checker"
-      :tag "builtin"
       :hook ((emacs-lisp-mode-hook . flyspell-prog-mode)
              (python-mode-hook . flyspell-prog-mode)
              yatex-mode-hook text-mode-hook))
@@ -346,14 +335,12 @@
   :config
   (leaf savehist
     :doc "Save minibuffer history"
-    :tag "builtin"
     :init (savehist-mode)
     )
 
   (leaf vertico-directory
     :doc "Ido-like directory navigation for Vertico"
     :req "emacs-27.1" "vertico-1.0"
-    :tag "out-of-MELPA"
     :url "https://github.com/minad/vertico"
     :ensure nil
     :after vertico
@@ -366,7 +353,6 @@
   (leaf orderless
     :doc "Completion style for matching regexps in any order"
     :req "emacs-26.1"
-    :tag "extensions"
     :url "https://github.com/oantolin/orderless"
     :ensure t
     :custom ((completion-styles . '(orderless)))
@@ -392,7 +378,6 @@
 (leaf company
   :doc "Modular text completion framework"
   :req "emacs-25.1"
-  :tag "matching" "convenience" "abbrev"
   :url "http://company-mode.github.io/"
   :ensure t
   :global-minor-mode global-company-mode
@@ -436,7 +421,6 @@
   (leaf company-quickhelp
     :doc "Popup documentation for completion candidates"
     :req "emacs-24.3" "company-0.8.9" "pos-tip-0.4.6"
-    :tag "quickhelp" "documentation" "popup" "company"
     :url "https://www.github.com/expez/company-quickhelp"
     :ensure t
     :after company pos-tip
@@ -445,7 +429,6 @@
     (leaf company-quickhelp-terminal
       :doc "Terminal support for company-quickhelp"
       :req "emacs-24.4" "company-quickhelp-2.2.0" "popup-0.5.3"
-      :tag "help" "tip" "support" "extends" "terminal" "convenience"
       :url "https://github.com/jcs-elpa/company-quickhelp-terminal"
       :ensure t
       :after company-quickhelp)
@@ -454,7 +437,6 @@
   (leaf company-wordfreq
     :doc "Company backend for human language texts"
     :req "emacs-27.1" "company-0.9"
-    :tag "matching" "convenience" "company"
     :url "https://github.com/johannes-mueller/company-wordfreq.el"
     :el-get johannes-mueller/company-wordfreq.el
     :config
@@ -510,7 +492,6 @@
 (leaf shackle
   :doc "Enforce rules for popups"
   :req "emacs-24.3" "cl-lib-0.5"
-  :tag "convenience"
   :url "https://depp.brause.cc/shackle"
   :ensure t
   :custom ((shackle-rules . '((compilation-mode :align below :ratio 0.2)
@@ -530,7 +511,6 @@
   (leaf google-translate
     :doc "Emacs interface to Google Translate"
     :req "emacs-24.3" "popup-0.5.8"
-    :tag "convenience"
     :url "https://github.com/atykhonov/google-translate"
     :ensure t
     :commands google-translate-translate
@@ -578,7 +558,6 @@
   (leaf quickrun
     :doc "Run commands quickly"
     :req "emacs-26.1" "ht-2.0"
-    :tag "tools"
     :url "https://github.com/emacsorphanage/quickrun"
     :ensure t
     :bind (("C-c c" . quickrun)
@@ -587,7 +566,6 @@
 
   (leaf highlight-symbol
     :doc "automatic and manual symbol highlighting"
-    :tag "matching" "faces"
     :url "http://nschum.de/src/emacs/highlight-symbol/"
     :ensure t
     :custom ((highlight-symbol-idle-delay . 0.2)
@@ -625,14 +603,12 @@
 
   (leaf treesit
     :doc "tree-sitter utilities"
-    :tag "builtin" "languages" "tree-sitter" "treesit"
     :emacs>= 29.0
     :custom (treesit-font-lock-level . 3)
     :config
     (leaf treesit-auto
       :doc "Automatically use tree-sitter enhanced major modes"
       :req "emacs-29.0"
-      :tag "convenience" "fallback" "mode" "major" "automatic" "auto" "treesitter"
       :url "https://github.com/renzmann/treesit-auto.git"
       :ensure t
       :require t
@@ -644,7 +620,6 @@
   (leaf comment-dwim-2
     :doc "An all-in-one comment command to rule them all"
     :req "emacs-24.4"
-    :tag "convenience"
     :url "https://github.com/remyferre/comment-dwim-2"
     :bind (("M-;" . comment-dwim-2))
     :ensure t
@@ -653,7 +628,6 @@
 
   (leaf flymake
     :doc "A universal on-the-fly syntax checker"
-    :tag "builtin"
     :added "2024-05-30"
     :config
     (setq flymake-max-parallel-syntax-checks nil)
@@ -678,7 +652,6 @@
   (leaf reformatter
     :doc "Define commands which run reformatters on the current buffer"
     :req "emacs-24.3"
-    :tag "tools" "convenience" "emacs>=24.3"
     :url "https://github.com/purcell/emacs-reformatter"
     :ensure t
     :hook ((python-ts-mode-hook . ruff-format-on-save-mode)
@@ -700,7 +673,6 @@
 (leaf eglot
   :doc "The Emacs Client for LSP servers"
   :req "emacs-26.3" "jsonrpc-1.0.14" "flymake-1.2.1" "project-0.3.0" "xref-1.0.1" "eldoc-1.11.0" "seq-2.23"
-  :tag "languages" "convenience"
   :url "https://github.com/joaotavora/eglot"
   :ensure t
   :commands eglot-ensure
@@ -715,7 +687,6 @@
 ;; python
 (leaf python
   :doc "Python's flying circus support for Emacs"
-  :tag "builtin"
   :custom (python-indent-guess-indent-offset-verbose . nil)
   :config
   (leaf blacken
@@ -731,7 +702,6 @@
   (leaf poetry
     :doc "Interface to Poetry"
     :req "transient-0.2.0" "pyvenv-1.2" "emacs-25.1"
-    :tag "tools" "python"
     :url "https://github.com/galaunay/poetry.el"
     :ensure t
     ;; :commands poetry-tracking-mode
@@ -745,7 +715,6 @@
 (leaf *latex
   (leaf bibtex
     :doc "BibTeX mode for GNU Emacs"
-    :tag "builtin"
     :config
     (add-hook 'TeX-mode-hook
           #'(lambda ()
@@ -815,7 +784,6 @@
 
   (leaf reftex
     :doc "minor mode for doing \\label, \\ref, \\cite, \\index in LaTeX"
-    :tag "builtin"
     :config
     (setq reftex-default-bibliography
           '("/home/kouei/latex/bib/articles"
@@ -831,7 +799,6 @@
   (leaf yasnippet
     :doc "Yet another snippet extension for Emacs"
     :req "cl-lib-0.5"
-    :tag "emulation" "convenience"
     :url "http://github.com/joaotavora/yasnippet"
     :ensure t
     :custom ((yas-snippet-dirs . '("~/.emacs.d/snippets"))
@@ -843,7 +810,6 @@
   (leaf smartparens
     :doc "Automatic insertion, wrapping and paredit-like navigation with user defined pairs."
     :req "dash-2.13.0" "cl-lib-0.3"
-    :tag "editing" "convenience" "abbrev"
     :url "https://github.com/Fuco1/smartparens"
     :ensure t
     :require smartparens-config
@@ -853,7 +819,6 @@
 
   (leaf mwim
     :doc "Switch between the beginning/end of line or code"
-    :tag "convenience"
     :url "https://github.com/alezost/mwim.el"
     :ensure t
     :bind (("C-a" . mwim-beginning)
@@ -862,7 +827,6 @@
 
   (leaf rainbow-delimiters
     :doc "Highlight brackets according to their depth"
-    :tag "tools" "lisp" "convenience" "faces"
     :url "https://github.com/Fanael/rainbow-delimiters"
     :ensure t
     :hook (prog-mode-hook)
@@ -871,7 +835,6 @@
   (leaf outline-magic
     :disabled t
     :doc "outline mode extensions for Emacs"
-    :tag "outlines"
     :ensure t)
 
   )
@@ -881,7 +844,6 @@
   (leaf magit
     :doc "A Git porcelain inside Emacs."
     :req "emacs-25.1" "compat-29.1.3.4" "dash-20221013" "git-commit-20230101" "magit-section-20230101" "transient-20230201" "with-editor-20230118"
-    :tag "vc" "tools" "git"
     :url "https://github.com/magit/magit"
     :emacs>= 25.1
     :ensure t
@@ -893,14 +855,12 @@
 (leaf markdown-mode
   :doc "Major mode for Markdown-formatted text"
   :req "emacs-26.1"
-  :tag "itex" "github flavored markdown" "markdown"
   :url "https://jblevins.org/projects/markdown-mode/"
   :ensure t
   :config
   (leaf markdown-preview-mode
     :doc "markdown realtime preview minor mode."
     :req "emacs-24.4" "websocket-1.6" "markdown-mode-2.0" "cl-lib-0.5" "web-server-0.1.1"
-    :tag "convenience" "gfm" "markdown"
     :url "https://github.com/ancane/markdown-preview-mode"
     :ensure t
     :after websocket markdown-mode web-server
@@ -913,7 +873,6 @@
   :config
   (leaf org
     :doc "Outline-based notes management and organizer"
-    :tag "builtin"
     :require t reftex reftex-cite ox-latex
 
     :hook (org-mode-hook . reftex-mode)
@@ -1167,7 +1126,6 @@
 
   (leaf org-agenda
     :doc "Dynamic task and appointment lists for Org"
-    :tag "builtin" "wp" "calendar" "hypermedia" "outlines"
     :url "https://orgmode.org"
     :custom (org-agenda-restore-windows-after-quit . t)
     :config
@@ -1183,7 +1141,6 @@
 
   (leaf ox-gfm
     :doc "Github Flavored Markdown Back-End for Org Export Engine"
-    :tag "github" "markdown" "wp" "org"
     :ensure t
     :after org)
   ) ; org-mode ends here
@@ -1192,7 +1149,6 @@
 (leaf pdf-tools
   :doc "Support library for PDF documents"
   :req "emacs-26.3" "tablist-1.0" "let-alist-1.0.4"
-  :tag "multimedia" "files"
   :url "http://github.com/vedang/pdf-tools/"
   :emacs>= 26.3
   :ensure t
@@ -1259,7 +1215,6 @@
   (leaf solarized-theme
     :doc "The Solarized color theme"
     :req "emacs-24.1"
-    :tag "solarized" "themes" "convenience"
     :url "http://github.com/bbatsov/solarized-emacs"
     :ensure t
     :require t ; need
@@ -1278,7 +1233,6 @@
   (leaf beacon
     :doc "Highlight the cursor whenever the window scrolls; never lose your cursor again"
     :req "emacs-25.1"
-    :tag "convenience"
     :url "https://github.com/Malabarba/beacon"
     :ensure t
     :config (beacon-mode 1)
@@ -1286,7 +1240,6 @@
 
   (leaf rainbow-mode
     :doc "Colorize color names in buffers"
-    :tag "faces"
     :url "https://elpa.gnu.org/packages/rainbow-mode.html"
     :ensure t)
 
@@ -1300,7 +1253,6 @@
 
   (leaf wakatime-mode
     :doc "Automatic time tracking extension for WakaTime"
-    :tag "comm" "calendar"
     :ensure t
     :config
     (global-wakatime-mode)
@@ -1310,7 +1262,6 @@
 (leaf image+
   :doc "Image manipulate extensions for Emacs"
   :req "cl-lib-0.3"
-  :tag "extensions" "multimedia"
   :url "https://github.com/mhayashi1120/Emacs-imagex"
   :ensure t)
 
@@ -1318,7 +1269,6 @@
 (leaf csv-mode
   :doc "Major mode for editing comma/char separated values"
   :req "emacs-27.1" "cl-lib-0.5"
-  :tag "convenience"
   :url "https://elpa.gnu.org/packages/csv-mode.html"
   :ensure t
   :bind (("C-c C-f" . forward-sexp)
@@ -1329,7 +1279,6 @@
 (leaf yaml-mode
   :doc "Major mode for editing YAML files"
   :req "emacs-24.1"
-  :tag "yaml" "data"
   :url "https://github.com/yoshiki/yaml-mode"
   :ensure t)
 
@@ -1338,7 +1287,6 @@
   (leaf web-mode
     :doc "major mode for editing web templates"
     :req "emacs-23.1"
-    :tag "languages"
     :url "https://web-mode.org"
     :ensure t
     :mode "\\.html$"
