@@ -450,42 +450,68 @@
   )
 
 ;; search
-(leaf migemo
-  :doc "Japanese incremental search through dynamic pattern expansion"
-  :req "cl-lib-0.5"
-  :url "https://github.com/emacs-jp/migemo"
-  :if (executable-find "cmigemo")
-  :ensure t
-  :custom ((migemo-command . "cmigemo")
-           (migemo-options . '("-q" "--emacs"))
-           (migemo-dictionary . user-migemo-dictionary)
-           (migemo-user-dictionary . nil)
-           (migemo-regex-dictionary . nil)
-           (migemo-coding-system  . 'utf-8-unix)
-           (migemo-isearch-min-length . 2))
-  :preface
-  (defun my-toggle-migemo-isearch-enable ()
-    (cond
-     ((eq (length isearch-string) 0) 'ignore)
-     ((< (length isearch-string) migemo-isearch-min-length) (setq migemo-isearch-enable-p nil))
-     ((eq (length isearch-string) migemo-isearch-min-length) (setq migemo-isearch-enable-p t)))
+(leaf *search
+  :config
+  (leaf migemo
+    :doc "Japanese incremental search through dynamic pattern expansion"
+    :req "cl-lib-0.5"
+    :url "https://github.com/emacs-jp/migemo"
+    :if (executable-find "cmigemo")
+    :ensure t
+    :defvar my-migemo-isearch-min-length
+    :custom ((migemo-command . "cmigemo")
+             (migemo-options . '("-q" "--emacs"))
+             (migemo-dictionary . user-migemo-dictionary)
+             (migemo-user-dictionary . nil)
+             (migemo-regex-dictionary . nil)
+             (migemo-coding-system  . 'utf-8-unix)
+             (migemo-isearch-min-length . 1)
+             (my-migemo-isearch-min-length . 2))
+    :preface
+    (defun my-toggle-migemo-isearch-enable ()
+      (cond
+       ((eq (length isearch-string) 0) 'ignore)
+       ((< (length isearch-string) my-migemo-isearch-min-length) (setq migemo-isearch-enable-p nil))
+       ((eq (length isearch-string) my-migemo-isearch-min-length) (setq migemo-isearch-enable-p t)))
+      )
+
+    :hook ((emacs-startup-hook . migemo-init)
+           (isearch-update-post-hook . my-toggle-migemo-isearch-enable))
     )
 
-  :hook ((emacs-startup-hook . migemo-init)
-         (isearch-update-post-hook . my-toggle-migemo-isearch-enable))
-  )
+  (leaf avy
+    :doc "Jump to arbitrary positions in visible text and select text quickly."
+    :req "emacs-24.1" "cl-lib-0.5"
+    :url "https://github.com/abo-abo/avy"
+    :ensure t
+    :after migemo
+    :custom (avy-timeout-seconds . 0.2)
+    :bind ("C-c j" . avy-goto-migemo-timer)
+    :preface
+    (defun avy-goto-migemo-timer (&optional arg)
+      (interactive "P")
+      (let ((avy-all-windows (if arg
+                                 (not avy-all-windows)
+                               avy-all-windows)))
+        (avy-with avy-goto-migemo-timer
+                  (setq avy--old-cands (avy--read-candidates #'migemo-get-pattern))
+                  (avy-process avy--old-cands))))
+    :config
+    (add-to-list 'avy-styles-alist '(avy-goto-migemo-timer . pre))
+    )
 
-(leaf anzu
-  :doc "Show number of matches in mode-line while searching"
-  :req "emacs-25.1"
-  :url "https://github.com/emacsorphanage/anzu"
-  :ensure t
-  ;; :after migemo
-  :init (global-anzu-mode)
-  :custom ((anzu-deactivate-region . t)
-           (anzu-search-threshold . 100)
-           (auzu-minimum-input-length . 2)
-           (anzu-use-migemo . t))
+  (leaf anzu
+    :doc "Show number of matches in mode-line while searching"
+    :req "emacs-25.1"
+    :url "https://github.com/emacsorphanage/anzu"
+    :ensure t
+    ;; :after migemo
+    :init (global-anzu-mode)
+    :custom ((anzu-deactivate-region . t)
+             (anzu-search-threshold . 100)
+             (auzu-minimum-input-length . 2)
+             (anzu-use-migemo . t))
+    )
   )
 
 ;; infra
@@ -836,7 +862,6 @@
     :disabled t
     :doc "outline mode extensions for Emacs"
     :ensure t)
-
   )
 
 (leaf *git
@@ -1385,6 +1410,9 @@
     (defun todo ()
       (interactive)
       (find-file "~/Documents/org/notes/todo.org"))
+    (defun task ()
+      (interactive)
+      (find-file "~/Documents/org/notes/task.org"))
     )
 
   ;; https://www.emacswiki.org/emacs/InsertFileName
