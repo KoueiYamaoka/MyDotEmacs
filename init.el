@@ -484,10 +484,10 @@
     :req "emacs-24.1" "cl-lib-0.5"
     :url "https://github.com/abo-abo/avy"
     :ensure t
-    :after migemo
+    :require t
     :custom (avy-timeout-seconds . 0.2)
-    :bind ("C-c j" . avy-goto-migemo-timer)
-    :preface
+    :config
+    ;; c を検索すると migemo 側で Regular expression too big が吐かれ，処理が止まる
     (defun avy-goto-migemo-timer (&optional arg)
       (interactive "P")
       (let ((avy-all-windows (if arg
@@ -495,8 +495,10 @@
                                avy-all-windows)))
         (avy-with avy-goto-migemo-timer
                   (setq avy--old-cands (avy--read-candidates #'migemo-get-pattern))
-                  (avy-process avy--old-cands))))
-    :config
+                  (avy-process avy--old-cands)))
+      )
+    (leaf-keys (("C-c j" . avy-goto-migemo-timer)))
+
     (add-to-list 'avy-styles-alist '(avy-goto-migemo-timer . pre))
     )
 
