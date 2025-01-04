@@ -11,6 +11,7 @@ undotree/
 wordfreq-dicts/
 tree-sitter/
 persist/
+projects
 local_custom.el
 *.elc
 history
