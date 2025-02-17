@@ -2,12 +2,12 @@
 # name: doc
 # key: doc
 # --
-'''
+"""
 
 
-parameters
+Parameters
 ----------
 
-return
-----------
-'''
+Returns
+-------
+"""
