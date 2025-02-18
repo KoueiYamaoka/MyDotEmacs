@@ -716,6 +716,7 @@
 (leaf python
   :doc "Python's flying circus support for Emacs"
   :custom (python-indent-guess-indent-offset-verbose . nil)
+  :bind ("C-x r k" . run-ruff-on-current-file)
   :config
   (leaf blacken
     :doc "Reformat python buffers using the black formatter"
@@ -738,6 +739,7 @@
            (python-ts-mode-hook . poetry-tracking-mode))
     )
 
+  ;; tools
   (defun uv-activate ()
     "Activate Python environment managed by uv based on current project directory.
      Looks for .venv directory in project root and activates the Python interpreter."
@@ -774,7 +776,28 @@
             (message "Activated UV Python environment at %s" venv-path))
         (error "No UV Python environment found in %s" project-root)))
     )
+
+  (defun run-ruff-on-current-file ()
+  "Perform 'ruff check' to the current file and display the output."
+  (interactive)
+  (if (buffer-file-name)
+      (let* ((output-buffer "*Ruff Check Output*")
+             (command (concat "ruff check " (shell-quote-argument (buffer-file-name)))))
+        (let ((output-window (or (window-in-direction 'right)
+                                 (split-window-right))))
+          (with-current-buffer (get-buffer-create output-buffer)
+            (erase-buffer)
+            (insert (format "Running: %s\n\n" command))
+            (shell-command command output-buffer)
+            (local-set-key (kbd "q") (lambda ()
+                                       (interactive)
+                                       (kill-buffer)
+                                       (delete-window)))
+            (set-window-buffer output-window (current-buffer))
+            (select-window output-window))))
+    (message "Buffer is not visiting a file."))
   )
+ )
 
 ;; tex
 (leaf *latex
