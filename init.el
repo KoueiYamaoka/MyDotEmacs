@@ -817,11 +817,11 @@
     :el-get KoueiYamaoka/yatex
     :require t yatexprc
     :mode "\\.tex$" "\\.sty$" "\\.bbl$"
-    :custom ((YaTeX-use-AMS-LaTeX . t)
+    :custom `((YaTeX-use-AMS-LaTeX . t)
              (YaTeX-inhibit-prefix-letter . t)
              (tex-command . "latexmk")
              (bibtex-command . "pbibtex")
-             (tex-pdfview-command . "xdg-open")
+             (tex-pdfview-command . ,(if (eq system-type 'darwin) "open" "xdg-open"))
              (YaTeX-electric-indent-mode . t)
              (YaTeX-latex-message-code . 'utf-8)
              (YaTeX-kanji-code . 4)
@@ -829,7 +829,7 @@
                                            '(("[agx]dvi\\|dviout\\|emacsclient" . ".dvi")
                                              ("ghostview\\|gv" . ".ps")
                                              ("acroread\\|pdf\\|Preview\\|TeXShop\\|Skim\\|evince\\|apvlv\\|open" . ".pdf")))
-             (dvi2-command . "evince")
+             (dvi2-command . ,(if (eq system-type 'darwin) "open" "evince"))
              (YaTeX-use-hilit19 . nil)
              )
     :hook ((yatex-mode-hook . turn-on-reftex)
