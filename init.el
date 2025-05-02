@@ -979,113 +979,114 @@
     ;; paths
     (defvar org-directory "~/Documents/org/")
     (defvar notes-directory "~/Documents/org/notes/")
+    (defvar diary-directory "~/Documents/org/diary/")
     (defvar notes-path (expand-file-name "notes.org" notes-directory))
     (defvar todo-path (expand-file-name "todo.org" notes-directory))
     (defvar papers-directory (expand-file-name "papers/" org-directory))
     (defvar tde-papers (expand-file-name "tde.org" papers-directory))
     (defvar done-list (expand-file-name "done.org" notes-directory))
 
-    ;; reftex
-    (defun get-cite-info-by-reftex ()
-      ;; copied from do-reftex-citation from reftex-cite.el
-      ;; *from here to
-      (let* ((selected-entries (reftex-offer-bib-menu))
-             (insert-entries selected-entries)
-             entry string cite-view)
+    ;; ;; reftex
+    ;; (defun get-cite-info-by-reftex ()
+    ;;   ;; copied from do-reftex-citation from reftex-cite.el
+    ;;   ;; *from here to
+    ;;   (let* ((selected-entries (reftex-offer-bib-menu))
+    ;;          (insert-entries selected-entries)
+    ;;          entry string cite-view)
 
-        (unless selected-entries (error "Quit"))
+    ;;     (unless selected-entries (error "Quit"))
 
-        (if (stringp selected-entries)
-            ;; Nonexistent entry
-            (setq insert-entries (list (list selected-entries
-                                             (cons "&key" selected-entries)))
-                  selected-entries nil)
-          ;; It makes sense to compute the cite-view strings.
-          (setq cite-view t))
+    ;;     (if (stringp selected-entries)
+    ;;         ;; Nonexistent entry
+    ;;         (setq insert-entries (list (list selected-entries
+    ;;                                          (cons "&key" selected-entries)))
+    ;;               selected-entries nil)
+    ;;       ;; It makes sense to compute the cite-view strings.
+    ;;       (setq cite-view t))
 
-        (when (eq (car selected-entries) 'concat)
-          ;; All keys go into a single command - we need to trick a little
-          ;; FIXME: Unfortunately, this means that commenting does not work right.
-          (pop selected-entries)
-          (let ((concat-keys (mapconcat #'car selected-entries
-                                        reftex-cite-key-separator)))
-            (setq insert-entries
-                  (list (list concat-keys (cons "&key" concat-keys))))))
-        ;; *here
+    ;;     (when (eq (car selected-entries) 'concat)
+    ;;       ;; All keys go into a single command - we need to trick a little
+    ;;       ;; FIXME: Unfortunately, this means that commenting does not work right.
+    ;;       (pop selected-entries)
+    ;;       (let ((concat-keys (mapconcat #'car selected-entries
+    ;;                                     reftex-cite-key-separator)))
+    ;;         (setq insert-entries
+    ;;               (list (list concat-keys (cons "&key" concat-keys))))))
+    ;;     ;; *here
 
-        (let ((entry (pop insert-entries)))
+    ;;     (let ((entry (pop insert-entries)))
 
-          (setq ky/bib_title (reftex-get-bib-field "title" entry)
-                ky/bib_author (reftex-get-bib-field "author" entry)
-                ky/bib_year (reftex-get-bib-field "year" entry)
-                ky/bib_month (reftex-get-bib-field "month" entry)
-                ky/bib_journal (reftex-get-bib-field "journal" entry)
-                ky/bib_volume (reftex-get-bib-field "volume" entry)
-                ky/bib_number (reftex-get-bib-field "number" entry)
-                ky/bib_pages (reftex-get-bib-field "pages" entry)
-                ky/bib_key (reftex-get-bib-field "&key" entry))
-          ))
-      )
+    ;;       (setq ky/bib_title (reftex-get-bib-field "title" entry)
+    ;;             ky/bib_author (reftex-get-bib-field "author" entry)
+    ;;             ky/bib_year (reftex-get-bib-field "year" entry)
+    ;;             ky/bib_month (reftex-get-bib-field "month" entry)
+    ;;             ky/bib_journal (reftex-get-bib-field "journal" entry)
+    ;;             ky/bib_volume (reftex-get-bib-field "volume" entry)
+    ;;             ky/bib_number (reftex-get-bib-field "number" entry)
+    ;;             ky/bib_pages (reftex-get-bib-field "pages" entry)
+    ;;             ky/bib_key (reftex-get-bib-field "&key" entry))
+    ;;       ))
+    ;;   )
 
-    ;; org-capture
-    (defvar paper-reading-format
-          (concat "- [[pdf:][PDF]]\n\n"
-                  "** Abstract\n- %?\n\n"
-                  "** Difference\n- \n\n"
-                  "** Core\n- \n\n"
-                  "** Results\n- \n\n"
-                  "** Discussion\n- \n\n"
-                  "** Next [/]\n*** TODO \n")
-          )
+    ;; ;; org-capture
+    ;; (defvar paper-reading-format
+    ;;       (concat "- [[pdf:][PDF]]\n\n"
+    ;;               "** Abstract\n- %?\n\n"
+    ;;               "** Difference\n- \n\n"
+    ;;               "** Core\n- \n\n"
+    ;;               "** Results\n- \n\n"
+    ;;               "** Discussion\n- \n\n"
+    ;;               "** Next [/]\n*** TODO \n")
+    ;;       )
 
-    (defun paper-with-title-template ()
-      (setq ky/bib_title (read-string "Title: "))
-      (print (concat "\n\n* " ky/bib_title "\n"
-                     ":PROPERTIES:\n"
-                     ":CREATED: %<%Y-%m-%d>\n"
-                     ":Key:\n"
-                     ":Title: " ky/bib_title "\n"
-                     ":Authors:\n"
-                     ":Journal:\n"
-                     ":Year:\n"
-                     ":Volume:\n"
-                     ":Number:\n"
-                     ":Pages:\n"
-                     ":END:\n\n"
-                     paper-reading-format))
-      )
+    ;; (defun paper-with-title-template ()
+    ;;   (setq ky/bib_title (read-string "Title: "))
+    ;;   (print (concat "\n\n* " ky/bib_title "\n"
+    ;;                  ":PROPERTIES:\n"
+    ;;                  ":CREATED: %<%Y-%m-%d>\n"
+    ;;                  ":Key:\n"
+    ;;                  ":Title: " ky/bib_title "\n"
+    ;;                  ":Authors:\n"
+    ;;                  ":Journal:\n"
+    ;;                  ":Year:\n"
+    ;;                  ":Volume:\n"
+    ;;                  ":Number:\n"
+    ;;                  ":Pages:\n"
+    ;;                  ":END:\n\n"
+    ;;                  paper-reading-format))
+    ;;   )
 
-    (defun paper-with-cite-template ()
-      (get-cite-info-by-reftex)
-      (reftex-kill-temporary-buffers)
-      (print (concat "\n\n* " ky/bib_title "\n"
-                     ":PROPERTIES:\n"
-                     ":CREATED: %<%Y-%m-%d>\n"
-                     ":Key: " ky/bib_key "\n"
-                     ":Title: " ky/bib_title "\n"
-                     ":Authors: " ky/bib_author "\n"
-                     ":Journal: " ky/bib_journal "\n"
-                     ":Year: " ky/bib_year "\n"
-                     ":Volume: " ky/bib_volume "\n"
-                     ":Number: " ky/bib_number "\n"
-                     ":Pages: " ky/bib_pages "\n"
-                     ":END:\n\n"
-                     paper-reading-format))
-      )
+    ;; (defun paper-with-cite-template ()
+    ;;   (get-cite-info-by-reftex)
+    ;;   (reftex-kill-temporary-buffers)
+    ;;   (print (concat "\n\n* " ky/bib_title "\n"
+    ;;                  ":PROPERTIES:\n"
+    ;;                  ":CREATED: %<%Y-%m-%d>\n"
+    ;;                  ":Key: " ky/bib_key "\n"
+    ;;                  ":Title: " ky/bib_title "\n"
+    ;;                  ":Authors: " ky/bib_author "\n"
+    ;;                  ":Journal: " ky/bib_journal "\n"
+    ;;                  ":Year: " ky/bib_year "\n"
+    ;;                  ":Volume: " ky/bib_volume "\n"
+    ;;                  ":Number: " ky/bib_number "\n"
+    ;;                  ":Pages: " ky/bib_pages "\n"
+    ;;                  ":END:\n\n"
+    ;;                  paper-reading-format))
+    ;;   )
 
-    (defun review-template ()
-      (setq ky/review-local-file (read-string "Path: "))
-      (make-directory (concat org-directory "notes/review/" ky/review-local-file))
-      (print (concat "*** TODO %?\n"
-                     ":PROPERTIES:\n"
-                     ":SOCIETY:\n"
-                     ":TYPE:\n"
-                     ":URL:\n"
-                     ":LOCAL: ./review/" ky/review-local-file "\n"
-                     ":FILE: [[./review/" ky/review-local-file "/paper.pdf]]\n"
-                     ":END:"
-                     ))
-      )
+    ;; (defun review-template ()
+    ;;   (setq ky/review-local-file (read-string "Path: "))
+    ;;   (make-directory (concat org-directory "notes/review/" ky/review-local-file))
+    ;;   (print (concat "*** TODO %?\n"
+    ;;                  ":PROPERTIES:\n"
+    ;;                  ":SOCIETY:\n"
+    ;;                  ":TYPE:\n"
+    ;;                  ":URL:\n"
+    ;;                  ":LOCAL: ./review/" ky/review-local-file "\n"
+    ;;                  ":FILE: [[./review/" ky/review-local-file "/paper.pdf]]\n"
+    ;;                  ":END:"
+    ;;                  ))
+    ;;   )
 
     ;; others
     (defun show-org-buffer (file)
@@ -1125,28 +1126,6 @@
              (org-todo-keywords
               . '((sequence "TODO(t)" "PROGRESS(p)" "WAITING(w)" "|" "DONE(d)" "CANCELED(c)" "SOMEDAY(s)")))
              (system-time-locale . "C")
-
-             ;; org-capture
-             (org-capture-templates
-              . '(
-                  ; notes
-                  ("n" "📝 Note" entry (file+headline notes-path "Notes")
-                   "* %?\nEntered on %U\n %i\n %a")
-                  ; org-journal
-                  ("j" "📔 Journal entry" plain (function org-journal-find-location)
-                   "** %?"
-                   :jump-to-captured t :immediate-finish t :empty-lines-before 2)
-                  ;; papers
-                  ("T" "📄 TDE papers (title)" entry (file tde-papers)
-                   (function paper-with-title-template)
-                   :jump-to-captured t :immediate-finish t :empty-lines-before 2)
-                  ("t" "📄 TDE papers (cite)" entry (file tde-papers)
-                   (function paper-with-cite-template)
-                   :jump-to-captured t :immediate-finish t :empty-lines-before 2)
-                  ("r" "Review" entry (file+headline todo-path "Review")
-                   (function review-template)
-                   :jump-to-captured t :empty-lines 3 :empty-lines-before 2)
-                  ))
 
              ;; org-refile
              (org-refile-targets . '((done-list :maxlevel . 2)))
@@ -1203,13 +1182,119 @@
     (setq org-latex-default-class "paper")
     )
 
-  (leaf org-journal
-    :doc "a simple org-mode based journaling mode"
-    :req "emacs-25.1" "org-9.1"
-    :url "http://github.com/bastibe/org-journal"
-    :ensure t
-    :after org
+  (leaf org-capture
+    :doc "Fast note taking in Org"
+    :tag "builtin" "wp" "calendar" "hypermedia" "outlines"
+    :url "https://orgmode.org"
+    :preface
+    (defvar-local diary--filename nil)
+    (defvar-local diary--title nil)
+    (defun diary/add-daily-sections (template)
+      "Template of diary."
+      (push (concat "* " (format-time-string "%Y-%m-%d")) template)
+      (push ":PROPERTIES:" template)
+      (push ":WH:" template)
+      (push ":END:" template)
+      (push "** Life\n-%?\n" template)
+      (push "** Work\n-\n" template)
+      (push "** Study\n-\n" template)
+      template)
+
+    (defun diary/week-info ()
+      "Week info to be used in diary functions."
+      (let* ((today  (current-time))
+             (dow    (string-to-number (format-time-string "%u" today))) ; 1=Mon ... 7=Sun
+             (monday (time-subtract today (days-to-time (1- dow))))
+             (sunday (time-add     monday    (days-to-time 6)))
+             (year   (format-time-string "%Y"   monday))
+             (stmth  (format-time-string "%m"   monday))
+             (stday  (format-time-string "%d"   monday))
+             (edmth  (format-time-string "%m"   sunday))
+             (edday  (format-time-string "%d"   sunday))
+             )
+        (list :year  year
+              :stmth stmth
+              :stday stday
+              :edmth edmth
+              :edday edday))
+      )
+
+    (defun diary/weekly-filepath ()
+      "Return file path for this week (starting Monday to end Sunday)."
+      (cl-destructuring-bind (&key year stmth stday edmth edday &allow-other-keys)
+          (diary/week-info)
+        (let* ((fname (format "%s%s-%s%s.org" stmth stday edmth edday))
+               (dname (expand-file-name year diary-directory)))
+          (make-directory dname t)
+          (expand-file-name fname dname)))
+      )
+
+
+    (defun diary/weekly-title ()
+      "Return title for this week."
+      (cl-destructuring-bind (&key year stmth stday edmth edday &allow-other-keys)
+          (diary/week-info)
+        (if (string= stmth edmth)
+            (format "%s年 %s月%s日 - %s日" year stmth stday edday)
+          (format "%s年 %s月%s日 - %s月%s日" year stmth stday edmth edday)
+          ))
+      )
+
+    (defun diary/insert-templates ()
+      "Returns template to be inserted by org-capture."
+      (let* ((file (diary/weekly-filepath))
+             (buf (find-file-noselect file))
+             (today  (format-time-string "%Y-%m-%d"))
+             (template '()))
+
+        (with-current-buffer buf
+          ;; search for title
+          (goto-char (point-min))
+          (unless (search-forward "#+TITLE:" nil t)
+            (insert (concat "#+TITLE: Diary | " (diary/weekly-title))))
+
+          ;; search for today's entry
+          (goto-char (point-min))
+          (if (search-forward today nil t)
+              ;; If found
+              (push "%?" template)
+            ;; else
+            (setq template (diary/add-daily-sections template))
+            )
+          )
+
+        ;; make the template
+        (mapconcat #'identity (nreverse template) "\n")
+        )
+      )
+
+    (defun diary/capture-weekly ()
+      "Routines performed by C-c C-j."
+      (interactive)
+      (let* ((file (diary/weekly-filepath)))
+        (setq diary--filename file))
+      (diary/insert-templates)
+      (org-capture nil "j")
+      )
+
+    :custom
+    (org-capture-templates
+     . `(
+         ; notes
+         ("n" "📝 Note" entry (file+headline notes-path "Notes")
+          "* %?\nEntered on %U\n %i\n %a")
+         ; Diary
+         ("j" "📔 Diary" plain
+          (file diary--filename)
+          "%(diary/insert-templates)"
+          :jump-to-captured t :immediate-finish t :empty-lines-before 2)
+         )
+     )
+
+    :config
+    (global-set-key (kbd "C-c C-j") #'diary/capture-weekly)
     )
+
 
   (leaf org-agenda
     :doc "Dynamic task and appointment lists for Org"
@@ -1550,3 +1635,4 @@
 (setq gc-cons-threshold 16777216) ; 16mb
 
 ;; init.el ends here
+
