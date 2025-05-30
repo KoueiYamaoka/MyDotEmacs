@@ -1269,7 +1269,7 @@
       )
 
     (defun diary/capture-weekly ()
-      "Routines performed by C-c C-j."
+      "Routines performed by C-x C-j."
       (interactive)
       (let* ((file (diary/weekly-filepath)))
         (setq diary--filename file))
@@ -1292,7 +1292,7 @@
      )
 
     :config
-    (global-set-key (kbd "C-c C-j") #'diary/capture-weekly)
+    (global-set-key (kbd "C-x C-j") #'diary/capture-weekly)
     )
 
 
