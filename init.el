@@ -1088,6 +1088,97 @@
     ;;                  ))
     ;;   )
 
+    ;; org-columns for lecture/presentation
+    (defun ky/org-time-summary ()
+      "See Documents/test-org-time-summary."
+      (interactive)
+      (let* ((root-pos (save-excursion (org-back-to-heading t) (point)))
+             (root-title
+              (save-excursion
+                (goto-char root-pos)
+                (nth 4 (org-heading-components))))
+             (beg   root-pos)
+             (end   (save-excursion (goto-char root-pos) (org-end-of-subtree t) (point)))
+             (entries '())
+             (grand-total 0)
+             buf)
+
+        ;; 1) レベル1 見出し行
+        (push (cons (concat "* " root-title) "") entries)
+        ;; 2) レベル2 見出しごとに処理
+        (save-excursion
+          (goto-char beg)
+          (while (re-search-forward
+                  "^\\*\\* \\(.*?\\)$" end t)
+            (let* ((lvl2-pos  (point))
+                   (lvl2-text (match-string-no-properties 1))
+                   ;; 子レベル3 の範囲
+                   (child-beg  (save-excursion (goto-char lvl2-pos) (forward-line) (point)))
+                   (child-end  (save-excursion (goto-char lvl2-pos) (org-end-of-subtree t) (point)))
+                   (sum-mins   0))
+              ;; 子レベル3 を集計
+              (save-excursion
+                (goto-char child-beg)
+                (while (re-search-forward
+                        "^\\*\\*\\* .*:time:[ \t]*\\([0-9][0-9]:[0-9][0-9]\\)" child-end t)
+                  (let* ((ts (match-string-no-properties 1))
+                         (h  (string-to-number (substring ts 0 2)))
+                         (m  (string-to-number (substring ts 3 5))))
+                    (setq sum-mins (+ sum-mins (+ (* 60 h) m)))
+                    (setq grand-total (+ grand-total (+ (* 60 h) m))))))
+              ;; レベル2 エントリ: タイトルと子レベルの時間の合計 "HH:MM"
+              (push (cons (concat "** " lvl2-text)
+                          (format "%02d:%02d"
+                                  (/ sum-mins 60) (% sum-mins 60)))
+                    entries)
+              ;; 3) 子レベル3 エントリ: タイトルと個別の時間 "- HH:MM"
+              (save-excursion
+                (goto-char child-beg)
+                (while (re-search-forward
+                        "^\\*\\*\\* \\(.*?\\):time:[ \t]*\\([0-9][0-9]:[0-9][0-9]\\)" child-end t)
+                  (let ((t3 (match-string-no-properties 1))
+                        (ts (match-string-no-properties 2)))
+                    (push (cons (concat "*** " t3) (concat "- "ts)) entries))))))
+          ;; 順序をバッファ順に戻す
+          (setq entries (nreverse entries))
+
+          ;; 出力バッファ作成
+          (setq buf (get-buffer-create "*Org Time Summary*"))
+          (with-current-buffer buf
+            (read-only-mode -1)
+            (erase-buffer)
+            ;; ヘッダ&空行
+            (insert "#+COLUMNS: %80ITEM\n\n")
+            ;; 各行の出力
+            (dolist (pr entries)
+              (insert (format "%-50s | %5s\n" (car pr) (cdr pr))))
+            ;; 空行+合計行
+            (insert "\n")
+            (insert (format "%-50s | %5s\n"
+                            "** 合計"
+                            (format "%d:%02d"
+                                    (/ grand-total 60)
+                                    (% grand-total 60))))
+            ;; org-columns による表示
+            (goto-char (point-min))
+            (when (re-search-forward "^\\* " nil t)
+              (beginning-of-line))
+            (org-mode)
+            (org-columns)
+            ;; q で閉じるように
+            (define-key org-columns-map (kbd "q")
+                        (lambda ()
+                          (interactive)
+                          (org-columns-quit)
+                          (quit-window)))
+            ;; read-only に
+            (read-only-mode 1))
+
+          ;; フォーカスを移動して出力バッファを表示
+          (pop-to-buffer buf)))
+      )
+    ;; org-columns ends here
+
     ;; others
     (defun show-org-buffer (file)
       "Show an org-file FILE on the current buffer."
@@ -1140,6 +1231,7 @@
             ("C-c w" . org-table-kill-cell)
             ("C-c n" . org-next-visible-heading)
             ("C-c C-n" . org-scheduled-tomorrow)
+            ("C-c C-x t" . ky/org-time-summary)
             )
            )
     :config
