@@ -563,7 +563,8 @@
         (google-translate-translate
          (if asciip "en" "ja")
          (if asciip "ja" "en")
-         string)))
+         string))
+      )
 
     ;; for avoiding args-out-of-range [] 1
     (defun google-translate-json-suggestion (json)
@@ -575,8 +576,24 @@
 
     ;; for avoiding Error: search-failed ",tkk:'".
     (defun google-translate--search-tkk ()
-      (list 430675 2721866130)
-      )
+      (list 430675 2721866130))
+    )
+
+  (leaf copilot
+    :vc (:url "https://github.com/copilot-emacs/copilot.el"
+              :rev :newest
+              :branch "main")
+    :hook (python-mode-hook python-ts-mode-hook)
+    :bind ((copilot-completion-map
+            ("C-<tab>" . copilot-accept-completion-by-line)
+            ))
+    :config
+    (leaf editorconfig
+      :ensure t)
+    (leaf s
+      :ensure t)
+    (leaf dash
+      :ensure t)
     )
   )
 

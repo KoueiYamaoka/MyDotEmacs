@@ -25,3 +25,4 @@ custom.el
 .org-generic-id-locations
 .org-id-locations
 oauth2-auto.plist
+.cache
