@@ -1252,9 +1252,19 @@
             )
            )
     :config
+    ;; babel
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((dot . t)))
+    (defun my-org-confirm-babel-evaluate (lang body)
+      (not (member lang '("dot"))))
+    (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+
+    ;; others
     (setq org-latex-pdf-process
           '("lualatex --draftmode %f"
             "lualatex %f"))
+
     (add-to-list 'org-latex-classes
                  '("paper"
                    "
@@ -1307,6 +1317,7 @@
       (push "** Life\n-%?\n" template)
       (push "** Work\n-\n" template)
       (push "** Study\n-\n" template)
+      (push "** Tomorrow\n-\n" template)
       template)
 
     (defun diary/week-info ()
