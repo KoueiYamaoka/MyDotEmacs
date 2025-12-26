@@ -874,6 +874,8 @@
                                 ("\\\\Cref{.+?}" . YaTeX-font-lock-crossref-face)
                                 ("\\\\gls.*?{.+?}" . YaTeX-font-lock-label-face)
                                 ("\\\\Gls.*?{.+?}" . YaTeX-font-lock-label-face)
+                                ("\\\\ac.*?{.+?}" . YaTeX-font-lock-label-face)
+                                ("\\\\Ac.*?{.+?}" . YaTeX-font-lock-label-face)
                                 ("\\\\\\(Hz\\|kHz\\|m\\|cm\\|h\\|mins\\|s\\|ms\\|dB\\|pct\\){.+?}" . YaTeX-font-lock-formula-face)
                                 ("\\\\text.*?{.+?}" . YaTeX-font-lock-declaration-face)
                                 ("\\\\ulbf.*?{.+?}" . YaTeX-font-lock-declaration-face)
