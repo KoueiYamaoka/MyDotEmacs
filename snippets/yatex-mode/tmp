@@ -8,41 +8,97 @@
 \usepackage{luatexja}
 \usepackage{luatexja-fontspec}
 \usepackage[top=25truemm,bottom=20truemm,left=20truemm,right=20truemm]{geometry}
+\def\lpath{/home/kouei/latex}
+\def\mainlang{japanese}
+
+%% load packages
+\usepackage{graphicx}
+
+% biblatex
+\usepackage[backend=biber, style=numeric-comp, bibstyle=ieee, sorting=none]{biblatex}
+\addbibresource{\lpath/biber/abbreviations.bib}
+\addbibresource{\lpath/biber/articles.bib}
+\addbibresource{\lpath/biber/books.bib}
+\addbibresource{\lpath/biber/publications.bib}
+\ExecuteBibliographyOptions{maxnames=20}
+\ExecuteBibliographyOptions{minnames=20}
+\ExecuteBibliographyOptions{date=year}
 
 % math
 \usepackage{amsmath}
 \usepackage{amsfonts}
 \usepackage{amssymb}
 \usepackage{amsthm}
+\usepackage{unicode-math}
+\usepackage{diffcoeff}
+\newcommand{\mydiffp}[3][2]{\frac{\partial^{#1} #2}{\partial #3^{#1}}}
+
 
 % text
+\usepackage{xspace}
 \usepackage{siunitx}
-\usepackage[nolist,nohyperlinks]{acronym}
+\newcommand{\tablesisetup}{
+ \sisetup{
+  round-mode=places,
+  round-precision=3,
+  scientific-notation = true,
+ }
+}
 
-% figure and table
-% \usepackage{subfigure}
-\usepackage{graphicx}
-\usepackage{subfig}
-
+% figures/tables
+\usepackage{tikz}
+\usetikzlibrary{calc,math,matrix,intersections}
+\usetikzlibrary{positioning,fit}
+\usetikzlibrary{arrows,arrows.meta}
+\usetikzlibrary{decorations.markings,decorations.pathreplacing}
+\usetikzlibrary{shapes.geometric}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{subcaption}
 
 % misc
-\usepackage{subfiles}
 \usepackage{url}
-\usepackage[unicode,hidelinks,pdfusetitle]{hyperref}
-\usepackage[nobreak]{cite}
+\usepackage{hyperref}
+\hypersetup{%
+ unicode,
+ hidelinks,
+ bookmarksnumbered=true,
+ pdfauthor={Kouei Yamaoka}
+}
 
+% glossary
+\usepackage[acronym,shortcuts=ac]{glossaries-extra}
+\input{\lpath/style/glossaries_settings}
+\makenoidxglossaries % enable glossaries
+\ifthenelse{\equal{\mainlang}{japanese}}{%
+ \setabbreviationstyle[acronym]{long-short-jp}%
+}{%
+ \setabbreviationstyle[acronym]{long-short}%
+}
 
+%% style
 % load the other preambles
-% \input{/home/kouei/latex/preamble/font-settings}
-\input{/home/kouei/latex/preamble/newcommands}
-\input{/home/kouei/latex/preamble/acronym_def}
+\input{\lpath/style/fonts}
+\input{\lpath/style/xreferences}
+\input{\lpath/preamble/newcommands_uni}
+\input{\lpath/preamble/tikzcommands}
+\input{\lpath/preamble/acronym_def_gls}
+\input{\lpath/preamble/ushyphex}
 
-
-\title{Title}
+%% title page
+\title{Main}
 \author{Kouei Yamaoka}
 \date{\today}
 
 \begin{document}
 \maketitle
 
+\printbibliography
+
 \end{document}
+
+
+% Local Variables:
+% mode: yatex
+% tex-main-file: t
+% End:
