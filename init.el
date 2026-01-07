@@ -1,9 +1,28 @@
+
 ;;;;; init.el -- my emacs init file
 ;;; Commentary:
 ;;; Code:
 
 ;; byte compile
 ; (byte-compile-file (expand-file-name "~/.emacs.d/init.el") 0)
+
+; OS 判定用
+(defconst IS-MAC (eq system-type 'darwin))
+
+;; native-comp (macOS + Homebrew gcc-15)
+(when IS-MAC
+  (setenv "LIBRARY_PATH"
+          (string-join
+           '("/opt/homebrew/opt/gcc/lib/gcc/15"
+             "/opt/homebrew/opt/libgccjit/lib/gcc/15"
+             "/opt/homebrew/opt/gcc/lib/gcc/15/gcc/aarch64-apple-darwin24/15")
+           ":"))
+  (dolist (p '("/opt/homebrew/bin" "/opt/homebrew/sbin"
+               "/usr/local/bin" "/usr/local/sbin"))
+    (when (file-directory-p p)
+      (add-to-list 'exec-path p)
+      (setenv "PATH" (concat p ":" (getenv "PATH")))))
+  )
 
 ;; for faster loading
 ; temporary disabled Magic File Name
@@ -331,7 +350,9 @@
   :req "emacs-27.1"
   :url "https://github.com/minad/vertico"
   :ensure t
+  :after compat
   :global-minor-mode vertico-mode
+  :init (vertico-mode 1)
   :config
   (leaf savehist
     :doc "Save minibuffer history"
@@ -349,30 +370,31 @@
             ("RET" . vertico-directory-enter)
             ("C-l" . vertico-directory-up)))
     )
+  )
 
-  (leaf orderless
-    :doc "Completion style for matching regexps in any order"
-    :req "emacs-26.1"
-    :url "https://github.com/oantolin/orderless"
-    :ensure t
-    :custom ((completion-styles . '(orderless)))
-    )
+(leaf orderless
+  :doc "Completion style for matching regexps in any order"
+  :req "emacs-26.1"
+  :url "https://github.com/oantolin/orderless"
+  :ensure t
+  :custom ((completion-styles . '(orderless)))
+  )
 
-  (leaf marginalia
-    :doc "Enrich existing commands with completion annotations"
-    :req "emacs-27.1" "compat-29.1.1.1"
-    :url "https://github.com/minad/marginalia"
-    :ensure t
-    :global-minor-mode marginalia-mode
-    )
+(leaf marginalia
+  :doc "Enrich existing commands with completion annotations"
+  :req "emacs-27.1" "compat-29.1.1.1"
+  :url "https://github.com/minad/marginalia"
+  :ensure t
+  :global-minor-mode marginalia-mode
+  )
 
-  (leaf consult
-    :doc "Consulting completing-read"
-    :req "emacs-27.1" "compat-29.1.1.1"
-    :url "https://github.com/minad/consult"
-    :ensure t
-    :bind (("C-x j" . consult-goto-line))
-    )
+(leaf consult
+  :doc "Consulting completing-read"
+  :req "emacs-27.1" "compat-29.1.1.1"
+  :url "https://github.com/minad/consult"
+  :ensure t
+  :require t
+  :bind (("C-x j" . consult-goto-line))
   )
 
 (leaf company
