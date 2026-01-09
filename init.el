@@ -109,6 +109,11 @@
     (set-face-background 'trailing-whitespace "#b14770")
     )
 
+  (leaf font-lock
+    :doc "Electric font lock mode"
+    :init (global-font-lock-mode 1)
+    )
+
   (leaf files
     :doc "file input and output commands"
     :custom ((auto-save-timeout . 15)
@@ -641,30 +646,21 @@
            prog-mode-hook html-mode-hook)
     )
 
-  (leaf highlight-indent-guides
-    :doc "Minor mode to highlight indentation"
-    :req "emacs-24.1"
-    :url "https://github.com/DarthFennec/highlight-indent-guides"
-    :disabled t
+  (leaf indent-bars
+    :doc "Highlight indentation with bars"
+    :req "emacs-27.1" "compat-30"
+    :url "https://github.com/jdtsmith/indent-bars"
     :ensure t
-    :commands highlight-indent-guides--highlighter-default
-    :hook (python-mode-hook python-ts-mode-hook html-mode-hook)
-    :preface
-    (defun my-highlighter (level responsive display)
-      (if (> 1 level)
-          nil
-        (highlight-indent-guides--highlighter-default level responsive display)))
-
-    :custom ((highlight-indent-guides-method . 'character)
-             (highlight-indent-guides-character . ?|)
-             (highlight-indent-guides-auto-enabled . nil)
-             (highlight-indent-guides-highlighter-function . 'my-highlighter)
-             (highlight-indent-guides-responsive . 'stack))
-
-    :config
-    (set-face-foreground 'highlight-indent-guides-character-face "#bbffff")
-    (set-face-foreground 'highlight-indent-guides-top-character-face "green")
-    (set-face-foreground 'highlight-indent-guides-stack-character-face "DeepSkyBlue")
+    :after compat
+    :hook ((python-base-mode yaml-mode) . indent-bars-mode)
+    :custom
+    ((indent-bars-no-descend-lists . t) ; no extra bars in continued func arg lists
+     (indent-bars-treesit-support . t)
+     (indent-bars-treesit-ignore-blank-lines-types . '("module"))
+     ;; Add other languages as needed
+     (indent-bars-treesit-scope . '((python function_definition class_definition for_statement
+	                                     if_statement with_statement while_statement)))
+     )
     )
 
 
@@ -873,6 +869,7 @@
              )
     :hook ((yatex-mode-hook . turn-on-reftex)
            (yatex-mode-hook . set-my-yatex-font-locks)
+           (yatex-mode-hook . (lambda () (font-lock-mode 1)))
            )
     :preface
     (defun set-tex-command-for-yatex(latex-type)
