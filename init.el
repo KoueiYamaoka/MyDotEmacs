@@ -1691,16 +1691,16 @@
     :preface
     (defun memo ()
       (interactive)
-      (find-file "~/Documents/org/notes/memo.org"))
+      (find-file "~/Dropbox/notes/misc/memo.org"))
     (defun notes ()
       (interactive)
-      (find-file "~/Documents/org/notes/notes.org"))
+      (find-file "~/Dropbox/notes/misc/notes.org"))
     (defun todo ()
       (interactive)
-      (find-file "~/Documents/org/notes/todo.org"))
+      (find-file "~/Dropbox/notes/misc/todo.org"))
     (defun task ()
       (interactive)
-      (find-file "~/Documents/org/notes/task.org"))
+      (find-file "~/Dropbox/notes/misc/task.org"))
     )
 
   ;; https://www.emacswiki.org/emacs/InsertFileName
