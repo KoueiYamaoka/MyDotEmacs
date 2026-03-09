@@ -1,4 +1,3 @@
-
 ;;;;; init.el -- my emacs init file
 ;;; Commentary:
 ;;; Code:
@@ -49,9 +48,7 @@
                        ("melpa" . "https://melpa.org/packages/")
                        ("gnu" . "https://elpa.gnu.org/packages/")))
   (package-initialize)
-  (unless (package-installed-p 'leaf)
-    (package-refresh-contents)
-    (package-install 'leaf))
+  (use-package leaf :ensure t)
 
   (leaf leaf-keywords
         :ensure t
@@ -60,13 +57,12 @@
         (leaf hydra :ensure t)
         (leaf el-get :ensure t)
         (leaf blackout :ensure t)
-
         :config
-        ;; initialize leaf-keywords.el
-        (leaf-keywords-init))
+        (leaf-keywords-init)) ;; initialize leaf-keywords.el
+  (leaf leaf-tree :ensure t)
+  (leaf leaf-convert :ensure t)
   )
 ;; </leaf-install-code>
-
 
 ;; ----------------------------
 ;;    Generic Configurations
@@ -101,7 +97,6 @@
              (require-final-newline . t)
              (scroll-preserve-screen-position . t)
              (scroll-error-top-bottom . t)
-             (scroll-bar-mode . nil)
              (completion-ignore-case . t)
              )
     :config
@@ -111,7 +106,7 @@
 
   (leaf font-lock
     :doc "Electric font lock mode"
-    :init (global-font-lock-mode 1)
+    :global-minor-mode global-font-lock-mode
     )
 
   (leaf files
@@ -129,11 +124,6 @@
     :custom ((uniquify-buffer-name-style . 'post-forward-angle-brackets))
     )
 
-  (leaf elec-pair
-    :doc "Automatic parenthesis pairing"
-    :custom (electric-pair-mode . t)
-    )
-
   (leaf midnight
     :doc "run something every midnight, e.g., kill old buffers"
     :hook (emacs-startup-hook)
@@ -142,11 +132,10 @@
   (leaf cua-base
     :doc "emulate CUA key bindings"
     :require t
-    :commands cua-mode
+    :global-minor-mode cua-mode
     :custom ((cua-enable-cua-keys . nil))
     :bind ("C-x 2" . cua-set-rectangle-mark)
     :config
-    (cua-mode 1)
     (leaf-keys ((:cua-global-keymap ("C-<return>" . nil))))
     )
 
@@ -178,12 +167,20 @@
     :custom ((x-select-enable-clipboard . t))
              ;; (interprogram-paste-function . 'x-get-selection-value))
     )
-  )
 
-(leaf leaf
-  :config
-  (leaf leaf-tree :ensure t)
-  (leaf leaf-convert :ensure t)
+  (leaf treesit
+    :doc "tree-sitter utilities"
+    :custom (treesit-font-lock-level . 3)
+    :config
+    (leaf treesit-auto
+      :doc "Automatically use tree-sitter enhanced major modes"
+      :req "emacs-29.0"
+      :ensure t
+      :require t
+      :custom (treesit-auto-install . 'prompt)
+      :global-minor-mode global-treesit-auto-mode
+      )
+    )
   )
 
 (leaf macrostep
@@ -229,7 +226,6 @@
 (leaf mozc
   :doc "minor mode to input Japanese with Mozc"
   :req "emacs-24.3"
-  :emacs>= 24.3
   :ensure t
   :require t
   :config
@@ -245,8 +241,8 @@
    '(default ((t (:family "HackGen" :foundry "PfEd" :slant normal :weight normal :height 143 :width normal)))))
   ;; Font Size checker
   ;;
-  ;; |∞≤≥ ∏∑∫ ×±⊆⊇|
-  ;; |αβγ δεζ ηθικλu|
+  ;; |∞≤≥ ∏∑∫ ×±⊆ ⊇’｀|
+  ;; |αβγ δεζ ηθι κλμ|
   ;; |abcdef ghijkl|
   ;; |ABCDEF GHIJKL|
   ;; |'";:-+ =/\~`?|
@@ -260,34 +256,26 @@
 ;; system
 (leaf no-littering
   :doc "Help keeping ~/.config/emacs clean"
-  :url "https://github.com/emacscollective/no-littering"
   :emacs>= 25.1
   :ensure t
   :after compat
   )
 
-
-(leaf *undo-tools
-  :config
-  (leaf undo-tree
-    :doc "Treat undo history as a tree"
-    :req "queue-0.2" "emacs-24.3"
-    :url "https://www.dr-qubit.org/undo-tree.html"
-    :ensure t
-    :bind (("C-x u" . undo-tree-visualize))
-    :custom ((undo-tree-history-directory-alist . '(("." . "~/.emacs.d/undotree")))
-             (undo-tree-visualizer-diff . t)
-             (undo-tree-auto-save-history . t)
-             )
-    :config
-    (global-undo-tree-mode)
-    )
+(leaf undo-tree
+  :doc "Treat undo history as a tree"
+  :req "queue-0.2" "emacs-24.3"
+  :ensure t
+  :bind (("C-x u" . undo-tree-visualize))
+  :custom ((undo-tree-history-directory-alist . '(("." . "~/.emacs.d/undotree")))
+           (undo-tree-visualizer-diff . t)
+           (undo-tree-auto-save-history . t)
+           )
+  :global-minor-mode global-undo-tree-mode
   )
 
 (leaf vterm
   :doc "Fully-featured terminal emulator"
   :req "emacs-25.1"
-  :url "https://github.com/akermu/emacs-libvterm"
   :ensure t
   :require t
   :hook (vterm-mode-hook . (lambda() (setq show-trailing-whitespace nil)))
@@ -353,11 +341,9 @@
 (leaf vertico
   :doc "VERTical Interactive COmpletion"
   :req "emacs-27.1"
-  :url "https://github.com/minad/vertico"
   :ensure t
   :after compat
-  :global-minor-mode vertico-mode
-  :init (vertico-mode 1)
+  :global-minor-mode t
   :config
   (leaf savehist
     :doc "Save minibuffer history"
@@ -367,7 +353,6 @@
   (leaf vertico-directory
     :doc "Ido-like directory navigation for Vertico"
     :req "emacs-27.1" "vertico-1.0"
-    :url "https://github.com/minad/vertico"
     :ensure nil
     :after vertico
     :require t
@@ -378,101 +363,237 @@
   )
 
 (leaf orderless
-  :doc "Completion style for matching regexps in any order"
-  :req "emacs-26.1"
-  :url "https://github.com/oantolin/orderless"
+  :doc "Completion style for matching regexps in any order."
+  :req "emacs-27.1" "compat-30"
   :ensure t
-  :custom ((completion-styles . '(orderless)))
+  :after compat
+  :custom
+  ((completion-styles . '(orderless basic))
+   (completion-category-defaults . nil)
+   (completion-category-overrides . '((file (styles partial-completion)))))
   )
 
 (leaf marginalia
   :doc "Enrich existing commands with completion annotations"
   :req "emacs-27.1" "compat-29.1.1.1"
-  :url "https://github.com/minad/marginalia"
   :ensure t
-  :global-minor-mode marginalia-mode
+  :global-minor-mode t
   )
 
 (leaf consult
   :doc "Consulting completing-read"
   :req "emacs-27.1" "compat-29.1.1.1"
-  :url "https://github.com/minad/consult"
   :ensure t
   :require t
   :bind (("C-x j" . consult-goto-line))
   )
 
-(leaf company
-  :doc "Modular text completion framework"
-  :req "emacs-25.1"
-  :url "http://company-mode.github.io/"
+;; (leaf company
+;;   :doc "Modular text completion framework"
+;;   :req "emacs-25.1"
+;;   :ensure t
+;;   :global-minor-mode global-company-mode
+;;   :preface
+;;   (defun company--insert-candidate2 (candidate)
+;;     (when (> (length candidate) 0)
+;;       (setq candidate (substring-no-properties candidate))
+;;       (if (eq (company-call-backend 'ignore-case) 'keep-prefix)
+;;           (insert (company-strip-prefix candidate))
+;;         (if (equal company-prefix candidate)
+;;             (company-select-next)
+;;           (delete-region (- (point) (length company-prefix)) (point))
+;;           (insert candidate))
+;;         )))
+;;   (defun company-complete-common2 ()
+;;     (interactive)
+;;     (when (company-manual-begin)
+;;       (if (and (not (cdr company-candidates))
+;;                (equal company-common (car company-candidates)))
+;;           (company-complete-selection)
+;;         (company--insert-candidate2 company-common))))
+
+;;   :bind ((company-active-map
+;;           ("M-n" . nil)
+;;           ("M-p" . nil)
+;;           ("C-h" . nil)
+;;           ("C-s" . company-filter-candidates)
+;;           ("C-n" . company-select-next)
+;;           ("C-p" . company-select-previous)
+;;           ("C-i" . company-complete-common2))
+;;          (company-search-map
+;;           ("C-n" . company-select-next)
+;;           ("C-p" . company-select-previous)))
+
+;;   :custom ((company-idle-delay . 0)
+;;            (company-minimum-prefix-length . 1)
+;;            (company-transformers . '(company-sort-by-occurrence))
+;;            (company-selection-wrap-around . t))
+
+;;   :config
+;;   (leaf company-quickhelp
+;;     :doc "Popup documentation for completion candidates"
+;;     :req "emacs-24.3" "company-0.8.9" "pos-tip-0.4.6"
+;;     :ensure t
+;;     :after company pos-tip
+;;     :global-minor-mode company-quickhelp-mode
+;;     :config
+;;     (leaf company-quickhelp-terminal
+;;       :doc "Terminal support for company-quickhelp"
+;;       :req "emacs-24.4" "company-quickhelp-2.2.0" "popup-0.5.3"
+;;       :ensure t
+;;       :after company-quickhelp)
+;;     )
+
+;;   (leaf company-wordfreq
+;;     :doc "Company backend for human language texts"
+;;     :req "emacs-27.1" "company-0.9"
+;;     :el-get johannes-mueller/company-wordfreq.el
+;;     :config
+;;     (add-hook 'text-mode-hook (lambda ()
+;;                                 (setq-local company-backends
+;;                                             '(company-wordfreq
+;;                                               company-dabbrev
+;;                                               company-capf))
+;;                                 (setq-local company-transformers nil)))
+;;     )
+;;   )
+
+;; (leaf corfu
+;;   :doc "COmpletion in Region FUnction"
+;;   :req "emacs-29.1" "compat-30"
+;;   :ensure t
+;;   :after compat
+;;   :bind (corfu-map
+;;          (("TAB" . corfu-insert)
+;;           ("<tab>" . corfu-insert)
+;;           ("RET" . nil)
+;;           ("<return>" . nil)))
+;;   :custom ((corfu-auto . t)
+;;            (corfu-auto-delay . 0)
+;;            (corfu-auto-prefix . 1)
+;;            (corfu-cycle . t)
+;;            (corfu-on-exact-match . nil)
+;;            (corfu-on-at-boundary . nil)
+;;            (tab-always-indent . 'complete))
+;;   :global-minor-mode global-corfu-mode corfu-popupinfo-mode
+;;   :config
+;;   (with-eval-after-load 'lsp-mode
+;;     (setq lsp-completion-provider :none))
+;;   )
+
+(leaf corfu
+  ;; :disabled t
   :ensure t
-  :global-minor-mode global-company-mode
   :preface
-  (defun company--insert-candidate2 (candidate)
-    (when (> (length candidate) 0)
-      (setq candidate (substring-no-properties candidate))
-      (if (eq (company-call-backend 'ignore-case) 'keep-prefix)
-          (insert (company-strip-prefix candidate))
-        (if (equal company-prefix candidate)
-            (company-select-next)
-          (delete-region (- (point) (length company-prefix)) (point))
-          (insert candidate))
-        )))
-  (defun company-complete-common2 ()
-    (interactive)
-    (when (company-manual-begin)
-      (if (and (not (cdr company-candidates))
-               (equal company-common (car company-candidates)))
-          (company-complete-selection)
-        (company--insert-candidate2 company-common))))
-
-  :bind ((company-active-map
-          ("M-n" . nil)
-          ("M-p" . nil)
-          ("C-h" . nil)
-          ("C-s" . company-filter-candidates)
-          ("C-n" . company-select-next)
-          ("C-p" . company-select-previous)
-          ("C-i" . company-complete-common2))
-         (company-search-map
-          ("C-n" . company-select-next)
-          ("C-p" . company-select-previous)))
-
-  :custom ((company-idle-delay . 0)
-           (company-minimum-prefix-length . 1)
-           (company-transformers . '(company-sort-by-occurrence))
-           (company-selection-wrap-around . t))
-
-  :config
-  (leaf company-quickhelp
-    :doc "Popup documentation for completion candidates"
-    :req "emacs-24.3" "company-0.8.9" "pos-tip-0.4.6"
-    :url "https://www.github.com/expez/company-quickhelp"
-    :ensure t
-    :after company pos-tip
-    :global-minor-mode company-quickhelp-mode
+  (defvar-keymap my:corfu-auto-map
+    :doc "Keymap used when popup is shown automatically."
+    "C-g" #'corfu-quit
+    )
+  (defvar my:corfu-in-auto-complete nil)
+;;;###autoload
+  (defun my:corfu--auto-complete-deferred:around (oldfun &rest args)
+    ;; 自動補完時に呼び出される
+    (let ((my:corfu-in-auto-complete t))
+      ;; 元の関数を呼び出す. 補完候補があるなら setup が呼ばれる
+      (apply oldfun args)))
+;;;###autoload
+  (defun my:corfu--setup:around (oldfun &rest args)
+    (if my:corfu-in-auto-complete
+        ;; 自動補完の時
+        (progn
+          (setf ;; (alist-get 'alpha corfu--frame-parameters) 90
+           (alist-get 'tab-line-format corfu--buffer-parameters) "   C-M-i:補完"
+           ;; 最初の候補を選ばない
+           corfu-preselect 'prompt)
+          (let (;; キー割り当てを極力無くす
+                (corfu-map my:corfu-auto-map))
+            (apply oldfun args)))
+      ;; 手動補完の時
+      (setf ;; (alist-get 'alpha corfu--frame-parameters) 100
+       (alist-get 'tab-line-format corfu--buffer-parameters) nil
+       ;; 最初の候補を選ぶ
+       corfu-preselect 'first)
+      (apply oldfun args)))
+  :advice ((:around corfu--auto-complete-deferred
+                    my:corfu--auto-complete-deferred:around)
+           (:around corfu--setup
+                    my:corfu--setup:around)
+           )
+  :init
+  (leaf corfu-terminal
+    :doc "terminal-mode of corfu"
+    :el-get (corfu-terminal :url "https://codeberg.org/akib/emacs-corfu-terminal.git")
     :config
-    (leaf company-quickhelp-terminal
-      :doc "Terminal support for company-quickhelp"
-      :req "emacs-24.4" "company-quickhelp-2.2.0" "popup-0.5.3"
-      :url "https://github.com/jcs-elpa/company-quickhelp-terminal"
-      :ensure t
-      :after company-quickhelp)
+    (setq corfu-terminal-disable-on-gui nil)
+    )
+  :bind
+  (:corfu-map
+   ("C-n"       . corfu-next)
+   ("C-p"       . corfu-previous)
+   ("C-g"       . corfu-quit)
+   )
+  :hook ((emacs-startup-hook . (lambda ()
+                                (corfu-terminal-mode +1)
+                                (global-corfu-mode)))
+         (yatex-mode-hook . corfu-mode)
+         (emace-lisp-mode-hook . corfu-mode))
+  :config
+  (setq completion-cycle-threshold 4
+        tab-always-indent          'complete
+        corfu-cycle                t
+        corfu-auto                 t
+        corfu-preselect            'prompt)
+  )
+
+(leaf dabbrev
+  :doc "dynamic abbreviation package"
+  :bind ((:corfu-mode-map ("C-j" . dabbrev-completion)))
+  :config
+  (add-to-list 'dabbrev-ignored-buffer-regexps "\\` ")
+  (add-to-list 'dabbrev-ignored-buffer-modes 'doc-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'pdf-view-mode)
+  (add-to-list 'dabbrev-ignored-buffer-modes 'tags-table-mode)
+  )
+
+(leaf cape
+  :doc "Completion At Point Extensions."
+  :req "emacs-29.1" "compat-30"
+  :ensure t
+  :after compat
+  :config
+  (add-to-list 'completion-at-point-functions 'cape-keyword)
+  (add-to-list 'completion-at-point-functions #'cape-dabbrev)
+  (add-to-list 'completion-at-point-functions #'cape-file)
+  )
+
+(leaf *prescients
+  (leaf prescient
+    :doc "Better sorting and filtering"
+    :req "emacs-25.1"
+    :ensure t
+    :custom ((prescient-aggressive-file-save . t))
+    :config
+    (prescient-persist-mode +1)
     )
 
-  (leaf company-wordfreq
-    :doc "Company backend for human language texts"
-    :req "emacs-27.1" "company-0.9"
-    :url "https://github.com/johannes-mueller/company-wordfreq.el"
-    :el-get johannes-mueller/company-wordfreq.el
+  (leaf corfu-prescient
+    :doc "Prescient.el + Corfu"
+    :req "emacs-27.1" "prescient-6.1.0" "corfu-1.1"
+    :ensure t
+    :after prescient corfu
+    :custom ((corfu-prescient-enable-filtering . nil))
     :config
-    (add-hook 'text-mode-hook (lambda ()
-                                (setq-local company-backends
-                                            '(company-wordfreq
-                                              company-dabbrev
-                                              company-capf))
-                                (setq-local company-transformers nil)))
+    (corfu-prescient-mode +1)
+    )
+
+  (leaf vertico-prescient
+    :doc "Prescient.el + Vertico"
+    :req "emacs-27.1" "prescient-6.1.0" "vertico-0.28" "compat-29.1"
+    :ensure t
+    :after prescient vertico compat
+    :custom ((vertico-prescient-enable-filtering . nil))
+    :config
+    (vertico-prescient-mode +1)
     )
   )
 
@@ -482,7 +603,6 @@
   (leaf migemo
     :doc "Japanese incremental search through dynamic pattern expansion"
     :req "cl-lib-0.5"
-    :url "https://github.com/emacs-jp/migemo"
     :if (executable-find "cmigemo")
     :ensure t
     :defvar my-migemo-isearch-min-length
@@ -509,7 +629,6 @@
   (leaf avy
     :doc "Jump to arbitrary positions in visible text and select text quickly."
     :req "emacs-24.1" "cl-lib-0.5"
-    :url "https://github.com/abo-abo/avy"
     :ensure t
     :require t
     :custom (avy-timeout-seconds . 0.2)
@@ -532,10 +651,9 @@
   (leaf anzu
     :doc "Show number of matches in mode-line while searching"
     :req "emacs-25.1"
-    :url "https://github.com/emacsorphanage/anzu"
     :ensure t
     ;; :after migemo
-    :init (global-anzu-mode)
+    :global-minor-mode global-anzu-mode
     :custom ((anzu-deactivate-region . t)
              (anzu-search-threshold . 100)
              (auzu-minimum-input-length . 2)
@@ -547,7 +665,6 @@
 (leaf shackle
   :doc "Enforce rules for popups"
   :req "emacs-24.3" "cl-lib-0.5"
-  :url "https://depp.brause.cc/shackle"
   :ensure t
   :custom ((shackle-rules . '((compilation-mode :align below :ratio 0.2)
 	                         ("*Help*" :align right)
@@ -558,7 +675,7 @@
 	                         ("*quickrun*" :align right :ratio 0.4)
 	                         (YaTeX-typeset-buffer :align below :ratio 0.2)))
            (shackle-lighter . ""))
-  :config (shackle-mode 1)
+  :global-minor-mode t
   )
 
 (leaf *AI-tools
@@ -566,7 +683,6 @@
   (leaf google-translate
     :doc "Emacs interface to Google Translate"
     :req "emacs-24.3" "popup-0.5.8"
-    :url "https://github.com/atykhonov/google-translate"
     :ensure t
     :commands google-translate-translate
     :bind (("C-x t" . google-translate-enja-or-jaen)
@@ -630,7 +746,6 @@
   (leaf quickrun
     :doc "Run commands quickly"
     :req "emacs-26.1" "ht-2.0"
-    :url "https://github.com/emacsorphanage/quickrun"
     :ensure t
     :bind (("C-c c" . quickrun)
            ("C-c a c" . quickrun-with-arg))
@@ -638,7 +753,6 @@
 
   (leaf highlight-symbol
     :doc "automatic and manual symbol highlighting"
-    :url "http://nschum.de/src/emacs/highlight-symbol/"
     :ensure t
     :custom ((highlight-symbol-idle-delay . 0.2)
              (highlight-symbol-colors . '("LightSeaGreen" "HotPink" "SlateBlue1" "DarkOrange" "SpringGreen1" "tan" "DodgerBlue1")))
@@ -649,7 +763,6 @@
   (leaf indent-bars
     :doc "Highlight indentation with bars"
     :req "emacs-27.1" "compat-30"
-    :url "https://github.com/jdtsmith/indent-bars"
     :ensure t
     :after compat
     :hook ((python-base-mode yaml-mode) . indent-bars-mode)
@@ -663,27 +776,9 @@
      )
     )
 
-
-  (leaf treesit
-    :doc "tree-sitter utilities"
-    :emacs>= 29.0
-    :custom (treesit-font-lock-level . 3)
-    :config
-    (leaf treesit-auto
-      :doc "Automatically use tree-sitter enhanced major modes"
-      :req "emacs-29.0"
-      :url "https://github.com/renzmann/treesit-auto.git"
-      :ensure t
-      :require t
-      :custom (treesit-auto-install . 'prompt)
-      :config (global-treesit-auto-mode)
-      )
-    )
-
   (leaf comment-dwim-2
     :doc "An all-in-one comment command to rule them all"
     :req "emacs-24.4"
-    :url "https://github.com/remyferre/comment-dwim-2"
     :bind (("M-;" . comment-dwim-2))
     :ensure t
     :after org
@@ -701,7 +796,6 @@
   (leaf flymake-ruff
     :doc "A flymake plugin for python files using ruff"
     :req "emacs-26.1" "project-0.3.0"
-    :url "https://github.com/erickgnavar/flymake-ruff"
     :ensure t
     :after project
     :hook (eglot-managed-mode-hook . (lambda ()
@@ -715,7 +809,6 @@
   (leaf reformatter
     :doc "Define commands which run reformatters on the current buffer"
     :req "emacs-24.3"
-    :url "https://github.com/purcell/emacs-reformatter"
     :ensure t
     :hook ((python-ts-mode-hook . ruff-format-on-save-mode)
            (python-ts-mode-hook . isort-format-on-save-mode))
@@ -736,7 +829,6 @@
 (leaf eglot
   :doc "The Emacs Client for LSP servers"
   :req "emacs-26.3" "jsonrpc-1.0.14" "flymake-1.2.1" "project-0.3.0" "xref-1.0.1" "eldoc-1.11.0" "seq-2.23"
-  :url "https://github.com/joaotavora/eglot"
   :ensure t
   :commands eglot-ensure
   :after jsonrpc flymake project xref eldoc
@@ -756,7 +848,6 @@
   (leaf blacken
     :doc "Reformat python buffers using the black formatter"
     :req "emacs-25.2"
-    :url "https://github.com/proofit404/blacken"
     :ensure t
     :custom ((blacken-line-length . 119)
              (blacken-executable . "/home/kouei/.pyenv/shims/black"))
@@ -766,7 +857,6 @@
   (leaf poetry
     :doc "Interface to Poetry"
     :req "transient-0.2.0" "pyvenv-1.2" "emacs-25.1"
-    :url "https://github.com/galaunay/poetry.el"
     :ensure t
     ;; :commands poetry-tracking-mode
     :custom (poetry-tracking-strategy . 'switch-buffer)
@@ -925,27 +1015,45 @@
   (leaf yasnippet
     :doc "Yet another snippet extension for Emacs"
     :req "cl-lib-0.5"
-    :url "http://github.com/joaotavora/yasnippet"
     :ensure t
     :custom ((yas-snippet-dirs . '("~/.emacs.d/snippets"))
              (yas-trigger-key . "TAB"))
+    :hook (yatex-mode-hook . yas-minor-mode)
     :config
     (yas-global-mode 1)
     )
 
-  (leaf smartparens
-    :doc "Automatic insertion, wrapping and paredit-like navigation with user defined pairs."
-    :req "dash-2.13.0" "cl-lib-0.3"
-    :url "https://github.com/Fuco1/smartparens"
+  (leaf puni
+    :doc "Parentheses Universalistic"
     :ensure t
-    :require smartparens-config
-    :hook (after-init-hook . smartparens-global-mode)
-    :custom (electric-pair-mode . nil)
+    :global-minor-mode puni-global-mode
+    :bind (puni-mode-map
+           ;; default mapping
+           ("C-d" . nil)
+           ("C-k" . nil)
+           ;; puni
+           ("C-M-x" . puni-mark-sexp-around-point)
+           ("C-M-c" . puni-mark-list-around-point)
+           ("C-c w" . puni-expand-region)
+           )
+    )
+
+  (leaf elec-pair
+    :doc "Automatic parenthesis pairing"
+    :global-minor-mode electric-pair-mode
+    :config
+    (setq electric-pair-pairs
+          '((?\( . ?\))
+            (?\[ . ?\])
+            (?\{ . ?\})
+            (?\" . ?\")
+            (?\$ . ?\$)
+            )
+          )
     )
 
   (leaf mwim
     :doc "Switch between the beginning/end of line or code"
-    :url "https://github.com/alezost/mwim.el"
     :ensure t
     :bind (("C-a" . mwim-beginning)
            ("C-e" . mwim-end))
@@ -953,7 +1061,6 @@
 
   (leaf rainbow-delimiters
     :doc "Highlight brackets according to their depth"
-    :url "https://github.com/Fanael/rainbow-delimiters"
     :ensure t
     :hook (prog-mode-hook)
     )
@@ -969,8 +1076,6 @@
   (leaf magit
     :doc "A Git porcelain inside Emacs."
     :req "emacs-25.1" "compat-29.1.3.4" "dash-20221013" "git-commit-20230101" "magit-section-20230101" "transient-20230201" "with-editor-20230118"
-    :url "https://github.com/magit/magit"
-    :emacs>= 25.1
     :ensure t
     :after compat git-commit magit-section with-editor
     :bind ("C-x g" . magit-status)
@@ -980,20 +1085,18 @@
 (leaf markdown-mode
   :doc "Major mode for Markdown-formatted text"
   :req "emacs-26.1"
-  :url "https://jblevins.org/projects/markdown-mode/"
   :ensure t
   :config
   (leaf markdown-preview-mode
     :doc "markdown realtime preview minor mode."
     :req "emacs-24.4" "websocket-1.6" "markdown-mode-2.0" "cl-lib-0.5" "web-server-0.1.1"
-    :url "https://github.com/ancane/markdown-preview-mode"
     :ensure t
     :after websocket markdown-mode web-server
     :custom (markdown-preview-stylesheets . '(list "github.css"))
     )
   )
 
-;; orgmode
+;; org-mode
 (leaf *org
   :config
   (leaf org
@@ -1260,7 +1363,6 @@
              (org-refile-targets . '((done-list :maxlevel . 2)))
              )
 
-
     :bind (("C-c s" . org-fold-show-subtree)
            ("C-c v" . org-capture)
            (:org-mode-map
@@ -1269,8 +1371,7 @@
             ("C-c w" . org-table-kill-cell)
             ("C-c n" . org-next-visible-heading)
             ("C-c C-n" . org-scheduled-tomorrow)
-            ("C-c C-x t" . ky/org-time-summary)
-            )
+            ("C-c C-x t" . ky/org-time-summary))
            )
     :config
     ;; babel
@@ -1324,8 +1425,6 @@
 
   (leaf org-capture
     :doc "Fast note taking in Org"
-    :tag "builtin" "wp" "calendar" "hypermedia" "outlines"
-    :url "https://orgmode.org"
     :preface
     (defvar-local diary--filename nil)
     (defvar-local diary--title nil)
@@ -1369,7 +1468,6 @@
           (make-directory dname t)
           (expand-file-name fname dname)))
       )
-
 
     (defun diary/weekly-title ()
       "Return title for this week."
@@ -1436,10 +1534,8 @@
     (global-set-key (kbd "C-x C-j") #'diary/capture-weekly)
     )
 
-
   (leaf org-agenda
     :doc "Dynamic task and appointment lists for Org"
-    :url "https://orgmode.org"
     :custom (org-agenda-restore-windows-after-quit . t)
     :config
     ;; (custom-set-variables '(org-agenda-files (list org-directory)))
@@ -1462,8 +1558,6 @@
 (leaf pdf-tools
   :doc "Support library for PDF documents"
   :req "emacs-26.3" "tablist-1.0" "let-alist-1.0.4"
-  :url "http://github.com/vedang/pdf-tools/"
-  :emacs>= 26.3
   :ensure t
   :disabled t
   :after tablist
@@ -1514,10 +1608,8 @@
             (ky/reminder msg (compute-time-subtraction time 10))
             )
         (message "Empty region")))
-
     )
   )
-
 
 ;; theme
 (leaf *theme
@@ -1528,7 +1620,6 @@
   (leaf solarized-theme
     :doc "The Solarized color theme"
     :req "emacs-24.1"
-    :url "http://github.com/bbatsov/solarized-emacs"
     :ensure t
     :require t ; need
     )
@@ -1546,14 +1637,12 @@
   (leaf beacon
     :doc "Highlight the cursor whenever the window scrolls; never lose your cursor again"
     :req "emacs-25.1"
-    :url "https://github.com/Malabarba/beacon"
     :ensure t
-    :config (beacon-mode 1)
+    :global-minor-mode t
     )
 
   (leaf rainbow-mode
     :doc "Colorize color names in buffers"
-    :url "https://elpa.gnu.org/packages/rainbow-mode.html"
     :ensure t)
 
   (leaf *show-startup-time
@@ -1575,14 +1664,11 @@
 (leaf image+
   :doc "Image manipulate extensions for Emacs"
   :req "cl-lib-0.3"
-  :url "https://github.com/mhayashi1120/Emacs-imagex"
   :ensure t)
-
 
 (leaf csv-mode
   :doc "Major mode for editing comma/char separated values"
   :req "emacs-27.1" "cl-lib-0.5"
-  :url "https://elpa.gnu.org/packages/csv-mode.html"
   :ensure t
   :bind (("C-c C-f" . forward-sexp)
          ("C-c C-b" . backward-sexp)
@@ -1592,7 +1678,6 @@
 (leaf yaml-mode
   :doc "Major mode for editing YAML files"
   :req "emacs-24.1"
-  :url "https://github.com/yoshiki/yaml-mode"
   :ensure t)
 
 (leaf *web
@@ -1600,7 +1685,6 @@
   (leaf web-mode
     :doc "major mode for editing web templates"
     :req "emacs-23.1"
-    :url "https://web-mode.org"
     :ensure t
     :mode "\\.html$"
     :custom ((web-mode-markup-indent-offset . 2)
