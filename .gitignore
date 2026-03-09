@@ -6,6 +6,7 @@ elpa/
 el-get/
 eln-cache/
 init/
+var/
 undohist/
 undotree/
 wordfreq-dicts/
