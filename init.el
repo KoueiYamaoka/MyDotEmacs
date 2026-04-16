@@ -738,6 +738,13 @@
     (leaf dash
       :ensure t)
     )
+
+  (leaf claude-code-ide
+    :vc (:url "https://github.com/manzaltu/claude-code-ide.el" :rev :newest)
+    :bind ("C-c C-'" . claude-code-ide-menu)
+    :config
+    (claude-code-ide-emacs-tools-setup)
+    )
   )
 
 ;; programming
@@ -1517,7 +1524,7 @@
       )
 
     :custom
-    (org-capture-templates
+    (org-capture
      . `(
          ; notes
          ("n" "📝 Note" entry (file+headline notes-path "Notes")
