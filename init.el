@@ -14,7 +14,7 @@
           (string-join
            '("/opt/homebrew/opt/gcc/lib/gcc/15"
              "/opt/homebrew/opt/libgccjit/lib/gcc/15"
-             "/opt/homebrew/opt/gcc/lib/gcc/15/gcc/aarch64-apple-darwin24/15")
+             "/opt/homebrew/opt/gcc/lib/gcc/15/gcc/aarch64-apple-darwin25/15")
            ":"))
   (dolist (p '("/opt/homebrew/bin" "/opt/homebrew/sbin"
                "/usr/local/bin" "/usr/local/sbin"))
@@ -728,7 +728,7 @@
               :branch "main")
     :hook (python-mode-hook python-ts-mode-hook)
     :bind ((copilot-completion-map
-            ("C-<tab>" . copilot-accept-completion-by-line)
+            ("C-c l" . copilot-accept-completion-by-line)
             ))
     :config
     (leaf editorconfig
